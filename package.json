@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "firebase": "^10.4.0"
+  },
+  "name": "applicationdomainproject",
+  "version": "1.0.0",
+  "description": "LedgerPal, something you can account on",
+  "main": "index.js",
+  "devDependencies": {},
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Branan Smith",
+  "license": "ISC"
+}
