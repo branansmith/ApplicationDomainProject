@@ -58,15 +58,7 @@ const firebaseConfig = {
     });
 }
 
-
-document.getElementById('create-new-user-button').addEventListener("click", function(){
-    const email = document.getElementById('signup-email').value
-    const password = document.getElementById('signup-password').value
-    const first_name = document.getElementById('signup-first-name').value
-    const last_name = document.getElementById('signup-last-name').value
-    const date_of_birth = document.getElementById('signup-date-of-birth').value
-    const address = document.getElementById('signup-address').value
-    
+function authenticate(email, password) {
     if (validate_email(email) == false || validate_password(password == false)) {
         alert("Please enter a correct email or a password with at least 8 characters in length")
     } 
@@ -82,5 +74,17 @@ document.getElementById('create-new-user-button').addEventListener("click", func
 
         alert(error_message)
     })
+}
+
+
+document.getElementById('create-new-user-button').addEventListener("click", (e) => {
+    e.preventDefault();
+    const email = document.getElementById('signup-email').value
+    const password = document.getElementById('signup-password').value
+    const first_name = document.getElementById('signup-first-name').value
+    const last_name = document.getElementById('signup-last-name').value
+    const date_of_birth = document.getElementById('signup-date-of-birth').value
+    const address = document.getElementById('signup-address').value
     writeUserData(first_name, last_name, address, date_of_birth, email);
+    authenticate(email, password);
 });
