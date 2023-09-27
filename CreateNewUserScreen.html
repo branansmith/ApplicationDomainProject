@@ -35,7 +35,7 @@
         <div class="form-group">
           <input type="text" class="form-control" id="signup-last-name" placeholder="Last Name" style="margin: 2.5px;">
         <div class="form-group">
-            <input type="text" class="form-control" id="address" placeholder="Address" style="margin: 2.5px;">
+            <input type="text" class="form-control" id="signup-address" placeholder="Address" style="margin: 2.5px;">
             <div class="form-group">
                 <input type="text" class="form-control" id="signup-date-of-birth" placeholder="Date of Birth" style="margin: 2.5px;">
                 <div class="form-group">
@@ -62,7 +62,7 @@
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+  import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
   import { getAuth } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -83,7 +83,7 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-  const database = getFirestore(app);
+  const database = getDatabase(app);
   const auth = getAuth(app);
 </script>
 </body>
