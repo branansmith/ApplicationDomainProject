@@ -1,12 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-import { getDatabase, connectDatabaseEmulator } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
-const db = getDatabase();
-if (location.hostname === "localhost") {
-  // Point to the RTDB emulator running on localhost.
-  connectDatabaseEmulator(db, "127.0.0.1", 9000);
-} 
+
 const firebaseConfig = {
     apiKey: "AIzaSyAgjtR6Bh6eeLrcriQXAqyR6UYKNtn7RQ8",
     authDomain: "test-project-bf189.firebaseapp.com",
@@ -20,11 +16,7 @@ const firebaseConfig = {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth();
 
-  function register() {
-    
-
-  }
-
+  
   function validate_email(email) {
     const expression = /^[^@]+@\w+(\.\w+)+\w$/
     if (expression.test(email) == true) {
@@ -47,31 +39,40 @@ const firebaseConfig = {
         return false
     }
   }
+
+  function writeUserData(first_name, last_name, email, address, date_of_birth) {
+    const db = getDatabase();
+    const reference = ref(db, 'users/' + first_name + " " + last_name);
+  
+    set(reference, {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      address: address,
+      date_of_birth: date_of_birth
+    });
+    }
+  
 document.getElementById('create-new-user-button').addEventListener("click", function(){
     const email = document.getElementById('signup-email').value
     const password = document.getElementById('signup-password').value
     const first_name = document.getElementById('signup-first-name').value
     const last_name = document.getElementById('signup-last-name').value
-    const dob = document.getElementById('signup-date-of-birth').value
+    const date_of_birth = document.getElementById('signup-date-of-birth').value
+    const address = document.getElementById('signup-address').value
+
+    
+
+        
 
     if (validate_email(email) == false || validate_password(password == false)) {
-        return
+        alert("Please enter a correct email or a password with at least 8 characters in length")
     }
 
     createUserWithEmailAndPassword(auth, email, password)
     .then(function() {
         var user = auth.currentUser
-
-        var database_ref = database.ref()
-
-        var user_data = {
-            email : email,
-            first_name : first_name,
-            last_name : last_name,
-            dob : dob
-        }
-
-        database_ref.child('users/' + user.uid).set(user_data)
+        
     })
     .catch(function(error) {
         var error_code = error.code
