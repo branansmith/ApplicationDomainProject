@@ -15,6 +15,11 @@ const firebaseConfig = {
   };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth();
+  const email = null;
+  const first_name = null;
+  const last_name = null;
+  const address = null;
+  const date_of_birth = null;
 
   
   function validate_email(email) {
@@ -40,7 +45,7 @@ const firebaseConfig = {
     }
   }
 
-  function writeUserData(first_name, last_name, email, address, date_of_birth) {
+  function writeUserData(first_name, last_name, address, date_of_birth, email) {
     const db = getDatabase();
     const reference = ref(db, 'users/' + first_name + " " + last_name);
   
@@ -51,8 +56,9 @@ const firebaseConfig = {
       address: address,
       date_of_birth: date_of_birth
     });
-    }
-  
+}
+
+
 document.getElementById('create-new-user-button').addEventListener("click", function(){
     const email = document.getElementById('signup-email').value
     const password = document.getElementById('signup-password').value
@@ -60,14 +66,10 @@ document.getElementById('create-new-user-button').addEventListener("click", func
     const last_name = document.getElementById('signup-last-name').value
     const date_of_birth = document.getElementById('signup-date-of-birth').value
     const address = document.getElementById('signup-address').value
-
     
-
-        
-
     if (validate_email(email) == false || validate_password(password == false)) {
         alert("Please enter a correct email or a password with at least 8 characters in length")
-    }
+    } 
 
     createUserWithEmailAndPassword(auth, email, password)
     .then(function() {
@@ -80,4 +82,5 @@ document.getElementById('create-new-user-button').addEventListener("click", func
 
         alert(error_message)
     })
+    writeUserData(first_name, last_name, address, date_of_birth, email);
 });
