@@ -15,11 +15,6 @@ const firebaseConfig = {
   };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth();
-  const email = null;
-  const first_name = null;
-  const last_name = null;
-  const address = null;
-  const date_of_birth = null;
 
   
   function validate_email(email) {
@@ -76,6 +71,9 @@ function authenticate(email, password) {
     })
 }
 
+function redirect(email, password) {
+    window.location = "index.html";
+}
 
 document.getElementById('create-new-user-button').addEventListener("click", (e) => {
     e.preventDefault();
@@ -88,3 +86,5 @@ document.getElementById('create-new-user-button').addEventListener("click", (e) 
     writeUserData(first_name, last_name, address, date_of_birth, email);
     authenticate(email, password);
 });
+
+
