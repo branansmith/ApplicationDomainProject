@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
 
@@ -40,7 +40,7 @@ const firebaseConfig = {
     }
   }
 
-  function writeUserData(first_name, last_name, address, date_of_birth, email) {
+  function writeUserData(first_name, last_name, address, date_of_birth, email, role) {
     const db = getDatabase();
     const reference = ref(db, 'users/' + first_name + " " + last_name);
   
@@ -49,7 +49,8 @@ const firebaseConfig = {
       last_name: last_name,
       email: email,
       address: address,
-      date_of_birth: date_of_birth
+      date_of_birth: date_of_birth,
+      role: role
     });
 }
 
@@ -71,7 +72,7 @@ function authenticate(email, password) {
     })
 }
 
-function redirect(email, password) {
+function redirect() {
     window.location = "index.html";
 }
 
@@ -83,8 +84,31 @@ document.getElementById('create-new-user-button').addEventListener("click", (e) 
     const last_name = document.getElementById('signup-last-name').value
     const date_of_birth = document.getElementById('signup-date-of-birth').value
     const address = document.getElementById('signup-address').value
-    writeUserData(first_name, last_name, address, date_of_birth, email);
+    writeUserData(first_name, last_name, address, date_of_birth, email, "User");
     authenticate(email, password);
+    document.getElementById("signup-form").reset();
+    alert("Success! Your account is awaiting approval from an administrator.");
+    
+    
 });
 
+document.getElementById('signin-button').addEventListener("click", (e) => {
+    const username = document.getElementById('login-username').value
+    const password = document.getElementById('login-password').value
+    signIn(username, password)
+})
+
+function signIn(username, password) {
+    const signInAuth = getAuth();
+    signInWithEmailAndPassword(auth, username, password)
+    .then((userCredential) => {
+        alert("Success!");
+        const user = userCredential.user;
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage + " " + errorCode);
+    });
+}
 
