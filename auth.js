@@ -75,8 +75,10 @@ function authenticate(email, password) {
 function redirect() {
     window.location = "index.html";
 }
+const createNewUserButton = document.getElementById('create-new-user-button');
 
-document.getElementById('create-new-user-button').addEventListener("click", (e) => {
+if(createNewUserButton) {
+createNewUserButton.addEventListener("click", (e) => {
     e.preventDefault();
     const email = document.getElementById('signup-email').value
     const password = document.getElementById('signup-password').value
@@ -88,15 +90,18 @@ document.getElementById('create-new-user-button').addEventListener("click", (e) 
     authenticate(email, password);
     document.getElementById("signup-form").reset();
     alert("Success! Your account is awaiting approval from an administrator.");
-    
-    
 });
+} 
 
-document.getElementById('signin-button').addEventListener("click", (e) => {
+const signInButton = document.getElementById('signin-button');
+
+if(signInButton) {
+signInButton.addEventListener("click", (e) => {
     const username = document.getElementById('login-username').value
     const password = document.getElementById('login-password').value
     signIn(username, password)
 })
+}
 
 function signIn(username, password) {
     const signInAuth = getAuth();
