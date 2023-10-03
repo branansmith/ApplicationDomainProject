@@ -89,7 +89,7 @@ createNewUserButton.addEventListener("click", (e) => {
     writeUserData(first_name, last_name, address, date_of_birth, email, "User");
     authenticate(email, password);
     document.getElementById("signup-form").reset();
-    alert("Success! Your account is awaiting approval from an administrator.");
+    alert("Success! Your account is now awaiting approval from an administrator.");
 });
 } 
 
@@ -105,10 +105,11 @@ signInButton.addEventListener("click", (e) => {
 
 function signIn(username, password) {
     const signInAuth = getAuth();
-    signInWithEmailAndPassword(auth, username, password)
+    signInAuth.signInWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
         alert("Success!");
         const user = userCredential.user;
+        window.location.href = "EmployeeLanding.html";
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -116,4 +117,12 @@ function signIn(username, password) {
         alert(errorMessage + " " + errorCode);
     });
 }
+
+auth.onAuthStateChanged(user => {
+    if(user) {
+        console.log('User logged in:', user);
+    } else {
+        console.log('User logged out:', user);
+    }
+});
 
