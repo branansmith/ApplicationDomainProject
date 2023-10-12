@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+import { getAuth, sendPasswordResetEmail, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
 
@@ -93,6 +93,7 @@ createNewUserButton.addEventListener("click", (e) => {
 });
 } 
 
+
 const signInButton = document.getElementById('signin-button');
 
 if(signInButton) {
@@ -102,14 +103,13 @@ signInButton.addEventListener("click", (e) => {
     signIn(username, password)
 })
 }
-
 function signIn(username, password) {
     const signInAuth = getAuth();
     signInAuth.signInWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
         alert("Success!");
         const user = userCredential.user;
-        window.location.href = "EmployeeLanding.html";
+        console.log(user.uid);
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -118,11 +118,42 @@ function signIn(username, password) {
     });
 }
 
-auth.onAuthStateChanged(user => {
-    if(user) {
-        console.log('User logged in:', user);
-    } else {
-        console.log('User logged out:', user);
-    }
-});
 
+
+/* auth.onAuthStateChanged(user => {
+    if(user) {
+       window.location = 'CreateNewUserScreen.html';
+    } 
+}); */
+
+
+
+const logOutButton = document.getElementById('logout-button');
+if(logOutButton) {
+logOutButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    alert("test");
+})
+}
+
+const recipient = document.getElementById('forgot-password-email');
+const subject = 'Test';
+const body = 'You have been approved! Login here: https://www.google.com'
+
+//add event listener when user submits forgot password email
+const forgotPasswordSubmit = document.getElementById('forgot-password-submit');
+if(forgotPasswordSubmit) {
+    forgotPasswordSubmit.addEventListener("click", (e) => {
+        e.preventDefault();
+        sendPasswordResetEmail(auth, recipient)
+        .then(() => {
+            alert("An email has been sent to you");
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(errorMessage);
+        });
+    })
+    
+}
