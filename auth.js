@@ -145,7 +145,7 @@ const forgotPasswordSubmit = document.getElementById('forgot-password-submit');
 if(forgotPasswordSubmit) {
     forgotPasswordSubmit.addEventListener("click", (e) => {
         e.preventDefault();
-        sendPasswordResetEmail(auth, recipient)
+        sendPasswordResetEmail(auth, recipient.value)
         .then(() => {
             alert("An email has been sent to you");
         })
