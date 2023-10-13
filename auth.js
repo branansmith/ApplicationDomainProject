@@ -28,9 +28,18 @@ const firebaseConfig = {
 
   function validate_password(password) {
     if(password < 8) {
+        alert("Password must be at least 8 characters")
         return false
-    } else {
-        return true
+    } 
+    const letter = 'abcdefghijklmnopqrstuvwxyz';
+    if(!letter.includes(password.toLowerCase().charAt(0))) {
+        alert("Password must start with a letter")
+        return false
+    }
+    const special_character = '!@#$%^&*()'
+    if(!special_character.includes(password)) {
+        alert("Password must include a special character ('!@#$%^&*()')")
+        return false
     }
   }
 
@@ -86,10 +95,12 @@ createNewUserButton.addEventListener("click", (e) => {
     const last_name = document.getElementById('signup-last-name').value
     const date_of_birth = document.getElementById('signup-date-of-birth').value
     const address = document.getElementById('signup-address').value
-    writeUserData(first_name, last_name, address, date_of_birth, email, "User");
+    if(validate_password(password)) {
+        writeUserData(first_name, last_name, address, date_of_birth, email, "User");
     authenticate(email, password);
     document.getElementById("signup-form").reset();
     alert("Success! Your account is now awaiting approval from an administrator.");
+    } 
 });
 } 
 
@@ -136,7 +147,7 @@ logOutButton.addEventListener("click", (e) => {
 })
 }
 
-const recipient = document.getElementById('forgot-password-email');
+var recipient = document.getElementById('forgot-password-email');
 const subject = 'Test';
 const body = 'You have been approved! Login here: https://www.google.com'
 
