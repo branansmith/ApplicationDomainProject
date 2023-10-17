@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getAuth, sendPasswordResetEmail, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+import { getAuth, sendPasswordResetEmail, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
 
@@ -15,7 +15,6 @@ const firebaseConfig = {
   };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth();
-
   
   function validate_email(email) {
     const expression = /^[^@]+@\w+(\.\w+)+\w$/
@@ -27,29 +26,16 @@ const firebaseConfig = {
   }
 
   function validate_password(password) {
-    if(password < 8) {
-        alert("Password must be at least 8 characters")
-        return false
-    } 
-    const letter = 'abcdefghijklmnopqrstuvwxyz';
-    if(!letter.includes(password.toLowerCase().charAt(0))) {
-        alert("Password must start with a letter")
-        return false
-    }
-    const special_character = '!@#$%^&*()'
-    if(!special_character.includes(password)) {
-        alert("Password must include a special character ('!@#$%^&*()')")
-        return false
+    const validatePasswordRegex = /^[a-zA-Z](?=.*[!@#$%^&*()])(?=.*[0-9]).{8,}$/
+    if (validatePasswordRegex.test(password) == true) {
+        return true;
+    } else {
+        alert("Password must start with a letter, contain a special character ('!@#$%^&*()') and include at least one number");
+        return false;
     }
   }
 
-  function validate_field(field) {
-    if(field == null) {
-        return false
-    }
-  }
-
-  function writeUserData(first_name, last_name, address, date_of_birth, email, role) {
+  function writeUserData(first_name, last_name, address, date_of_birth, email, role, username) {
     const db = getDatabase();
     const reference = ref(db, 'users/' + first_name + " " + last_name);
   
@@ -59,7 +45,8 @@ const firebaseConfig = {
       email: email,
       address: address,
       date_of_birth: date_of_birth,
-      role: role
+      role: role,
+      username: username
     });
 }
 
@@ -89,20 +76,25 @@ const createNewUserButton = document.getElementById('create-new-user-button');
 if(createNewUserButton) {
 createNewUserButton.addEventListener("click", (e) => {
     e.preventDefault();
-    const email = document.getElementById('signup-email').value
-    const password = document.getElementById('signup-password').value
-    const first_name = document.getElementById('signup-first-name').value
-    const last_name = document.getElementById('signup-last-name').value
-    const date_of_birth = document.getElementById('signup-date-of-birth').value
-    const address = document.getElementById('signup-address').value
+    var email = document.getElementById('signup-email').value
+    var password = document.getElementById('signup-password').value
+    var first_name = document.getElementById('signup-first-name').value
+    var last_name = document.getElementById('signup-last-name').value
+    var date_of_birth = document.getElementById('signup-date-of-birth').value
+    var address = document.getElementById('signup-address').value
+    var today = new Date();
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yy = String(today.getFullYear());
+    var year = yy.slice(2,4);
+    const username = first_name.charAt(0) + last_name + mm + year;
     if(validate_password(password)) {
-        writeUserData(first_name, last_name, address, date_of_birth, email, "User");
+        writeUserData(first_name, last_name, address, date_of_birth, email, "User", username);
     authenticate(email, password);
     document.getElementById("signup-form").reset();
     alert("Success! Your account is now awaiting approval from an administrator.");
-    } 
+    }
 });
-} 
+}
 
 
 const signInButton = document.getElementById('signin-button');
