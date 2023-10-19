@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getAuth, sendPasswordResetEmail, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+import { getAuth, sendPasswordResetEmail, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
 
@@ -36,66 +36,63 @@ const firebaseConfig = {
     }
   }
 
-//   function writeUserData(first_name, last_name, address, date_of_birth, email, role, username) {
-//     const db = getDatabase();
-//     const reference = ref(db, 'users/' + first_name + " " + last_name);
+   function writeUserData(first_name, last_name, address, date_of_birth, email, role, username) {
+     const db = getDatabase();
+     const reference = ref(db, 'users/' + first_name + " " + last_name);
   
-//     set(reference, {
-//       first_name: first_name,
-//       last_name: last_name,
-//       email: email,
-//       address: address,
-//       date_of_birth: date_of_birth,
-//       role: role,
-//       username: username
-//     });
-// }
+     set(reference, {
+       first_name: first_name,
+       last_name: last_name,
+       email: email,
+       address: address,
+       date_of_birth: date_of_birth,
+       role: role,
+       username: username
+     });
+ }
 
 function authenticate(email, password) {
     if (validate_email(email) == false || validate_password(password == false)) {
-        alert("Please enter a correct email or a password with at least 8 characters in length")
+        alert("Invalid credentials")
     } 
 
-    createUserWithEmailAndPassword(auth, email, password)
-    .then(function() {
-        var user = auth.currentUser
-        
-    })
-    .catch(function(error) {
-        var error_code = error.code
-        var error_message = error.message
-
-        alert(error_message)
-    })
+    
 }
 
-function redirect() {
-    window.location = "index.html";
-}
-// const createNewUserButton = document.getElementById('create-new-user-button');
+ const createNewUserButton = document.getElementById('create-new-user-button');
 
-// if(createNewUserButton) {
-// createNewUserButton.addEventListener("click", (e) => {
-//     e.preventDefault();
-//     var email = document.getElementById('signup-email').value
-//     var password = document.getElementById('signup-password').value
-//     var first_name = document.getElementById('signup-first-name').value
-//     var last_name = document.getElementById('signup-last-name').value
-//     var date_of_birth = document.getElementById('signup-date-of-birth').value
-//     var address = document.getElementById('signup-address').value
-//     var today = new Date();
-//     var mm = String(today.getMonth() + 1).padStart(2, '0');
-//     var yy = String(today.getFullYear());
-//     var year = yy.slice(2,4);
-//     const username = first_name.charAt(0) + last_name + mm + year;
-//     if(validate_password(password)) {
-//         writeUserData(first_name, last_name, address, date_of_birth, email, "User", username);
-//     authenticate(email, password);
-//     document.getElementById("signup-form").reset();
-//     alert("Success! Your account is now awaiting approval from an administrator.");
-//     }
-// });
-// }
+ if(createNewUserButton) {
+ createNewUserButton.addEventListener("click", (e) => {
+     e.preventDefault();
+     var email = document.getElementById('signup-email').value
+     var password = document.getElementById('signup-password').value
+     var first_name = document.getElementById('signup-first-name').value
+     var last_name = document.getElementById('signup-last-name').value
+     var date_of_birth = document.getElementById('signup-date-of-birth').value
+     var address = document.getElementById('signup-address').value
+     var today = new Date();
+     var mm = String(today.getMonth() + 1).padStart(2, '0');
+     var yy = String(today.getFullYear());
+     var year = yy.slice(2,4);
+     const username = first_name.charAt(0).toLowerCase() + last_name.toLowerCase() + mm + year;
+     if(validate_password(password)) {
+        createUserWithEmailAndPassword(auth, email, password)
+        .then(function() {
+            var user = auth.currentUser
+            
+        })
+        .catch(function(error) {
+            var error_code = error.code
+            var error_message = error.message
+    
+            alert(error_message)
+        })
+         writeUserData(first_name, last_name, address, date_of_birth, email, "User", username);
+     document.getElementById("signup-form").reset();
+     alert("Success! Your account is now awaiting approval from an administrator.");
+     }
+ });
+ }
 
 
 const signInButton = document.getElementById('signin-button');
@@ -108,9 +105,9 @@ signInButton.addEventListener("click", (e) => {
 })
 }
 function signIn(username, password) {
-    const signInAuth = getAuth();
-    signInAuth.signInWithEmailAndPassword(auth, username, password)
+    signInWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
+        //redirect here
         alert("Success!");
         const user = userCredential.user;
         console.log(user.uid);
@@ -122,27 +119,29 @@ function signIn(username, password) {
     });
 }
 
-
-
-/* auth.onAuthStateChanged(user => {
+onAuthStateChanged(auth, (user) => {
     if(user) {
-       window.location = 'CreateNewUserScreen.html';
-    } 
-}); */
+        //window.location.href="EmployeeLanding.html"
+        console.log(user.uid);
+    }
+    
+})
 
+
+function signOut() {
+    auth.signOut();
+    window.location.href="index.html";
+}
 
 
 const logOutButton = document.getElementById('logout-button');
 if(logOutButton) {
 logOutButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    alert("test");
+    signOut();
 })
 }
 
 var recipient = document.getElementById('forgot-password-email');
-const subject = 'Test';
-const body = 'You have been approved! Login here: https://www.google.com'
 
 //add event listener when user submits forgot password email
 const forgotPasswordSubmit = document.getElementById('forgot-password-submit');
