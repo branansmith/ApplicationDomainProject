@@ -16,6 +16,7 @@ const firebaseConfig = {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth();
   
+
   function validate_email(email) {
     const expression = /^[^@]+@\w+(\.\w+)+\w$/
     if (expression.test(email) == true) {
@@ -35,20 +36,20 @@ const firebaseConfig = {
     }
   }
 
-  function writeUserData(first_name, last_name, address, date_of_birth, email, role, username) {
-    const db = getDatabase();
-    const reference = ref(db, 'users/' + first_name + " " + last_name);
+//   function writeUserData(first_name, last_name, address, date_of_birth, email, role, username) {
+//     const db = getDatabase();
+//     const reference = ref(db, 'users/' + first_name + " " + last_name);
   
-    set(reference, {
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      address: address,
-      date_of_birth: date_of_birth,
-      role: role,
-      username: username
-    });
-}
+//     set(reference, {
+//       first_name: first_name,
+//       last_name: last_name,
+//       email: email,
+//       address: address,
+//       date_of_birth: date_of_birth,
+//       role: role,
+//       username: username
+//     });
+// }
 
 function authenticate(email, password) {
     if (validate_email(email) == false || validate_password(password == false)) {
@@ -71,30 +72,30 @@ function authenticate(email, password) {
 function redirect() {
     window.location = "index.html";
 }
-const createNewUserButton = document.getElementById('create-new-user-button');
+// const createNewUserButton = document.getElementById('create-new-user-button');
 
-if(createNewUserButton) {
-createNewUserButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    var email = document.getElementById('signup-email').value
-    var password = document.getElementById('signup-password').value
-    var first_name = document.getElementById('signup-first-name').value
-    var last_name = document.getElementById('signup-last-name').value
-    var date_of_birth = document.getElementById('signup-date-of-birth').value
-    var address = document.getElementById('signup-address').value
-    var today = new Date();
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yy = String(today.getFullYear());
-    var year = yy.slice(2,4);
-    const username = first_name.charAt(0) + last_name + mm + year;
-    if(validate_password(password)) {
-        writeUserData(first_name, last_name, address, date_of_birth, email, "User", username);
-    authenticate(email, password);
-    document.getElementById("signup-form").reset();
-    alert("Success! Your account is now awaiting approval from an administrator.");
-    }
-});
-}
+// if(createNewUserButton) {
+// createNewUserButton.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     var email = document.getElementById('signup-email').value
+//     var password = document.getElementById('signup-password').value
+//     var first_name = document.getElementById('signup-first-name').value
+//     var last_name = document.getElementById('signup-last-name').value
+//     var date_of_birth = document.getElementById('signup-date-of-birth').value
+//     var address = document.getElementById('signup-address').value
+//     var today = new Date();
+//     var mm = String(today.getMonth() + 1).padStart(2, '0');
+//     var yy = String(today.getFullYear());
+//     var year = yy.slice(2,4);
+//     const username = first_name.charAt(0) + last_name + mm + year;
+//     if(validate_password(password)) {
+//         writeUserData(first_name, last_name, address, date_of_birth, email, "User", username);
+//     authenticate(email, password);
+//     document.getElementById("signup-form").reset();
+//     alert("Success! Your account is now awaiting approval from an administrator.");
+//     }
+// });
+// }
 
 
 const signInButton = document.getElementById('signin-button');

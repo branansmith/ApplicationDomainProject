@@ -1,12 +1,12 @@
 {
   "dependencies": {
-    "firebase": "^10.4.0"
+    "@google-cloud/firestore": "^7.1.0",
+    "firebase": "^10.5.0"
   },
   "name": "applicationdomainproject",
   "version": "1.0.0",
   "description": "LedgerPal, something you can account on",
   "main": "index.js",
-  "devDependencies": {},
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
