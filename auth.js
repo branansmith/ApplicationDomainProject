@@ -76,9 +76,13 @@ function authenticate(email, password) {
      var year = yy.slice(2,4);
      const username = first_name.charAt(0).toLowerCase() + last_name.toLowerCase() + mm + year;
      if(validate_password(password)) {
+        //potentially wait to use this function until approved by admin
+        //send admin email here then use this function if approved
         createUserWithEmailAndPassword(auth, email, password)
         .then(function() {
             var user = auth.currentUser
+            
+            
             
         })
         .catch(function(error) {
@@ -90,15 +94,16 @@ function authenticate(email, password) {
          writeUserData(first_name, last_name, address, date_of_birth, email, "User", username);
      document.getElementById("signup-form").reset();
      alert("Success! Your account is now awaiting approval from an administrator.");
+     
      }
  });
  }
-
 
 const signInButton = document.getElementById('signin-button');
 
 if(signInButton) {
 signInButton.addEventListener("click", (e) => {
+    e.preventDefault();
     const username = document.getElementById('login-username').value
     const password = document.getElementById('login-password').value
     signIn(username, password)
@@ -107,10 +112,7 @@ signInButton.addEventListener("click", (e) => {
 function signIn(username, password) {
     signInWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
-        //redirect here
-        alert("Success!");
         const user = userCredential.user;
-        console.log(user.uid);
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -120,26 +122,11 @@ function signIn(username, password) {
 }
 
 onAuthStateChanged(auth, (user) => {
-    if(user) {
-        //window.location.href="EmployeeLanding.html"
-        console.log(user.uid);
+    if (user) {
+        console.log("user logged in: ", user);
+        window.location = 'EmployeeLanding.html';
     }
-    
 })
-
-
-function signOut() {
-    auth.signOut();
-    window.location.href="index.html";
-}
-
-
-const logOutButton = document.getElementById('logout-button');
-if(logOutButton) {
-logOutButton.addEventListener("click", (e) => {
-    signOut();
-})
-}
 
 var recipient = document.getElementById('forgot-password-email');
 
