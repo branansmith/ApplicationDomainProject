@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
 import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAgjtR6Bh6eeLrcriQXAqyR6UYKNtn7RQ8",
@@ -16,8 +15,20 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const database = getDatabase(app);
 const auth = getAuth(app);
 
-var defaultDatabase = firebase.database(app);
+const logOutButton = document.getElementById('logout-button');
+if(logOutButton) {
+logOutButton.addEventListener("click", (e) => {
+    auth.signOut()
+    window.location.href = 'index.html';
+})
+}
+
+onAuthStateChanged(auth, (user) => {
+  if (user == null) {
+      window.location = 'index.html';
+  } 
+  
+})
