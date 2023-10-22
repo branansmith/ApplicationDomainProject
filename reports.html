@@ -55,6 +55,8 @@
         <li class="active"><a href="#">Dashboard</a></li>
         <a href='email.html'>Email</a>
         <li><a href="#">Users</a></li>
+        <li><a href="#">FAQ</a></li>
+
         <li><a href='index.html'>Logout</a></li>      </ul>
     </div>
   </div>
@@ -70,6 +72,7 @@
         <li><a href="email.html">email</a></li>
         <li><a href="#section3">Users</a></li>
         <li class="active"><a href="reports.html">Reports</a></li>
+        <li><a href="FAQ.html">FAQ</a></li>
         <li><a href="index.html">Logout</a></li>
       </ul><br>
     </div>
@@ -231,6 +234,11 @@
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
   import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
   import { getAuth } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+  import {
+          getFirestore, collection 
+          
+  }           from 'firebase/firestore'
+
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -252,6 +260,19 @@
   const analytics = getAnalytics(app);
   const database = getFirestore(app);
   const auth = getAuth(app);
+
+// get reference form database 
+  const colRef = collection(database, 'accounts')
+
+// get collection data 
+getDoc(colRef) 
+  .then((snapshot) => {
+      let accounts = []
+      snapshot.docs.forEach((doc) => { 
+        accounts.push({...doc.data(), id: doc.id})
+      })
+    })
+
   </script>
 </body>
 </html>
