@@ -2,18 +2,16 @@
 <html>
 <!--this code controls the header part of the web page **AESTHETIC** -->
 <head>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
-    </style>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible"
         content="IE=edge">
   <meta name="viewport"
         content="width=device-width,
                  initial-scale=1.0">
-  <title>Home -- Manager</title>
-  <link rel="stylesheet" type="text/css"
-        href="./css/style.css">
+  <title>Admin</title>
+  <link rel="stylesheet"
+        href="css/style.css"> 
+</link>
 </head>
 
 <head>
@@ -54,10 +52,11 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Dashboard</a></li>
-        <li><a href="#">Email</a></li>
-        <li><a href="#">Reports</a></li>
-        <li><a href="#">logout</a></li>
-      </ul>
+        <a href='email.html'>Email</a>
+        <li><a href="#">Users</a></li>
+        <li><a href="#">FAQ</a></li>
+
+        <li><a href='index.html'>Logout</a></li>      </ul>
     </div>
   </div>
 </nav>
@@ -68,41 +67,32 @@
       <h2><img src="companylogo.png" alt="Ledger Pal" style="width:200px;height:200px;"></h2>
       <ul class="nav nav-pills nav-stacked">
         <!-- dashboard home button-->
-        <li class="active"><a href="EmployeeLanding.html">home</a></li>
+        <li><a href="landingAdmin.html">home</a></li>
         <li><a href="email.html">email</a></li>
-        <li><a href="employeeReports.html">Users</a></li>
-        <li><a href="employeeReports.html">Reports</a></li>
+        <li><a href="DisplayUsersScreen.html">Users</a></li>
+        <li class="active"><a href="employeeReports.html">Reports</a></li>
         <li><a href="FAQ.html">FAQ</a></li>
         <li><a href="index.html">Logout</a></li>
+      </ul><br>
     </div>
     <br>
     <!-- this is the main dashboard display controls-->
     <div class="col-sm-9">
       <div class="well">
-        <h4>employee name</h4>
-        <p>employee email</p>
+        <h4>Account Reports</h4>
+        <p>Account search</p>
+        <div class="search-container">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+
+
+        
+        </div>
       </div>
       
-        </div>
-        <div class="col-sm-3">
-          <div class="well">
-            <h4>Emails</h4>
-            <p>X unread emails</p> 
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="well">
-            <h4>Passwords expiring soon</h4>
-            <p>x weeks till reset required </p> 
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="well">
-            <h4>pending reports</h4>
-            <p>x pending manager approval </p> 
-          </div>
-        </div>
-      </div>
+      
+    
       
 
 </body>
@@ -113,8 +103,13 @@
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
-  import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+  import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
   import { getAuth } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+  import {
+          getFirestore, collection 
+          
+  }           from 'firebase/firestore'
+
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -134,9 +129,21 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-  const database = getDatabase(app);
+  const database = getFirestore(app);
   const auth = getAuth(app);
+
+// get reference form database 
+  const colRef = collection(database, 'accounts')
+
+// get collection data 
+getDoc(colRef) 
+  .then((snapshot) => {
+      let accounts = []
+      snapshot.docs.forEach((doc) => { 
+        accounts.push({...doc.data(), id: doc.id})
+      })
+    })
+
   </script>
 </body>
-<script type="module" src="auth.js"></script>
 </html>

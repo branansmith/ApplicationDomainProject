@@ -1,3 +1,5 @@
+
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import { getFirestore, collection, addDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 import { getAuth, sendPasswordResetEmail, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
@@ -41,48 +43,47 @@ function validate_password(password) {
   }
 }
 
-//"index.html"
-function redirect(url) {
-  window.location = url;
-}
 
 //Add user to firestore
-const addUser = async (users, name) => {
-    const userRef = await setDoc(doc(db, 'users', name), users);
+const addAccount = async (account, name) => {
+    const userRef = await setDoc(doc(db, 'accounts', accountName), account);
     console.log('Sent');
-};
+}
 
 //create user object to store user data
-const createUser = (fname, lname, email, address, dob) => {
-    var user = [];
-    const month = dob.getMonth();
-    const year = dob.getFullYear() % 100;
+const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory,normalSide,initialBalance,accountOrder, comment) => {
+  var account = [];
 
-    user.push({
-        first_name: fname,
-        last_name: lname,
-        email: email,
-        address: address,
-        date_of_birth: dob,
-        role: "user",
-        username: fname.charAt(0) + lname + month + year
-    });
-    console.log('Sent via CreateUser');
-    return user;
+
+  account.push({
+    accountName: accountName, 
+    accountNumber: accountNumber,
+    description: description,
+    normalSide: normalSide,
+    accountCategory: accountCategory,
+    accountSubcategory:  accountSubcategory,
+    normalSide: normalSide,
+    initialBalance: initialBalance,
+    accountOrder: accountOrder,
+    comment: comment,
+      owner: auth.getAuth,
+  });
+  console.log('Sent via CreateUser');
+  return user;
 };
 
 /**
- * @param {user[]} userArr 
+ * @param {account[]} accountArr 
  * @returns {Promise[]} list of promises 
  */
-const addUsers = async (userArr) => {
+const addAccounts = async (accountArr) => {
   let promises = [];
-  for(var i =  0; i < userArr.length; i++){
-    let name = userArr[i].first_name + " " + userArr[i].last_name;
-    console.log(name);
-    let promise = addUser(userArr[i], name);
+  for(var i =  0; i < accountArr.length; i++){
+    let accountName = accountArr[i].accountName;
+    console.log(accountName);
+    let promise = addAccount(AccountArr[i], accountName);
     if(!promise) {
-      console.debug('couldn\'t add the user');
+      console.debug('couldn\'t add the account');
       return Promise.reject();
     } else {
       promises.push(promise);
@@ -92,30 +93,29 @@ const addUsers = async (userArr) => {
   console.log("You did it");
 };
 
-//Retieve the values entered by the user and parse any needed values
-function createNewUserButton(){
-  const fname = document.getElementById("signup-first-name").value;
-  const lname = document.getElementById("signup-last-name").value;
-  const email = document.getElementById("signup-email").value;
-  const address = document.getElementById("signup-address").value;
-  const dobString = document.getElementById("signup-date-of-birth").value;
-  const password = document.getElementById("signup-password").value;
-  const dob = new Date(dobString);
+function createNewAccount(){
+  const accountName = document.getElementById("accountName").value;
+  const accountNumber = document.getElementById("accountNumber").value;
+  const description = document.getElementById("description").value;
+  const normalSide = document.getElementById("normalSide").value;
+  const accountCategory = document.getElementById("accountCategory").value;
+  const accountSubcategory = document.getElementById("accountSubcategory").value;
+  const initialBalance = document.getElementById("initialBalance").value;
+  const accountOrder = document.getElementById("accountOrder").value;
+  const comment = document.getElementById("comment").value;
+  
   if(validate_email(email) || validate_password(password)){
-    addUsers(createUser(fname, lname, email, address, dob));
-    createUserWithEmailAndPassword(auth, email, password);
+    addAccounts(createNewAccount(accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory,normalSide,initialBalance,accountOrder, comment));
   }
+
 }
 
-
-
-
-//action event triggered when a user clicks the create account button 
-const form = document.getElementById("signup-form");
-form.addEventListener("submit", (e) => {
+const form2 = document.getElementById("form-createAccount");
+form2.addEventListener("submit", (e) => {
   e.preventDefault();
   try{
-  createNewUserButton();
+    console.log('tesing something');
+    createNewAccount();
   }catch (error){
     console.error(error);
   }
