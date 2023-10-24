@@ -107,6 +107,72 @@ function createNewUserButton(){
   }
 }
 
+/Add user to firestore
+const addAccount = async (account, name) => {
+    const userRef = await setDoc(doc(db, 'users', name), users);
+    console.log('Sent');
+}
+
+//create user object to store user data
+const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory,normalSide,initialBalance,accountOrder, comment) => {
+  var account = [];
+
+
+  account.push({
+    accountName: accountName, 
+    accountNumber: accountNumber,
+    description: description,
+    normalSide: normalSide,
+    accountCategory: accountCategory,
+    accountSubcategory:  accountSubcategory,
+    normalSide: normalSide,
+    initialBalance: initialBalance,
+    accountOrder: accountOrder,
+    comment: comment,
+      owner: auth.getAuth,
+  });
+  console.log('Sent via CreateUser');
+  return user;
+}
+
+/**
+ * @param {account[]} accountArr 
+ * @returns {Promise[]} list of promises 
+ */
+const addAccount = async (accountArr) => {
+  let promises = [];
+  for(var i =  0; i < accountArr.length; i++){
+    let name = accountArr[i].first_name + " " + accountArr[i].last_name;
+    console.log(name);
+    let promise = addAccount(AccountArr[i], name);
+    if(!promise) {
+      console.debug('couldn\'t add the account');
+      return Promise.reject();
+    } else {
+      promises.push(promise);
+    }
+  }
+  await Promise.all(promises);
+  console.log("You did it");
+};
+
+function createNewAccount(){
+  const accountName = document.getElementById("accountName").value;
+  const accountNumber = document.getElementById("accountNumber").value;
+  const description = document.getElementById("description").value;
+  const normalSide = document.getElementById("normalSide").value;
+  const accountCategory = document.getElementById("accountCategory").value;
+  const accountSubcategory = document.getElementById("accountSubcategory").value;
+  const initialBalance = document.getElementById("initialBalance").value;
+  const accountOrder = document.getElementById("accountOrder").value;
+  const comment = document.getElementById("comment").value;
+  
+  if(validate_email(email) || validate_password(password)){
+    addUsers(createUser(accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory,normalSide,initialBalance,accountOrder, comment));
+    createBusinessAccount(auth, email, password);
+  }
+}
+
 //action event triggered when a user clicks the create account button 
 const form = document.getElementById("signup-form");
 form.addEventListener("submit", (e) => {
