@@ -65,12 +65,12 @@
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav hidden-xs">
-      <h2>Logo</h2>
+      <h2><img src="companylogo.png" alt="Ledger Pal" style="width:200px;height:200px;"></h2>
       <ul class="nav nav-pills nav-stacked">
         <!-- dashboard home button-->
         <li><a href="landingAdmin.html">home</a></li>
         <li><a href="email.html">email</a></li>
-        <li><a href="#section3">Users</a></li>
+        <li><a href="DisplayUsersScreen.html">Users</a></li>
         <li class="active"><a href="reports.html">Reports</a></li>
         <li><a href="FAQ.html">FAQ</a></li>
         <li><a href="index.html">Logout</a></li>
@@ -83,10 +83,12 @@
         <h4>Account Reports</h4>
         <p>Account search</p>
         <div class="search-container">
-          <form action="/action_page.php">
             <input type="text" placeholder="Search.." name="search">
             <button type="submit"><i class="fa fa-search"></i></button>
           </form>
+
+
+        
         </div>
       </div>
       
@@ -171,43 +173,38 @@
       <button class="open-button" onclick="openForm()">Create Account</button>
       
       <div class="form-popup" id="myForm">
-        <form action="/action_page.php" class="form-container">
+        <form class="form-container">
           <h1>Add new account</h1>
-      
           <label for="accountName"><b>Account name</b></label>
-          <input type="text" placeholder="Enter Account Name" name="accountName" required>
+          <input type="text" placeholder="Enter Account Name" id="accountName" name="accountName" required>
           
           <label for="accountNumber"><b>Account Number</b></label>
-          <input type="text" placeholder="Enter Account Number" name="accountNumber" required>
+          <input type="text" placeholder="Enter Account Number" id="accountNumber" name="accountNumber" required>
       
       
           <label for="description"><b>Description</b></label>
-          <input type="text" placeholder="Enter Description" name="description" required>
+          <input type="text" placeholder="Enter Description" id="description" name="description" required>
           
           <label for="normalSide"><b>Normal Side</b></label>
-          <input type="text" placeholder="Enter Normal Side" name="normalSide" required>
+          <input type="text" placeholder="Enter Normal Side" id="normalSide" name="normalSide" required>
           
           <label for="accountCategory"><b>Account Category</b></label>
-          <input type="text" placeholder="Enter Accont Category" name="accountCategory" required>
-      
-        <label for="psw"><b>Account Category</b></label>
-          <input type="text" placeholder="Enter Accont Category" name="accountCategory" required>
-          
+          <input type="text" placeholder="Enter Accont Category" id="accountCategory" name="accountCategory" required>
           
           <label for="psw"><b>Account SubCategory</b></label>
-          <input type="text" placeholder="Enter Accont SubCategory" name="accountCategory" required>
+          <input type="text" placeholder="Enter Accont SubCategory" id="accountSubcategory" name="accountCategory" required>
           
           <label for="psw"><b>Initial Balance</b></label>
-          <input type="text" placeholder="Enter Initial Balance" name="intitialBalance" required>
+          <input type="text" placeholder="Enter Initial Balance" id="initialBalance" name="intitialBalance" required>
           
           <label for="psw"><b>Account Order </b></label>
-          <input type="text" placeholder="Enter account order" name="accountOrder" required>
+          <input type="text" placeholder="Enter account order" id="accountOrder" name="accountOrder" required>
           
           <label for="psw"><b>comment</b></label>
-          <input type="text" placeholder="Enter comment" name="comment" required>
+          <input type="text" placeholder="Enter comment" id="accountName" name="comment" required>
       
       
-          <button type="submit" class="btn">Login</button>
+          <button type="submit" class="btn">Create</button>
           <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
       </div>
