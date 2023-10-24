@@ -94,6 +94,7 @@ const addUsers = async (userArr) => {
 
 //Retieve the values entered by the user and parse any needed values
 function createNewUserButton(){
+  console.log("2");
   const fname = document.getElementById("signup-first-name").value;
   const lname = document.getElementById("signup-last-name").value;
   const email = document.getElementById("signup-email").value;
@@ -107,15 +108,15 @@ function createNewUserButton(){
   }
 }
 
-
 //action event triggered when a user clicks the create account button 
 const form = document.getElementById("signup-form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   try{
+    console.log("1");
   createNewUserButton();
   }catch (error){
     console.error(error);
   }
-  redirect("")
 });
+
