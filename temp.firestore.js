@@ -109,7 +109,7 @@ function createNewUserButton(){
 
 //Add user to firestore
 const addAccount = async (account, name) => {
-    const userRef = await setDoc(doc(db, 'users', name), users);
+    const userRef = await setDoc(doc(db, 'accounts', accountName), account);
     console.log('Sent');
 }
 
@@ -139,12 +139,12 @@ const createNewAccount = (accountName, accountNumber, description, normalSide, a
  * @param {account[]} accountArr 
  * @returns {Promise[]} list of promises 
  */
-const addAccount = async (accountArr) => {
+const addAccounts = async (accountArr) => {
   let promises = [];
   for(var i =  0; i < accountArr.length; i++){
-    let name = accountArr[i].first_name + " " + accountArr[i].last_name;
-    console.log(name);
-    let promise = addAccount(AccountArr[i], name);
+    let accountName = accountArr[i].accountName;
+    console.log(accountName);
+    let promise = addAccount(AccountArr[i], accountName);
     if(!promise) {
       console.debug('couldn\'t add the account');
       return Promise.reject();
@@ -168,10 +168,23 @@ function createNewAccount(){
   const comment = document.getElementById("comment").value;
   
   if(validate_email(email) || validate_password(password)){
-    addUsers(createUser(accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory,normalSide,initialBalance,accountOrder, comment));
-    createBusinessAccount(auth, email, password);
+    addAccounts(createNewAccount(accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory,normalSide,initialBalance,accountOrder, comment));
   }
+
 }
+
+const form2 = document.getElementById("form-createAccount");
+form2.addEventListener("submit", (e) => {
+  e.preventDefault();
+  try{
+    console.log('tesing something');
+    createNewAccount();
+  }catch (error){
+    console.error(error);
+  }
+  redirect("")
+});
+
 
 //action event triggered when a user clicks the create account button 
 const form = document.getElementById("signup-form");
