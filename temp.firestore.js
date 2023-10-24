@@ -107,7 +107,7 @@ function createNewUserButton(){
   }
 }
 
-/Add user to firestore
+//Add user to firestore
 const addAccount = async (account, name) => {
     const userRef = await setDoc(doc(db, 'users', name), users);
     console.log('Sent');
@@ -133,7 +133,7 @@ const createNewAccount = (accountName, accountNumber, description, normalSide, a
   });
   console.log('Sent via CreateUser');
   return user;
-}
+};
 
 /**
  * @param {account[]} accountArr 
