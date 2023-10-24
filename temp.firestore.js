@@ -114,7 +114,7 @@ const addAccount = async (account, name) => {
 }
 
 //create user object to store user data
-const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory,normalSide,initialBalance,accountOrder, comment) => {
+const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory,ns ,ib ,ao, c) => {
   var account = [];
 
 
@@ -122,13 +122,12 @@ const createNewAccount = (accountName, accountNumber, description, normalSide, a
     accountName: accountName, 
     accountNumber: accountNumber,
     description: description,
-    normalSide: normalSide,
     accountCategory: accountCategory,
     accountSubcategory:  accountSubcategory,
-    normalSide: normalSide,
-    initialBalance: initialBalance,
-    accountOrder: accountOrder,
-    comment: comment,
+    normalSide: ns,
+    initialBalance: ib,
+    accountOrder: ao,
+    comment: c,
       owner: auth.getAuth,
   });
   console.log('Sent via CreateUser');
@@ -156,29 +155,28 @@ const addAccounts = async (accountArr) => {
   console.log("You did it");
 };
 
-function createNewAccount(){
+function createNewAccountButton(){
   const accountName = document.getElementById("accountName").value;
   const accountNumber = document.getElementById("accountNumber").value;
   const description = document.getElementById("description").value;
-  const normalSide = document.getElementById("normalSide").value;
+  const ns = document.getElementById("normalSide").value;
   const accountCategory = document.getElementById("accountCategory").value;
   const accountSubcategory = document.getElementById("accountSubcategory").value;
-  const initialBalance = document.getElementById("initialBalance").value;
-  const accountOrder = document.getElementById("accountOrder").value;
-  const comment = document.getElementById("comment").value;
+  const ib = document.getElementById("initialBalance").value;
+  const ao = document.getElementById("accountOrder").value;
+  const c = document.getElementById("comment").value;
   
   if(validate_email(email) || validate_password(password)){
-    addAccounts(createNewAccount(accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory,normalSide,initialBalance,accountOrder, comment));
+    addAccounts(createNewAccount(accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory, ns, ib, ao, c));
   }
 
 }
-
 const form2 = document.getElementById("form-createAccount");
 form2.addEventListener("submit", (e) => {
   e.preventDefault();
   try{
     console.log('tesing something');
-    createNewAccount();
+    createNewAccountButton();
   }catch (error){
     console.error(error);
   }
@@ -186,14 +184,14 @@ form2.addEventListener("submit", (e) => {
 });
 
 
-//action event triggered when a user clicks the create account button 
-const form = document.getElementById("signup-form");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  try{
-  createNewUserButton();
-  }catch (error){
-    console.error(error);
-  }
-  redirect("")
-});
+// //action event triggered when a user clicks the create account button 
+// const form = document.getElementById("signup-form");
+// form.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   try{
+//   createNewUserButton();
+//   }catch (error){
+//     console.error(error);
+//   }
+//   redirect("")
+// });
