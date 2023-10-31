@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getFirestore, collection, addDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, setDoc, doc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, sendPasswordResetEmail, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -42,9 +42,43 @@ function signIn(username, password) {
     });
 }
 
+
+//get user role
+async function isManager(user) {
+    const museums = query(collection(db, 'users'), where('email', '==', user.email), where('role', '==', 'manager'));
+const querySnapshot = await getDocs(museums);
+if(querySnapshot.size) {
+    window.location = 'EmployeeLanding.html';
+} 
+}
+
+async function isUser(user) {
+    const museums = query(collection(db, 'users'), where('email', '==', user.email), where('role', '==', 'user'));
+const querySnapshot = await getDocs(museums);
+if(querySnapshot.size) {
+    window.location = 'LandingManagerial.html';
+} 
+
+}
+
+async function isAdmin(user) {
+    const museums = query(collection(db, 'users'), where('email', '==', user.email), where('role', '==', 'admin'));
+const querySnapshot = await getDocs(museums);
+if(querySnapshot.size) {
+    window.location = 'landingAdmin.html';
+} 
+}
+
+
+
+
+
+//search for user email
+//then get the role
 onAuthStateChanged(auth, (user) => {
-    if (user) {
-        console.log("user logged in: ", user);
-        window.location = 'EmployeeLanding.html';
-    }
+    if(user) {
+        isAdmin(user);
+        isManager(user);
+        isUser(user);
+}
 })
