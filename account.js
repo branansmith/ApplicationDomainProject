@@ -36,49 +36,81 @@ const querySnapshot = await getDocs(q);
     const data = doc.data();
     const newRow = document.createElement("tr");
 
-    const accountNameCell = document.createElement("td");
-    accountNameCell.textContent = data.accountName;
     const accountNumberCell = document.createElement("td");
     accountNumberCell.textContent = data.accountNumber;
+    const accountNameCell = document.createElement("td");
+    accountNameCell.textContent = data.accountName;
     const accountDescCell = document.createElement("td");
     accountDescCell.textContent = data.description;
+    const normalSideCell = document.createElement("td");
+    normalSideCell.textContent = data.normalSide;
     const accountCategoryCell = document.createElement("td");
     accountCategoryCell.textContent = data.accountCategory;
     const accountSubCategoryCell = document.createElement("td");
     accountSubCategoryCell.textContent = data.accountSubcategory;
+    const initialBalanceCell = document.createElement("td");
+    initialBalanceCell.textContent = data.initialBalance;
+    const debitCell = document.createElement("td");
+    debitCell.textContent = data.debit;
+    const creditCell = document.createElement("td");
+    creditCell.textContent = data.credit;
     const balanceCell = document.createElement("td");
-    balanceCell.textContent = data.initialBalance;
+    balanceCell.textContent = data.balance;
+    const dateCreatedCell = document.createElement("td");
+    dateCreatedCell.textContent = data.creationDate;
+    const userIdCell = document.createElement("td");
+    userIdCell.textContent = data.owner;
+    const orderCell = document.createElement("td");
+    orderCell.textContent = data.order;
+    const statementCell = document.createElement("td");
+    statementCell.textContent = data.statement;
     const commentsCell = document.createElement("td");
     commentsCell.textContent = data.comment;
 
-    newRow.appendChild(accountNameCell);
     newRow.appendChild(accountNumberCell);
+    newRow.appendChild(accountNameCell);
     newRow.appendChild(accountDescCell);
     newRow.appendChild(accountCategoryCell);
     newRow.appendChild(accountSubCategoryCell);
+    newRow.appendChild(initialBalanceCell);
+    newRow.appendChild(debitCell);
+    newRow.appendChild(creditCell);
     newRow.appendChild(balanceCell);
+    newRow.appendChild(dateCreatedCell);
+    newRow.appendChild(userIdCell);
+    newRow.appendChild(orderCell);
+    newRow.appendChild(statementCell);
     newRow.appendChild(commentsCell);
 
     dataTable.appendChild(newRow);
 
-}).catch((error) =>{
-    console.error("Error getting documents: " + error)
-  });
+});
+  // .catch((error) =>{
+  //   console.error("Error getting documents: " + error);
+  // });
 
 
 //create user object to store user data
-const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory, initialBalance, accountOrder, comment, a) => {
+const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory, initialBalance, debit, credit, balance, statement, accountOrder, comment, a) => {
   var account = [];
+  var currentDate = new Date();
 
 
   account.push({
     accountName: accountName, 
     accountNumber: accountNumber,
     description: description,
+    normalSide: normalSide,
     accountCategory: accountCategory,
     accountSubcategory:  accountSubcategory,
     normalSide: normalSide,
     initialBalance: initialBalance,
+    debit: debit,
+    credit: credit,
+    balance: balance,
+    creationDate: currentDate,
+    order: order,
+    statement: statement,
     accountOrder: accountOrder,
     comment: comment,
     owner: a
@@ -115,13 +147,17 @@ function createNewAccountButton(){
   const nSide = document.getElementById("normalSide").value;
   const catagory = document.getElementById("accountCategory").value;
   const subcategory = document.getElementById("accountSubcategory").value;
-  const balance = document.getElementById("initialBalance").value;
+  const initialBalance = document.getElementById("initialBalance").value;
+  const debit = document.getElementById("debit").value;
+  const credit = document.getElementById("credit").value;
+  const balance = document.getElementById("balance").value;
   const order = document.getElementById("accountOrder").value;
+  const statement = document.getElementById("statement").value;
   const comment = document.getElementById("comment").value;
   const a = auth.currentUser;
   
   if(a != null){
-    addAccounts(createNewAccount(name, number, desc, nSide, catagory, subcategory, balance, order, comment, a));
+    addAccounts(createNewAccount(name, number, desc, nSide, catagory, subcategory, initialBalance, debit, credit, balance, statement, order, comment, a));
   }else 
     console.log("User not logged in.");
 
