@@ -71,39 +71,38 @@
         <li class="active"><a href="DisplayUsersScreen.html">Users</a></li>
         <li><a href="reports.html">Reports</a></li>
         <li><a href="FAQ.html">FAQ</a></li>
-        <li><a href="index.html">Logout</a></li>
+        <li><a id="logout-button">Logout</a></li>
       </ul><br>
     </div>
     <br>
     <!-- this is the main dashboard display controls-->
-    <div class="col-sm-3">
-      <div class="well">
-        <h1>Users</h1>
-        <ul>
-            <p style="text-align: left;">Patrick Star <input style="margin: right;" type="button" value="Deactivate"></p>
-            <p style="text-align: left;">Henry Smith<input style="margin: right;" type="button" value="Deactivate"></p>
-            <p style="text-align: left;">Miranda Linder<input style="margin: right;" type="button" value="Deactivate"></p>
-            <p style="text-align: left;">Rena Mothershed<input style="margin: right;" type="button" value="Deactivate"></p>
-            <p style="text-align: left;">Al Wing<input style="margin: right;" type="button" value="Deactivate"></p>
-        </ul>
-        <form action="CreateNewUserScreen.html">
-          <input onclick="window.location.href='CreateNewUserScreen.html'" type="submit" value="Create New User" />
-      </form>
+    <div class="col-m-1">
+      <div id = "user-display-form" class="well">
+        <table class = "table">
+          <thead>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Address</th>
+            <th>Date of Birth</th>
+          </thead>
+          <tbody id = 'tbody1'></tbody>
+        </table>
 
           </div>
+          <form action="CreateNewUserScreen.html">
+            <input onclick="window.location.href='CreateNewUserScreen.html'" type="submit" value="Create New User" />
+        </form>
         </div>
       </div>
-      
-
-</body>
-</html>
         
 
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
-  import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
   import { getAuth } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -128,4 +127,5 @@
   const auth = getAuth(app);
   </script>
 </body>
+<script type = "module" src = "user.js"></script>
 </html>
