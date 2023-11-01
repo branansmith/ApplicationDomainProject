@@ -44,7 +44,7 @@ var usersArray = [];
 querySnapshot.forEach((doc) => {
   const data = doc.data();
   const name = data.first_name + " " + data.last_name;
-  addToTable(data.username, name, data.email, data.role, data.address, data.dob);
+  addToTable(data.username, name, data.email, data.role, data.address, data.date_of_birth);
   
 })
 
@@ -60,6 +60,7 @@ function addToTable(username, name, email, role, address, dob) {
   var td5 = document.createElement('td');
   var td6 = document.createElement('td');
   var tdBtn = document.createElement('button');
+  
 
   td1.innerHTML = username;
   td2.innerHTML = name;
@@ -77,7 +78,12 @@ function addToTable(username, name, email, role, address, dob) {
   trow.appendChild(td6);
   trow.appendChild(tdBtn);
 
+  tdBtn.addEventListener("click", (e) => {
+    alert(td1.innerHTML);
+  })
+
   tbody.appendChild(trow);
+
 }
 
 window.onload = loadUserData();
