@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import { getAuth, sendPasswordResetEmail, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -35,21 +35,7 @@ const firebaseConfig = {
         return false;
     }
   }
-
-   function writeUserData(first_name, last_name, address, date_of_birth, email, role, username) {
-     const db = getDatabase();
-     const reference = ref(db, 'users/' + first_name + " " + last_name);
   
-     set(reference, {
-       first_name: first_name,
-       last_name: last_name,
-       email: email,
-       address: address,
-       date_of_birth: date_of_birth,
-       role: role,
-       username: username
-     });
- }
 
 function authenticate(email, password) {
     if (validate_email(email) == false || validate_password(password == false)) {
