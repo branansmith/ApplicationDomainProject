@@ -55,7 +55,7 @@ const addUser = async (users, name) => {
 //create user object to store user data
 const createUser = (fname, lname, email, address, dob) => {
     var user = [];
-    const currentDate = new date().toDateString();
+    const currentDate = new Date();
     const month = currentDate.getMonth();
     const year = currentDate.getFullYear() % 100;
 
@@ -90,7 +90,6 @@ const addUsers = async (userArr) => {
     }
   }
   await Promise.all(promises);
-  console.log("You did it");
 };
 
 //Retieve the values entered by the user and parse any needed values
@@ -100,14 +99,22 @@ function createNewUserButton(){
   const lname = document.getElementById("signup-last-name").value;
   const email = document.getElementById("signup-email").value;
   const address = document.getElementById("signup-address").value;
-  const dobString = document.getElementById("signup-date-of-birth").value;
   const password = document.getElementById("signup-password").value;
-  const dob = new Date(dobString);
+  const dob = document.getElementById('signup-date-of-birth').value;
+
   if(validate_email(email) || validate_password(password)){
     addUsers(createUser(fname, lname, email, address, dob));
     createUserWithEmailAndPassword(auth, email, password);
   }
 }
+
+onAuthStateChanged(auth, (user) => {
+    if(user) {
+        console.log(user.uid);
+        auth.signOut();
+  }
+  })
+
 
 //action event triggered when a user clicks the create account button 
 const form = document.getElementById("signup-form");
