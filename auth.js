@@ -148,3 +148,11 @@ if(forgotPasswordSubmit) {
     })
     
 }
+
+const accountantLogoutButton = document.getElementById('accountant-logout-button');
+if(accountantLogoutButton) {
+    accountantLogoutButton.addEventListener("click", (e) => {
+        auth.signOut();
+        window.location = 'index.html';
+    })
+}
