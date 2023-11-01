@@ -72,7 +72,7 @@
         <li><a href="#section3">Users</a></li>
         <li><a href="reports.html">Reports</a></li>
         <li><a href="FAQ.html">FAQ</a></li>
-        <li><a href="index.html">Logout</a></li>
+        <li><a id="accountant-logout-button">Logout</a></li>
       </ul><br>
     </div>
     <br>
@@ -115,7 +115,7 @@
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
-  import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
   import { getAuth } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
@@ -140,4 +140,5 @@
   const auth = getAuth(app);
   </script>
 </body>
+<script type="module" src="auth.js"></script>
 </html>
