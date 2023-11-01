@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -15,7 +15,7 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+const db = getFirestore(app);
 const auth = getAuth(app);
 
 const logOutButton = document.getElementById('logout-button');
@@ -26,9 +26,59 @@ logOutButton.addEventListener("click", (e) => {
 })
 }
 
-onAuthStateChanged(auth, (user) => {
-  if (user == null) {
-      window.location = 'index.html';
-  } 
+const userForm = document.getElementById('user-display-form');
+
+//onAuthStateChanged(auth, (user) => {
+//  if(user) {
+//      console.log(user.uid);
+//}
+//})
+
+
+
+
+async function loadUserData() {
+const users = query(collection(db, 'users'));
+const querySnapshot = await getDocs(users);
+var usersArray = [];
+querySnapshot.forEach((doc) => {
+  const data = doc.data();
+  const name = data.first_name + " " + data.last_name;
+  addToTable(data.username, name, data.email, data.role, data.address, data.dob);
   
 })
+
+}
+
+var tbody = document.getElementById('tbody1');
+function addToTable(username, name, email, role, address, dob) {
+  var trow = document.createElement('tr');
+  var td1 = document.createElement('td');
+  var td2 = document.createElement('td');
+  var td3 = document.createElement('td');
+  var td4 = document.createElement('td');
+  var td5 = document.createElement('td');
+  var td6 = document.createElement('td');
+  var tdBtn = document.createElement('button');
+
+  td1.innerHTML = username;
+  td2.innerHTML = name;
+  td3.innerHTML = email;
+  td4.innerHTML = role;
+  td5.innerHTML = address;
+  td6.innerHTML = dob;
+  tdBtn.innerHTML = "Edit User";
+
+  trow.appendChild(td1);
+  trow.appendChild(td2);
+  trow.appendChild(td3);
+  trow.appendChild(td4);
+  trow.appendChild(td5);
+  trow.appendChild(td6);
+  trow.appendChild(tdBtn);
+
+  tbody.appendChild(trow);
+}
+
+window.onload = loadUserData();
+
