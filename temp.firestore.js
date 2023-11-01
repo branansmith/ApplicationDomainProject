@@ -55,8 +55,9 @@ const addUser = async (users, name) => {
 //create user object to store user data
 const createUser = (fname, lname, email, address, dob) => {
     var user = [];
-    const month = dob.getMonth();
-    const year = dob.getFullYear() % 100;
+    const currentDate = new date().toDateString();
+    const month = currentDate.getMonth();
+    const year = currentDate.getFullYear() % 100;
 
     user.push({
         first_name: fname,
