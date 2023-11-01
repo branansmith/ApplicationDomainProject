@@ -121,12 +121,13 @@ function signIn(username, password) {
     });
 }
 
+/*
 onAuthStateChanged(auth, (user) => {
     if (user) {
         console.log("user logged in: ", user);
         window.location = 'EmployeeLanding.html';
     }
-})
+})*/
 
 var recipient = document.getElementById('forgot-password-email');
 
