@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html>
+<!--this code controls the header part of the web page **AESTHETIC** -->
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0">
+  <title>Admin</title>
+  <link rel="stylesheet"
+        href="css/style.css"> 
+</link>
+</head>
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+        
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">                     
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <a href='email.html'>Email</a>
+        <li><a href="#">Users</a></li>
+        <li><a href="#">FAQ</a></li>
+
+        <li><a href='index.html'>Logout</a></li>      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+    <div class="row content">
+      <div class="col-sm-3 sidenav hidden-xs">
+        <h2><img src="companylogo.png" alt="Ledger Pal" style="width:200px;height:200px;"></h2>
+        <ul class="nav nav-pills nav-stacked">
+          <!-- dashboard home button-->
+          <li><a href="landingAdmin.html">home</a></li>
+          <li><a href="email.html">email</a></li>
+          <li><a href="DisplayUsersScreen.html">Users</a></li>
+          <li class="active"><a href="Accounts.html">Accounts</a></li>
+          <li><a href="reports.html">Reports</a></li>
+          <li><a href="FAQ.html">FAQ</a></li>
+          <li><a href="index.html">Logout</a></li>
+        </ul><br>
+      </div>
+      <br>
+      <!-- this is the main dashboard display controls-->
+      <div class="col-sm-9">
+        <div class="well">
+          <h4>Accounts</h4>
+          <p>Account search</p>
+          <div class="search-container">
+              <input type="text" placeholder="Search.." name="search">
+              <button type="submit"><i class="fa fa-search">Search</i></button>
+            </form>         
+            <div>
+                <div id = "data">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Account Number</th>
+                                <th>Account Name</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Sub-Category</th>
+                                <th>Balance</th>
+                                <th>Comments</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableBody">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <button class="open-button" onclick="openForm()">Create Account</button>
+            </div>
+            
+          </div>
+        </div>
+        
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        * {box-sizing: border-box;}
+        
+        /* Button used to open the contact form - fixed at the bottom of the page */
+        .open-button {
+          background-color: #555;
+          color: white;
+          padding: 16px 20px;
+          border: none;
+          cursor: pointer;
+          opacity: 0.8;
+          position: fixed;
+          bottom: 30px;
+          right: 28px;
+          width: 280px;
+        }
+        
+        /* The popup form - hidden by default */
+        .form-popup {
+          display: none;
+          position: fixed;
+          bottom: 0;
+          right: 15px;
+          border: 3px solid #f1f1f1;
+          z-index: 9;
+        }
+        
+        /* Add styles to the form container */
+        .form-container {
+          max-width: 300px;
+          padding: 10px;
+          background-color: white;
+        }
+        
+        /* Full-width input fields */
+        .form-container input[type=text], .form-container input[type=password] {
+          width: 100%;
+          padding: 10px;
+          margin: 5px 5px 0;
+          border: none;
+          background: #f1f1f1;
+        }
+        
+        /* When the inputs get focus, do something */
+        .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+          background-color: #ddd;
+          outline: none;
+        }
+        
+        /* Set a style for the submit/login button */
+        .form-container .btn {
+          background-color: #284b86;
+          color: white;
+          padding: 16px 20px;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+          margin-bottom:10px;
+          opacity: 0.8;
+        }
+        
+        /* Add a red background color to the cancel button */
+        .form-container .cancel {
+          background-color: #284b86;
+        }
+        
+        /* Add some hover effects to buttons */
+        .form-container .btn:hover, .open-button:hover {
+          opacity: 1;
+        }
+        </style>
+        </head>
+
+        <div class="form-popup" id="myForm">
+            <form class="form-container" id = "form-createAccount">
+              <h1>Add new account</h1>
+              <label for="accountName"><b>Account name</b></label>
+              <input type="text" placeholder="Enter Account Name" id="accountName" name="accountName" required>
+              
+              <label for="accountNumber"><b>Account Number</b></label>
+              <input type="text" placeholder="Enter Account Number" id="accountNumber" name="accountNumber" required>
+          
+          
+              <label for="description"><b>Description</b></label>
+              <input type="text" placeholder="Enter Description" id="description" name="description" required>
+              
+              <label for="normalSide"><b>Normal Side</b></label>
+              <input type="text" placeholder="Enter Normal Side" id="normalSide" name="normalSide" required>
+              
+              <label for="accountCategory"><b>Account Category</b></label>
+              <input type="text" placeholder="Enter Accont Category" id="accountCategory" name="accountCategory" required>
+              
+              <label for="psw"><b>Account SubCategory</b></label>
+              <input type="text" placeholder="Enter Accont SubCategory" id="accountSubcategory" name="accountCategory" required>
+              
+              <label for="psw"><b>Initial Balance</b></label>
+              <input type="text" placeholder="Enter Initial Balance" id="initialBalance" name="intitialBalance" required>
+              
+              <label for="psw"><b>Account Order </b></label>
+              <input type="text" placeholder="Enter account order" id="accountOrder" name="accountOrder" required>
+              
+              <label for="psw"><b>comment</b></label>
+              <input type="text" placeholder="Enter comment" id="comment" name="comment" required>
+          
+          
+              <button id="create-new-account-button" class="btn btn-success" type="submit">Create</button>
+              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+          </div>
+
+        <script>
+            function openForm() {
+              document.getElementById("myForm").style.display = "block";
+            }
+      
+            function closeForm() {
+              document.getElementById("myForm").style.display = "none";
+            }
+            </script>
+            </div>
+        <script type = "module" src="account.js">
+        </script>
+      </body>
+
+
+
+
+</html>
