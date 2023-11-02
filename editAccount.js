@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getFirestore, collection, addDoc, setDoc, getDocs, doc, QuerySnapshot, query, where} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, setDoc, getDocs, doc, QuerySnapshot, query, where, updateDoc} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 import { getAuth, sendPasswordResetEmail, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -17,6 +17,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+var id;
+
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -33,18 +36,65 @@ document.addEventListener("DOMContentLoaded", function () {
                 const accountId = event.currentTarget.textContent;
                 console.log(accountId);
                 PopulateEditForm(accountId);
+                id = accountId;
+                console.log(id);
                 });
             });
         }
     }, 100);
 });
 
+const saveButton = document.getElementById("update-account-button");
+saveButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    // console.log("click");
+    const newAccountName = document.getElementById("accountNameCurrent").value;
+        if(updateFirestoreDocument(newAccountName, getNewData())){
+            addEvent(addAccountEvent(old, ))
+        }
+
+});
+
+const addEvent = async (entry, name) => {
+    const eventRef = await setDoc(doc(db, 'eventLog', name), entry);
+}
+
+function getNewData(){
+    const newAccountName = document.getElementById("accountNameCurrent").value;
+    const newAccountDesc = document.getElementById("descriptionCurrent").value;
+    const newNormalSide = document.getElementById("normalSideCurrent").value;
+    const newCategory = document.getElementById("accountCategoryCurrent").value;
+    const newSubCategory = document.getElementById("accountSubcategoryCurrent").value;
+    const newInitialBalance = document.getElementById("initialBalanceCurent").value;
+    const newDebit = document.getElementById("debitCurrent").value;
+    const newCredit = document.getElementById("creditCurrent").value;
+    const newBalance = document.getElementById("balanceCurrent").value;
+    const newOrder = document.getElementById("accountOrdercurrent").value;
+    const newStatment = document.getElementById("statementcurrent").value;
+    const newComment = document.getElementById("commentCurrent").value;
+
+    const newData = {
+        accountName: newAccountName,
+        description: newAccountDesc,
+        normalSide: newNormalSide,
+        accountCategory: newCategory,
+        accountSubcategory: newSubCategory,
+        initialBalance: newInitialBalance,
+        debit: newDebit,
+        credit: newCredit,
+        balance: newBalance,
+        order: newOrder,
+        statement: newStatment,
+        comment: newComment
+    };
+    return newData;
+}
+
 
 
 function PopulateEditForm(accountNumber){
-    
-    const q = query(collection(db, "accounts"), where("accountNumber", "==", accountNumber));
-    getDocs(q)
+    const accountToEdit = query(collection(db, "accounts"), where("accountNumber", "==", accountNumber));
+    getDocs(accountToEdit)
         .then((querySnapshot) => {
             if(!querySnapshot.empty) {
                 const doc = querySnapshot.docs[0];
@@ -80,3 +130,32 @@ function PopulateEditForm(accountNumber){
             }
         });
   }
+
+
+  function updateFirestoreDocument(docName, newData){
+    const docRef = doc(db, "accounts", docName);
+        updateDoc(docRef, newData)
+            .then(() => {
+                console.log("Document Saved Successfully.");
+            })
+            .catch((error) => {
+                console.error("Error updating document.");
+            });
+}  
+
+function addAccountEvent(oldData, newData, user){
+    var currentDate = new Date();
+    var date = currentDate.toLocaleDateString();
+    var time = currentDate.toLocaleTimeString();
+
+    const newEntry = {
+        oldData: oldData,
+        newData: newData,
+        user: user,
+        timestamp: date + " " + time
+    }
+    return newEntry;
+}
+
+
+  
