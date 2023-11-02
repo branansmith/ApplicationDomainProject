@@ -27,7 +27,51 @@ const addAccount = async (account, accountName) => {
     const accRef = await setDoc(doc(db, 'accounts', accountName), account);
     console.log('Sent');
 }
+
+
 const dataTable = document.getElementById("dataTableBody");
+const table = document.getElementById("dataTable");
+
+const headers = Array.from(table.querySelectorAll('th'));
+
+table.querySelectorAll('th').forEach(header => {
+  header.addEventListener('click', () => {
+    const column = headers.indexOf(header);
+    const colOrder = header.getAttribute('data-sort');
+
+    const rows = Array.from(dataTable.rows);
+    rows.sort((a, b) => {
+      const aCell = a.cells[column];
+      const bCell = b.cells[column];
+      
+
+      if (aCell === undefined || bCell === undefined) {
+        console.log("Cells undefined");
+        return 0; // You can decide how to handle this case, e.g., by returning 0
+      }
+
+      const aValue = aCell.textContent;
+      const bValue = bCell.textContent;
+      console.log(aValue);
+      console.log(bValue);
+
+      if (colOrder === 'text'){
+        return aValue.localeCompare(bValue);
+      }else if (colOrder === 'numeric') {
+        return parseFloat(aValue) - parseFloat(bValue);
+      }
+    });
+
+    while(dataTable.firstChild){
+      dataTable.removeChild(dataTable.firstChild);
+    }
+
+    rows.forEach(row => {
+      dataTable.appendChild(row);
+    });
+
+  });
+});
 
 const q = query(collection(db, "accounts"));
 const querySnapshot = await getDocs(q);
@@ -63,7 +107,7 @@ const querySnapshot = await getDocs(q);
     const userIdCell = document.createElement("td");
     userIdCell.textContent = data.owner;
     const orderCell = document.createElement("td");
-    orderCell.textContent = data.order;
+    orderCell.textContent = data.accountOrder;
     const statementCell = document.createElement("td");
     statementCell.textContent = data.statement;
     const commentsCell = document.createElement("td");
@@ -109,9 +153,11 @@ const querySnapshot = await getDocs(q);
 
 
 //create user object to store user data
-const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, statement, accountOrder, comment, a) => {
+const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, statement, order, comment, a) => {
   var account = [];
   var currentDate = new Date();
+  var date = currentDate.toLocaleDateString();
+  var time = currentDate.toLocaleTimeString();
 
 
   account.push({
@@ -126,9 +172,9 @@ const createNewAccount = (accountName, accountNumber, description, normalSide, a
     debit: debit,
     credit: credit,
     balance: balance,
-    creationDate: currentDate,
+    creationDate: date + " " + time,
     statement: statement,
-    accountOrder: accountOrder,
+    accountOrder: order,
     comment: comment,
     owner: a.email
   });
@@ -189,3 +235,5 @@ form.addEventListener("submit", (e) => {
     console.error(error);
   }
 });
+
+
