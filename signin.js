@@ -77,8 +77,6 @@ if(querySnapshot.size) {
 //then get the role
 onAuthStateChanged(auth, (user) => {
     if(user) {
-        isAdmin(user);
-        isManager(user);
-        isUser(user);
+        window.location = "EmployeeLanding.html";
 }
 })
