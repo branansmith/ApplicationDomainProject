@@ -76,6 +76,8 @@ function addToTable(username, name, email, role, address, dob) {
   trow.appendChild(td4);
   trow.appendChild(td5);
   trow.appendChild(td6);
+
+  
   trow.appendChild(tdBtn);
 
   tdBtn.addEventListener("click", (e) => {
@@ -132,18 +134,7 @@ if(querySnapshot.size) {
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    if(isUser(user)) {
-      console.log("is a user");
-    }
-    else if(isManager(user)) {
-      console.log("is a manager");
-    } else if(isAdmin(user)) {
-      console.log("is an admin");
-    } else {
-      console.log("error getting role");
-    }
-  } else {
-    console.log(user, "not logged in");
+    console.log(user.username + " currently logged in");
   }
 })
 
