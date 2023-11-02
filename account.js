@@ -23,6 +23,7 @@ const db = getFirestore(app);
 
 //Add account to firestore
 const addAccount = async (account, accountName) => {
+  console.log("3");
     const accRef = await setDoc(doc(db, 'accounts', accountName), account);
     console.log('Sent');
 }
@@ -76,14 +77,14 @@ table.querySelectorAll('th').forEach(header => {
 const q = query(collection(db, "accounts"));
 const querySnapshot = await getDocs(q);
 
-// accountRef.get().then((QuerySnapshot) => {
-//   QuerySnapshot.forEach((doc ) =>{
+//Create and display the data from the database
   querySnapshot.forEach((doc) => {
     const data = doc.data();
     const newRow = document.createElement("tr");
 
     const accountNumberCell = document.createElement("td");
-    accountNumberCell.textContent = data.accountNumber;
+    accountNumberCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openEditForm()">${data.accountNumber}</a>`;
+    //accountNumberCell.textContent = data.accountNumber;
     const accountNameCell = document.createElement("td");
     accountNameCell.textContent = data.accountName;
     const accountDescCell = document.createElement("td");
@@ -151,13 +152,11 @@ const querySnapshot = await getDocs(q);
     newRow.appendChild(commentsCell);
 
     dataTable.appendChild(newRow);
-
 });
-  // .catch((error) =>{
-  //   console.error("Error getting documents: " + error);
-  // });
 
   
+//Click listener for Editing accounts
+
 
   async function accountNumberDouplicateCheck(accountNumber){
     try {
@@ -176,6 +175,7 @@ const querySnapshot = await getDocs(q);
 
 //create user object to store user data
 const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, statement, order, comment, a) => {
+  console.log("4");
   var account = [];
   var currentDate = new Date();
   var date = currentDate.toLocaleDateString();
@@ -232,21 +232,23 @@ function createNewAccountButton(){
   const nSide = document.getElementById("normalSide").value;
   const catagory = document.getElementById("accountCategory").value;
   const subcategory = document.getElementById("accountSubcategory").value;
-  const initialBalance = document.getElementById("initialBalance");
-  const debit = document.getElementById("debit");
-  const credit = document.getElementById("credit");
-  const balance = document.getElementById("balance");
+  const initialBalance = document.getElementById("initialBalance").value;
+  const debit = document.getElementById("debit").value;
+  const credit = document.getElementById("credit").value;
+  const balance = document.getElementById("balance").value;
   const order = document.getElementById("accountOrder").value;
   const statement = document.getElementById("statement").value;
   const comment = document.getElementById("comment").value;
   const a = auth.currentUser;
-  
-  if(a != null && accountNumberDouplicateCheck(number)){
+  console.log("1");
+  if(a != null){
+    console.log("2");
     addAccounts(createNewAccount(name, number, desc, nSide, catagory, subcategory, initialBalance, debit, credit, balance, statement, order, comment, a));
   }else 
     console.log("User not logged in.");
 
 }
+
 const form = document.getElementById("form-createAccount");
 form.addEventListener("submit", (e) => {
   e.preventDefault();

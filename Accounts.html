@@ -71,7 +71,7 @@
       <div class="col-sm-12">
         <div class="well">
          <h4>Accounts</h4>
-                <p><button class="open-button" onclick="openForm()">Create Account</button></p>
+                <p><button class="open-button" onclick="openCreateForm()">Create Account</button></p>
           <p>Account search</p>
           <div class="search-container">
               <input type="text" placeholder="Search.." name="search">
@@ -119,7 +119,7 @@
         </style>
         </head>
 
-        <div class="form-popup" id="myForm">
+        <div class="form-popup" id="form-createAccount-div">
             <form class="form-container" id = "form-createAccount">
               <h1>Add new account</h1>
               <table>
@@ -191,22 +191,108 @@
           
           
               <button id="create-new-account-button" class="btn btn-success" type="submit">Create</button>
-              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+              <button type="button" class="btn cancel" onclick="closeCreateForm()">Close</button>
             </form>
           </div>
 
+            <div class="form-popup" id="form-editAccount-div">
+              <form class="form-container" id = "form-editAccount">
+                <h1>Edit Account</h1>
+                <table>
+                  <tr>
+                    <th>Account Name</th>
+                    <td></td>
+                    <th>Account Number</th>
+                    <td></td>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td><input type="text" placeholder="Enter Account Name" id="accountNameCurrent" name="accountName" required></td>
+                    <td> </td>
+                    <td><input type="text" placeholder="Enter Account Number" id="accountNumberCurrent" name="accountNumber" required readonly></td>
+                    <td> </td>
+                    <td><input type="text" placeholder="Enter Description" id="descriptionCurrent" name="description" required></td>
+                  </tr>
+                  <tr></tr>
+                  <tr>
+                    <th>Normal Side</th>
+                    <td></td>
+                    <th>Account Category</th>
+                    <td></td>
+                    <th>Account Sub-Category</th>
+                  </tr>
+                  <tr>
+                    <td><input type="text" placeholder="Enter Normal Side" id="normalSideCurrent" name="normalSide" required></td>
+                    <td></td>
+                    <td><input type="text" placeholder="Enter Accont Category" id="accountCategoryCurrent" name="accountCategory" required></td>
+                    <td></td>
+                    <td><input type="text" placeholder="Enter Accont SubCategory" id="accountSubcategoryCurrent" name="accountCategory" required></td>
+                  </tr>
+                  <tr>
+                    <th>Initial Balance</th>
+                    <td></td>
+                    <th>Debit Balance</th>
+                    <td></td>
+                    <th>Credit Balance</th>
+                  </tr>
+                  <tr>
+                    <td><input type="text" placeholder="Enter Initial Balance" id="initialBalanceCurent" name="intitialBalance" required></td>
+                    <td></td>
+                    <td><input type="text" placeholder="Enter Debit Balance" id="debitCurrent" name="debit" required></td>
+                    <td></td>
+                    <td><input type="text" placeholder="Enter Creidt Balance" id="creditCurrent" name="credit" required></td>
+                  </tr>
+                  <tr>
+                    <th>Account Balance</th>
+                    <td></td>
+                    <th>Account Order</th>
+                    <td></td>
+                    <th>Statement</th>
+                  </tr>
+                  <tr>
+                    <td><input type="text" placeholder="Enter Balance" id="balanceCurrent" name="balance" required></td>
+                    <td></td>
+                    <td><input type="text" placeholder="Enter account order" id="accountOrdercurrent" name="accountOrder" required></td>
+                    <td></td>
+                    <td><input type="text" placeholder="Enter Statement Type" id="statementcurrent" name="statement" required></td>
+                  </tr>
+                  <tr>
+                    <th>Comments</th>
+                  </tr>
+                  <tr>
+                    <td><input type="textarea" placeholder="Enter comments" id="commentCurrent" name="comment" required></td>
+                  </tr>
+  
+                </table>
+            
+            
+                <button id="update-new-account-button" class="btn btn-success" type="submit">Save</button>
+                <button type="button" class="btn cancel" onclick="closeEditForm()">Close</button>
+              </form>
+
+          </div>
+
         <script>
-            function openForm() {
-              document.getElementById("myForm").style.display = "block";
+            function openCreateForm() {
+              document.getElementById("form-createAccount-div").style.display = "block";
             }
       
-            function closeForm() {
-              document.getElementById("myForm").style.display = "none";
+            function closeCreateForm() {
+              document.getElementById("form-createAccount-div").style.display = "none";
+              location.reload();
             }
+            function closeEditForm(){
+              document.getElementById("form-editAccount-div").style.display = "none";
+            }
+            function openEditForm(){
+             document.getElementById("form-editAccount-div").style.display = "block";
+            }
+
             </script>
             </div>
         <script type = "module" src="account.js"></script>
-        <script type = "module" src="displayUser.js"></script>
+        <script type = "module" src="displayUser.js"></script>\
+        <script type = "module" src="editAccount.js"></script>
       </body>
 
 
