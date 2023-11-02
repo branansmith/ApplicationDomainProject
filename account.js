@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getFirestore, collection, addDoc, setDoc, getDocs, doc, QuerySnapshot, query} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
-import { getAuth, sendPasswordResetEmail, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, setDoc, getDocs, doc, QuerySnapshot, query, where} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getAuth, sendPasswordResetEmail, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAgjtR6Bh6eeLrcriQXAqyR6UYKNtn7RQ8",
@@ -15,11 +15,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
-
-// Initialize Cloud Firestore and get a reference to the service
+const auth = getAuth(app);
 const db = getFirestore(app);
 
+// Initialize Cloud Firestore and get a reference to the service
 
 
 //Add account to firestore
@@ -28,6 +27,7 @@ const addAccount = async (account, accountName) => {
     console.log('Sent');
 }
 
+const accountsCollection = collection(db, "accounts");
 
 const dataTable = document.getElementById("dataTableBody");
 const table = document.getElementById("dataTable");
@@ -157,9 +157,10 @@ const querySnapshot = await getDocs(q);
   //   console.error("Error getting documents: " + error);
   // });
 
+  
+
   async function accountNumberDouplicateCheck(accountNumber){
     try {
-    const accountsCollection = getFirestore.collection('accounts');
 
     const querySnapshot = await accountsCollection.where('accountNumber', '==', accountNumber).get();
 
@@ -256,6 +257,8 @@ form.addEventListener("submit", (e) => {
     console.error(error);
   }
 });
+
+
 
 
 
