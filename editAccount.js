@@ -20,47 +20,63 @@ const db = getFirestore(app);
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    const accountLink = document.querySelector(".edit-account-link");
 
-    accountLink.addEventListener("click", (event) => {
-        event.preventDefault();
-        const accountId = accountLink.textContent;
-        console.log(accountId);
-        PopulateEditForm(accountId);
-    });
+    //wait for element to be created
+    const waitForElement = setInterval(function () {
+        const accountLinks = document.querySelectorAll(".edit-account-link");
+        console.log(accountLinks);
+        if(accountLinks.length > 0) {
+            clearInterval(waitForElement);
+            accountLinks.forEach(function (accountLink) {
+                accountLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                const accountId = event.currentTarget.textContent;
+                console.log(accountId);
+                PopulateEditForm(accountId);
+                });
+            });
+        }
+    }, 100);
 });
 
 
 
-function PopulateEditForm(AccountNumber){
+function PopulateEditForm(accountNumber){
     
-    const editForm = document.getElementById("form-editAccount");
-    const cAccountName = document.getElementById("accountNameCurrent");
-    cAccountName.textContent = data.accountName;
-    const cAccountNumber = document.getElementById("accountNumberCurrent");
-    cAccountNumber.textContent = data.accountNumber;
-    const cDesc = document.getElementById("descriptionCurrent");
-    cDesc.textContent = data.description;
-    const cNormalSide = document.getElementById("normalSideCurrent");
-    cNormalSide.textContent = data.normalSide;
-    const cCategory = document.getElementById("accountCategoryCurrent");
-    cCategory.textContent = data.accountCategory;
-    const cSubCategory = document.getElementById("accountSubcategoryCurrent");
-    cSubCategory.textContent = data.accountSubcategory;
-    const cInitialBalance = document.getElementById("initialBalanceCurent");
-    cInitialBalance.textContent = data.initialBalance;
-    const cDebit = document.getElementById("debitCurrent");
-    cDebit.textContent = data.debit;
-    const cCredit = document.getElementById("creditCurrent");
-    cCredit.textContent = data.credit;
-    const cBalance = document.getElementById("balanceCurrent");
-    cBalance.textContent = data.balance;
-    const cOrder = document.getElementById("accountOrdercurrent");
-    cOrder.textContent = data.accountOrder;
-    const cStatement = document.getElementById("statementcurrent");
-    cStatement.textContent = data.statement;
-    const cComment = document.getElementById("commentCurrent");
-    cComment.textContent = data.comment;
-  
-  
+    const q = query(collection(db, "accounts"), where("accountNumber", "==", accountNumber));
+    getDocs(q)
+        .then((querySnapshot) => {
+            if(!querySnapshot.empty) {
+                const doc = querySnapshot.docs[0];
+                const data = doc.data();
+                console.log("Data from firestore:" + JSON.stringify(data, null, 2));
+
+                const cAccountName = document.getElementById("accountNameCurrent");
+                cAccountName.value = data.accountName;
+                const cAccountNumber = document.getElementById("accountNumberCurrent");
+                cAccountNumber.value = data.accountNumber;
+                const cDesc = document.getElementById("descriptionCurrent");
+                cDesc.value = data.description;
+                const cNormalSide = document.getElementById("normalSideCurrent");
+                cNormalSide.value = data.normalSide;
+                const cCategory = document.getElementById("accountCategoryCurrent");
+                cCategory.value = data.accountCategory;
+                const cSubCategory = document.getElementById("accountSubcategoryCurrent");
+                cSubCategory.value = data.accountSubcategory;
+                const cInitialBalance = document.getElementById("initialBalanceCurent");
+                cInitialBalance.value = data.initialBalance;
+                const cDebit = document.getElementById("debitCurrent");
+                cDebit.value = data.debit;
+                const cCredit = document.getElementById("creditCurrent");
+                cCredit.value = data.credit;
+                const cBalance = document.getElementById("balanceCurrent");
+                cBalance.value = data.balance;
+                const cOrder = document.getElementById("accountOrdercurrent");
+                cOrder.value = data.accountOrder;
+                const cStatement = document.getElementById("statementcurrent");
+                cStatement.value = data.statement;
+                const cComment = document.getElementById("commentCurrent");
+                cComment.value = data.comment;
+            }
+        });
   }
