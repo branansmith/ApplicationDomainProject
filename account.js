@@ -95,13 +95,33 @@ const querySnapshot = await getDocs(q);
     const accountSubCategoryCell = document.createElement("td");
     accountSubCategoryCell.textContent = data.accountSubcategory;
     const initialBalanceCell = document.createElement("td");
-    initialBalanceCell.textContent = data.initialBalance;
+    initialBalanceCell.textContent = Number(data.initialBalance).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
     const debitCell = document.createElement("td");
-    debitCell.textContent = data.debit;
+    debitCell.textContent = Number(data.debit).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
     const creditCell = document.createElement("td");
-    creditCell.textContent = data.credit;
+    creditCell.textContent = Number(data.credit).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
     const balanceCell = document.createElement("td");
-    balanceCell.textContent = data.balance;
+    balanceCell.textContent = Number(data.balance).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
     const dateCreatedCell = document.createElement("td");
     dateCreatedCell.textContent = data.creationDate;
     const userIdCell = document.createElement("td");
@@ -112,6 +132,7 @@ const querySnapshot = await getDocs(q);
     statementCell.textContent = data.statement;
     const commentsCell = document.createElement("td");
     commentsCell.textContent = data.comment;
+
 
     newRow.appendChild(accountNumberCell);
     newRow.appendChild(accountNameCell);
@@ -210,10 +231,10 @@ function createNewAccountButton(){
   const nSide = document.getElementById("normalSide").value;
   const catagory = document.getElementById("accountCategory").value;
   const subcategory = document.getElementById("accountSubcategory").value;
-  const initialBalance = document.getElementById("initialBalance").value;
-  const debit = document.getElementById("debit").value;
-  const credit = document.getElementById("credit").value;
-  const balance = document.getElementById("balance").value;
+  const initialBalance = document.getElementById("initialBalance");
+  const debit = document.getElementById("debit");
+  const credit = document.getElementById("credit");
+  const balance = document.getElementById("balance");
   const order = document.getElementById("accountOrder").value;
   const statement = document.getElementById("statement").value;
   const comment = document.getElementById("comment").value;
@@ -235,5 +256,6 @@ form.addEventListener("submit", (e) => {
     console.error(error);
   }
 });
+
 
 
