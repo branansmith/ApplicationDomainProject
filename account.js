@@ -20,7 +20,9 @@ const auth = getAuth();
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
 
-//Add user to firestore
+
+
+//Add account to firestore
 const addAccount = async (account, accountName) => {
     const accRef = await setDoc(doc(db, 'accounts', accountName), account);
     console.log('Sent');
@@ -70,6 +72,7 @@ const querySnapshot = await getDocs(q);
     newRow.appendChild(accountNumberCell);
     newRow.appendChild(accountNameCell);
     newRow.appendChild(accountDescCell);
+    newRow.appendChild(normalSideCell);
     newRow.appendChild(accountCategoryCell);
     newRow.appendChild(accountSubCategoryCell);
     newRow.appendChild(initialBalanceCell);
@@ -89,9 +92,24 @@ const querySnapshot = await getDocs(q);
   //   console.error("Error getting documents: " + error);
   // });
 
+  async function accountNumberDouplicateCheck(accountNumber){
+    try {
+    const accountsCollection = getFirestore.collection('accounts');
+
+    const querySnapshot = await accountsCollection.where('accountNumber', '==', accountNumber).get();
+
+    if(!querySnapshot.empty) {
+      return true;
+    } else return false;
+  }catch(error) {
+    console.error('Douplicate Account Number');
+  }
+
+  }
+
 
 //create user object to store user data
-const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory,accountSubcategory, initialBalance, debit, credit, balance, statement, accountOrder, comment, a) => {
+const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, statement, accountOrder, comment, a) => {
   var account = [];
   var currentDate = new Date();
 
@@ -109,15 +127,14 @@ const createNewAccount = (accountName, accountNumber, description, normalSide, a
     credit: credit,
     balance: balance,
     creationDate: currentDate,
-    order: order,
     statement: statement,
     accountOrder: accountOrder,
     comment: comment,
-    owner: a
+    owner: a.email
   });
   console.log('Sent via CreateNewAccount');
   return account;
-};
+}
 
 /**
  * @param {account[]} accountArr 
@@ -156,7 +173,7 @@ function createNewAccountButton(){
   const comment = document.getElementById("comment").value;
   const a = auth.currentUser;
   
-  if(a != null){
+  if(a != null && accountNumberDouplicateCheck(number)){
     addAccounts(createNewAccount(name, number, desc, nSide, catagory, subcategory, initialBalance, debit, credit, balance, statement, order, comment, a));
   }else 
     console.log("User not logged in.");
