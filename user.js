@@ -94,10 +94,6 @@ function addToTable(username, name, email, role, address, dob) {
 
 }
 
-const createNewUserButton = document.getElementById('create-new-user-button');
-createNewUserButton.addEventListener("click", (e) => {
-  alert("test");
-})
 
 
 
@@ -133,8 +129,6 @@ if(querySnapshot.size) {
   return false;
 }
 }
-
-
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
