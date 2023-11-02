@@ -83,7 +83,7 @@ const querySnapshot = await getDocs(q);
     const newRow = document.createElement("tr");
 
     const accountNumberCell = document.createElement("td");
-    accountNumberCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openEditForm()">${data.accountNumber}</a>`;
+    accountNumberCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openledger()">${data.accountNumber}</a>`;
     //accountNumberCell.textContent = data.accountNumber;
     const accountNameCell = document.createElement("td");
     accountNameCell.textContent = data.accountName;
@@ -133,7 +133,8 @@ const querySnapshot = await getDocs(q);
     statementCell.textContent = data.statement;
     const commentsCell = document.createElement("td");
     commentsCell.textContent = data.comment;
-
+    const editCell = document.createElement("td");
+    editCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openEditForm()">Edit</a>`;
 
     newRow.appendChild(accountNumberCell);
     newRow.appendChild(accountNameCell);
@@ -150,6 +151,7 @@ const querySnapshot = await getDocs(q);
     newRow.appendChild(orderCell);
     newRow.appendChild(statementCell);
     newRow.appendChild(commentsCell);
+    newRow.appendChild(editCell);
 
     dataTable.appendChild(newRow);
 });
@@ -180,6 +182,19 @@ const createNewAccount = (accountName, accountNumber, description, normalSide, a
   var currentDate = new Date();
   var date = currentDate.toLocaleDateString();
   var time = currentDate.toLocaleTimeString();
+
+  if(initialBalance == null){
+    initialBalance = 0;
+  }
+  if(debit == null){
+    debit = 0;
+  }
+  if(credit == null){
+    credit = 0;
+  }
+  if(balance == null){
+    balance = 0;
+  }
 
 
   account.push({
