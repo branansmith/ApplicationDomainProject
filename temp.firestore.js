@@ -119,7 +119,8 @@ onAuthStateChanged(auth, (user) => {
 
 //action event triggered when a user clicks the create account button 
 const form = document.getElementById("signup-form");
-form.addEventListener("submit", (e) => {
+if(form) {
+form.addEventListener("click", (e) => {
   e.preventDefault();
   try{
     console.log("1");
@@ -128,4 +129,5 @@ form.addEventListener("submit", (e) => {
     console.error(error);
   }
 });
+}
 
