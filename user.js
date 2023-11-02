@@ -26,7 +26,7 @@ logOutButton.addEventListener("click", (e) => {
 })
 }
 
-const userForm = document.getElementById('user-display-form');
+
 
 //onAuthStateChanged(auth, (user) => {
 //  if(user) {
@@ -79,12 +79,89 @@ function addToTable(username, name, email, role, address, dob) {
   trow.appendChild(tdBtn);
 
   tdBtn.addEventListener("click", (e) => {
-    alert(td1.innerHTML);
+
+    var myTextBox1 = document.createElement("input");
+    myTextBox1.value = td1.innerHTML;
+    td1.parentNode.replaceChild(myTextBox1, td1);
+
+    var myTextBox2 = document.createElement("input");
+    myTextBox2.value = td2.innerHTML;
+    td2.parentNode.replaceChild(myTextBox2, td2);
+    
   })
 
   tbody.appendChild(trow);
 
 }
+
+const createNewUserButton = document.getElementById('create-new-user-button');
+createNewUserButton.addEventListener("click", (e) => {
+  
+})
+
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const openModalBtn = document.querySelector(".btn-open");
+const closeModalBtn = document.querySelector(".btn-close");
+
+const openModal = function () {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+};
+
+openModalBtn.addEventListener("click", openModal);
+
+async function isManager(user) {
+  const museums = query(collection(db, 'users'), where('email', '==', user.email), where('role', '==', 'manager'));
+const querySnapshot = await getDocs(museums);
+if(querySnapshot.size) {
+  return true;
+} else {
+  return false;
+}
+}
+
+async function isUser(user) {
+  const museums = query(collection(db, 'users'), where('email', '==', user.email), where('role', '==', 'user'));
+const querySnapshot = await getDocs(museums);
+if(querySnapshot.size) {
+  return true;
+} else {
+  return false;
+}
+}
+
+
+
+
+async function isAdmin(user) {
+  const museums = query(collection(db, 'users'), where('email', '==', user.email), where('role', '==', 'admin'));
+const querySnapshot = await getDocs(museums);
+if(querySnapshot.size) {
+  return true;
+} else {
+  return false;
+}
+}
+
+
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    if(isUser(user)) {
+      console.log("is a user");
+    }
+    else if(isManager(user)) {
+      console.log("is a manager");
+    } else if(isAdmin(user)) {
+      console.log("is an admin");
+    } else {
+      console.log("error getting role");
+    }
+  } else {
+    console.log(user, "not logged in");
+  }
+})
 
 window.onload = loadUserData();
 
