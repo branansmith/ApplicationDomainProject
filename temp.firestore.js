@@ -17,8 +17,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
+
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
+
+
 
 //Validate the email passed
 function validate_email(email) {
@@ -101,7 +104,7 @@ function createNewUserButton(){
   const password = document.getElementById("signup-password").value;
   const dob = document.getElementById('signup-date-of-birth').value;
 
-  if(validate_email(email) || validate_password(password)){
+  if(validate_email(email) && validate_password(password)){
     addUsers(createUser(fname, lname, email, address, dob));
     createUserWithEmailAndPassword(auth, email, password);
   }
@@ -111,23 +114,29 @@ function createNewUserButton(){
 
 onAuthStateChanged(auth, (user) => {
     if(user) {
-        console.log(user.uid);
-        auth.signOut();
+        
   }
   })
 
 
+
+
+
 //action event triggered when a user clicks the create account button 
-const form = document.getElementById("signup-form");
+const form = document.getElementById("create-new-user-button");
 if(form) {
 form.addEventListener("click", (e) => {
   e.preventDefault();
   try{
-    console.log("1");
-  createNewUserButton();
-  }catch (error){
+  createNewUserButton()
+    
+  } catch (error){
     console.error(error);
   }
 });
+}
+
+function reload() {
+  location.reload();
 }
 
