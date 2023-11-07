@@ -11,8 +11,6 @@
   <title>Home -- Manager</title>
   <link rel="stylesheet"
         href="style.css">
-  <link rel="stylesheet"
-        href="responsive.css">
 </head>
 
 <head>
@@ -93,7 +91,7 @@
 
           </div>
           
-          <button class="btn btn-primary" data-target="#loginmodal" data-toggle="modal">Create New User</button>
+          <button class="btn btn-primary" id="create-new-user-modal" data-target="#loginmodal" data-toggle="modal">Create New User</button>
           <div class="container">
           <div class="row">
           <div class="col col-sm-12">
@@ -101,7 +99,7 @@
           <div class="modal-dialog">
           <div class="modal-content">
           <div class="modal-header">
-          <h4 class="modal-title">Create New User</h4>
+          <h4 class="modal-title" >Create New User</h4>
           <button class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
@@ -134,8 +132,8 @@
           </form>
           </div>
           <div class="modal-footer">
-          <button class="btn btn-primary" id="signup-form", onclick="refresh()">Create New User</button>
-          <button class="btn btn-primary" data-dismiss="modal" onclick="refresh()">Close</button>
+          <button class="btn btn-primary" id="create-new-user-button">Create New User</button>
+          <button class="btn btn-primary" data-dismiss="modal">Close</button>
           
           </div>
           </div>
@@ -153,9 +151,6 @@
 <script>
   function openCreateForm() {
               document.getElementById("form-createAccount-div").style.display = "block";
-            }
-  function refresh() {
-              location.reload();
             }
 </script>
 <script type = "module" src = "user.js"></script>
