@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 var id;
-
+var oldData;
 
 
 
@@ -46,17 +46,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const saveButton = document.getElementById("update-account-button");
 saveButton.addEventListener("click", function (event) {
+
+    const a = auth.currentUser;
+    const user = a.email;
     event.preventDefault();
     // console.log("click");
     const newAccountName = document.getElementById("accountNameCurrent").value;
-        if(updateFirestoreDocument(newAccountName, getNewData())){
-            addEvent(addAccountEvent(old, ))
-        }
-
+    const newData = getNewData();
+    const updateName = "Account Update: ";
+    const name = updateName.toString();
+    oldData.accountName
+    console.log(name);
+        updateFirestoreDocument(newAccountName, newData);
+    const newEvent = addAccountEvent(oldData, newData, user);
+        addEvent(newEvent, user);
 });
 
 const addEvent = async (entry, name) => {
     const eventRef = await setDoc(doc(db, 'eventLog', name), entry);
+    console.log('Sent to event Log');
+}
+
+function addAccountEvent(oldData, newData, user){
+    var currentDate = new Date();
+    var date = currentDate.toLocaleDateString();
+    var time = currentDate.toLocaleTimeString();
+
+    const newEntry = {
+        oldData: oldData,
+        newData: newData,
+        user: user,
+        timestamp: date + " " + time
+    }
+    return newEntry;
 }
 
 function getNewData(){
@@ -100,6 +122,7 @@ function PopulateEditForm(accountNumber){
                 const doc = querySnapshot.docs[0];
                 const data = doc.data();
                 console.log("Data from firestore:" + JSON.stringify(data, null, 2));
+                oldData = data;
 
                 const cAccountName = document.getElementById("accountNameCurrent");
                 cAccountName.value = data.accountName;
@@ -143,19 +166,6 @@ function PopulateEditForm(accountNumber){
             });
 }  
 
-function addAccountEvent(oldData, newData, user){
-    var currentDate = new Date();
-    var date = currentDate.toLocaleDateString();
-    var time = currentDate.toLocaleTimeString();
-
-    const newEntry = {
-        oldData: oldData,
-        newData: newData,
-        user: user,
-        timestamp: date + " " + time
-    }
-    return newEntry;
-}
 
 
   

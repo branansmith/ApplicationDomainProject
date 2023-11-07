@@ -23,7 +23,6 @@ const db = getFirestore(app);
 
 //Add account to firestore
 const addAccount = async (account, accountName) => {
-  console.log("3");
     const accRef = await setDoc(doc(db, 'accounts', accountName), account);
     console.log('Sent');
 }
@@ -35,6 +34,7 @@ const table = document.getElementById("dataTable");
 
 const headers = Array.from(table.querySelectorAll('th'));
 
+//Filter feature
 table.querySelectorAll('th').forEach(header => {
   header.addEventListener('click', () => {
     const column = headers.indexOf(header);
@@ -84,7 +84,6 @@ const querySnapshot = await getDocs(q);
 
     const accountNumberCell = document.createElement("td");
     accountNumberCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openledger()">${data.accountNumber}</a>`;
-    //accountNumberCell.textContent = data.accountNumber;
     const accountNameCell = document.createElement("td");
     accountNameCell.textContent = data.accountName;
     const accountDescCell = document.createElement("td");
@@ -134,7 +133,7 @@ const querySnapshot = await getDocs(q);
     const commentsCell = document.createElement("td");
     commentsCell.textContent = data.comment;
     const editCell = document.createElement("td");
-    editCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openEditForm()">Edit</a>`;
+    editCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openEditForm()">${data.accountNumber}</a>`;
 
     newRow.appendChild(accountNumberCell);
     newRow.appendChild(accountNameCell);
@@ -159,7 +158,7 @@ const querySnapshot = await getDocs(q);
   
 //Click listener for Editing accounts
 
-
+//Douplicate Check for account numbers
   async function accountNumberDouplicateCheck(accountNumber){
     try {
 
@@ -177,7 +176,6 @@ const querySnapshot = await getDocs(q);
 
 //create user object to store user data
 const createNewAccount = (accountName, accountNumber, description, normalSide, accountCategory, accountSubcategory, initialBalance, debit, credit, balance, statement, order, comment, a) => {
-  console.log("4");
   var account = [];
   var currentDate = new Date();
   var date = currentDate.toLocaleDateString();
@@ -255,9 +253,7 @@ function createNewAccountButton(){
   const statement = document.getElementById("statement").value;
   const comment = document.getElementById("comment").value;
   const a = auth.currentUser;
-  console.log("1");
   if(a != null){
-    console.log("2");
     addAccounts(createNewAccount(name, number, desc, nSide, catagory, subcategory, initialBalance, debit, credit, balance, statement, order, comment, a));
   }else 
     console.log("User not logged in.");
