@@ -20,7 +20,21 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <!-- Start of code that puts the table side by side with nav-->
   <style>
+    
+   
+    .row.content{
+      display: inline;
+    }
+
+
+    .table{
+      display: inline;
+    }
+
+    
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 550px}
     
@@ -33,10 +47,20 @@
     /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
       .row.content {height: auto;} 
-    }
+
+        
+      }
   </style>
+  <!-- end of code that puts the table side by side with nav-->
+
+
 </head>
 <body>
+
+  
+
+
+
 
 <nav class="navbar navbar-inverse visible-xs">
   <div class="container-fluid">
@@ -71,26 +95,26 @@
         <li><a href="FAQ.html">FAQ</a></li>
         <li><a href="Accounts.html">Accounts</a></li>
         <li><a id="logout-button">Logout</a></li>
-      </ul><br>
+      </ul>
     </div>
-    <br>
+    
     <!-- this is the main dashboard display controls-->
-    <div class="col-m-1">
-      <div id = "user-display-form" class="well">
-        <table class = "table">
-          <thead>
-            <th>Username</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Address</th>
-            <th>Date of Birth</th>
-          </thead>
-          <tbody id = 'tbody1'></tbody>
-        </table>
+  <div id = "user-display-form" class="well">
+    <table class = "table" >
+      <thead>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Address</th>
+        <th>Date of Birth</th>
+      </thead>
+      <tbody id = 'tbody1'></tbody>
+    </table>
 
-          </div>
           
+
+
           <button class="btn btn-primary" id="create-new-user-modal" data-target="#loginmodal" data-toggle="modal">Create New User</button>
           <div class="container">
           <div class="row">

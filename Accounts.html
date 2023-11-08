@@ -22,7 +22,22 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Start of code that puts the table side by side with nav-->
   <style>
+    
+   
+    .row.content{
+      display: inline;
+    }
+
+
+    .search{
+      display: inline;
+    }
+
+
+
+    
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 550px}
     
@@ -35,40 +50,60 @@
     /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
       .row.content {height: auto;} 
-    }
+
+        
+      }
   </style>
+  <!-- end of code that puts the table side by side with nav-->
+
+
 </head>
 <body>
-   <!--Nav Bar-->
+
+
+   <!--Nav Bar start-->
 <nav class="navbar navbar-inverse visible-xs">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">                     
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
       </button>
       <a class="navbar-brand" href="#">Logo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <a href='email.html'>Email</a>
+        <li><a href="#">Users</a></li>
+        <li><a href="#">FAQ</a></li>
+
+        <li><a href='index.html'>Logout</a></li>      </ul>
     </div>
   </div>
 </nav>
+
 <div class="container-fluid">
-    <div class="nav-bar">
-        <!-- <h2><img src="companylogo.png" alt="Ledger Pal" style="width:100px;height:100px;"> -->
-            <!-- dashboard home button-->
-            <li><img src="companylogo.png" alt="Ledger Pal" style="width:100px;height:100px;"></li>
-            <li><a href="EmployeeLanding.html">home</a></li>
-            <li><a href="email.html">email</a></li>
-            <li><a href="DisplayUsersScreen.html">Users</a></li>
-            <li><a href="reports.html">Reports</a></li>
-            <li><a href="FAQ.html">FAQ</a></li>
-            <li class="active"><a href="Accounts.html">Accounts</a></li>
-            <li><a href="index.html">Logout</a></li>
-            <div class="username" id="current-user"></div>
-       <br>
-      </div>
-      <br>
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2><img src="companylogo.png" alt="Ledger Pal" style="width:200px;height:200px;"></h2>
+      <ul class="nav nav-pills nav-stacked">
+        <!-- dashboard home button-->
+        <li><a href="EmployeeLanding.html">home</a></li>
+        <li><a href="email.html">email</a></li>
+        <li><a href="DisplayUsersScreen.html">Users</a></li>
+        <li><a href="employeeReports.html">Reports</a></li>
+        <li><a href="FAQ.html">FAQ</a></li>
+        <li class="active"><a href="Accounts.html">Accounts</a></li>
+        <li><a href="index.html">Logout</a></li>
+      </ul><br>
+    </div>
+    <br>
+
+      
       <!-- this is the main dashboard display controls-->
-      <div class="col-sm-12">
+      <div class="search">
         <div class="well">
          <h4>Accounts</h4>
                 <p><button class="open-button" onclick="openCreateForm()">Create Account</button></p>
@@ -77,8 +112,8 @@
               <input type="text" placeholder="Search.." name="search">
               <button type="submit"><i class="fa fa-search">Search</i></button>
             </form>         
-            <div>
-                <div id = "data">
+            <div class = "accountTable">
+                <div id = "data" >
                     <table id="dataTable">
                         <thead>
                             <tr>
@@ -105,7 +140,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> 
             
           </div>
         </div>
