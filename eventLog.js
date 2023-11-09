@@ -21,36 +21,11 @@ const db = getFirestore(app);
 // Initialize Cloud Firestore and get a reference to the service
 
 //this is pointer to the collection of event logs
-const eventLogCollection = collection(db, "eventLog");
+// const eventLogCollection = collection(db, "eventLog");
 
 
 const dataTable = document.getElementById("dataTableBody");
-const table = document.getElementById("dataTable");
-
-const headers = Array.from(table.querySelectorAll('th'));
-
-//sort filter on click
-document.addEventListener("DOMContentLoaded", function () {
-
-    //wait for element to be created
-    const waitForElement = setInterval(function () {
-        const accountLinks = document.querySelectorAll(".edit-account-link");
-        console.log(accountLinks);
-        if(accountLinks.length > 0) {
-            clearInterval(waitForElement);
-            accountLinks.forEach(function (accountLink) {
-                accountLink.addEventListener("click", (event) => {
-                event.preventDefault();
-                const accountId = event.currentTarget.textContent;
-                console.log(accountId);
-                PopulateEditForm(accountId);
-                id = accountId;
-                console.log(id);
-                });
-            });
-        }
-    }, 100);
-});
+//const table = document.getElementById("dataTable");
 
 const qELog = query(collection(db, "eventLog"));
 const querySnapshot = await getDocs(qELog);
@@ -62,21 +37,15 @@ const querySnapshot = await getDocs(qELog);
 
 
     const chageIdCell = document.createElement("td");
-    chageIdCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openledger()">${data.ChangeID}</a>`;
+    chageIdCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openledger()">${data.changeId}</a>`;
     const userCell = document.createElement("td");
     userCell.textContent = data.user;
-    const changesMadeCell = document.createElement("td");
-    changesMadeCell.textContent = data.changes;
     const timeStampCell = document.createElement("td");
-    timeStampCell.textContent = data.timeStamp;
-    const commentsCell = document.createElement("td");
-    commentsCell.textContent = data.comments;
-    newRow.appendChild(changeID);
-    newRow.appendChild(user);
-    newRow.appendChild(changes);
-    newRow.appendChild(timeStamp);
-    newRow.appendChild(Comments);
-    
+    timeStampCell.textContent = data.timestamp;
+    newRow.appendChild(chageIdCell);
+    newRow.appendChild(userCell);
+    newRow.appendChild(timeStampCell);
+    //console.log(newRow);
 
     dataTable.appendChild(newRow);
 });
