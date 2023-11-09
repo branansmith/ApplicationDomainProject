@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getFirestore, collection, addDoc, setDoc, getDocs, doc, QuerySnapshot, query, where, updateDoc} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, setDoc, getDocs, doc, QuerySnapshot, query, where, updateDoc, deleteDoc} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 import { getAuth, sendPasswordResetEmail, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -64,6 +64,22 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+const deleteButton = document.getElementById("delete-account-button");
+deleteButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    const a = auth.currentUser;
+       if (a!=null){
+        if(oldData.balance <= 0){
+                console.log(oldData.balance);
+                deleteFirestoreDocument(oldData.accountName);
+        }else 
+        console.log("Balance is greater than zero");
+        }else 
+        console.log("User not signed in");
+       });
+
+
+
 
 const saveButton = document.getElementById("update-account-button");
 saveButton.addEventListener("click", async function (event) {
@@ -73,13 +89,12 @@ saveButton.addEventListener("click", async function (event) {
 
     try{
         const eventId = await generateID();
-        console.log(eventId);
 
         const newAccountName = document.getElementById("accountNameCurrent").value;
         const newData = getNewData();
         updateFirestoreDocument(newAccountName, newData);
         
-        const newEvent = addAccountEvent(oldData, newData, user);
+        const newEvent = addAccountEvent(oldData, newData, user, eventId);
         addEvent(newEvent, eventId);
     }catch(error) {
         console.error("nope.");
@@ -90,16 +105,17 @@ saveButton.addEventListener("click", async function (event) {
 });
 
 const addEvent = async (entry, id) => {
+    console.log(id);
     const eventRef = await setDoc(doc(db, 'eventLog', id), entry);
     console.log('Sent to event Log');
 }
 
-function addAccountEvent(oldData, newData, user){
+function addAccountEvent(oldData, newData, user, id){
     var currentDate = new Date();
     var date = currentDate.toLocaleDateString();
     var time = currentDate.toLocaleTimeString();
-
     const newEntry = {
+        changeId: id,
         oldData: oldData,
         newData: newData,
         user: user,
@@ -192,6 +208,18 @@ function PopulateEditForm(accountNumber){
                 console.error("Error updating document.");
             });
 }  
+
+function deleteFirestoreDocument(docName){
+    const docRef = doc(db, "accounts", docName);
+        deleteDoc(docRef)
+            .then(() => {
+                console.log(docName + " Deleted");
+            })
+            .catch((error) => {
+                console.error("Error deleting document: " + docName);
+            });
+    }
+
 
 
 

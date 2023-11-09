@@ -37,13 +37,11 @@ const querySnapshot = await getDocs(qELog);
 
 
     const chageIdCell = document.createElement("td");
-    chageIdCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openEditForm()">${data.changeId}</a>`;
+    chageIdCell.innerHTML = `<a href="#" class="change-link" onclick="openEditForm()">${data.changeId}</a>`;
     const userCell = document.createElement("td");
     userCell.textContent = data.user;
     const timeStampCell = document.createElement("td");
     timeStampCell.textContent = data.timestamp;
-    const editCell = document.createElement("td");
-    editCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openEditForm()">${data.accountNumber}</a>`;
 
     newRow.appendChild(chageIdCell);
     newRow.appendChild(userCell);
@@ -52,4 +50,74 @@ const querySnapshot = await getDocs(qELog);
 
     dataTable.appendChild(newRow);
 });
+
+
+
+  const waitForElement = setInterval(function () {
+    const changeToView = document.querySelectorAll(".change-link")
+    console.log(changeToView);
+    if(changeToView.length > 0 ){
+      clearInterval(waitForElement);
+      changeToView.forEach(function (change){
+        change.addEventListener("click", (event) => {
+          event.preventDefault();
+          const eventId = event.currentTarget.textContent;
+          console.log(eventId);
+          populateEventLogData(eventId);
+        });
+      });
+    }
+
+  }, 100 );
+
+const logTableBody = document.getElementById("form-eventChanges-body")
+
+function populateEventLogData(eventId){
+  const logDataToView = query(collection(db, 'eventLog'), where("changeId", "==", eventId));
+  getDocs(logDataToView)
+    .then((querySnapshot) => {
+      if(!querySnapshot.empty) {
+        const doc = querySnapshot.docs[0];
+        const data = doc.data();
+        console.log("Data from firestore:" + JSON.stringify(data, null, 2));
+
+        const changedBy = document.getElementById("changedBy");
+        changedBy.textContent = "Changed By: " + data.user;
+
+        generateNewRow("Account Name: ", data.oldData.accountName, data.newData.accountName);
+        generateNewRow("Account Description: ", data.oldData.description, data.newData.description);
+        generateNewRow("Account Category: ", data.oldData.accountCategory, data.newData.accountCategory);
+        generateNewRow("Account Sub-Category: ", data.oldData.accountSubcategory, data.newData.accountSubcategory);
+        generateNewRow("Normal Side : ", data.oldData.normalSide, data.newData.normalSide);
+        generateNewRow("Account Iniaital Balance: ", data.oldData.initialBalance, data.newData.initialBalance);
+        generateNewRow("Account Balance: ", data.oldData.balance, data.newData.balance);
+        generateNewRow("Account Credit: ", data.oldData.credit, data.newData.credit);
+        generateNewRow("Account Debit: ", data.oldData.debit, data.newData.debit);
+        generateNewRow("Account Order: ", data.oldData.order, data.newData.order);
+        generateNewRow("Account Statement: ", data.oldData.statement, data.newData.statement);
+        generateNewRow("Account Comments: ", data.oldData.comment, data.newData.comment);
+
+
+        
+      }
+    })
+
+}
+
+async function generateNewRow(name, oldData, newData){
+  const newRow = document.createElement("tr");
+  const labelCell = document.createElement("td");
+  const oldDataCell = document.createElement("td");
+  const newDataCell = document.createElement("td");
+
+  labelCell.textContent = name;
+  oldDataCell.textContent = oldData;
+  newDataCell.textContent = newData;
+
+  newRow.appendChild(labelCell);
+  newRow.appendChild(oldDataCell);
+  newRow.appendChild(newDataCell);
+
+  logTableBody.appendChild(newRow);
+}
 
