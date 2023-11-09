@@ -99,7 +99,7 @@
           
 
           <div class="search-container" >
-              <input type="text" placeholder="Search.." name="search">
+              <input id='myInput' onkeyup='searchTable()' type='Search'>
               <button type="submit"><i class="fa fa-search">Search</i></button>
             </form>    
             </div>
@@ -131,6 +131,30 @@
                             
                         </tbody>
                     </table>
+                    <script>
+                      function searchTable() {
+                        var input, filter, found, dataTable, tr, td, i, j;
+                        input = document.getElementById("myInput");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("dataTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td");
+                            for (j = 0; j < td.length; j++) {
+                                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                                    found = true;
+                                }
+                            }
+                            if (found) {
+                                tr[i].style.display = "";
+                                found = false;
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                    </script>
+                    
                 </div>
             </div> 
             
@@ -292,6 +316,7 @@
                   </tr>
   
                 </table>
+                
             
             
                 <button id="update-account-button" class="btn btn-success" type="button">Save</button>
@@ -302,6 +327,8 @@
           </div>
 
         <script>
+
+
             function openCreateForm() {
               document.getElementById("form-createAccount-div").style.display = "block";
             }
@@ -324,6 +351,7 @@
         <script type = "module" src="displayUser.js"></script>
         <script type = "module" src="editAccount.js"></script>
         <script type = "module" src="user.js"></script>
+        <script type = "module" src="searchFunction.js"></script>
       </body>
 
 
