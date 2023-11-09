@@ -37,11 +37,14 @@ const querySnapshot = await getDocs(qELog);
 
 
     const chageIdCell = document.createElement("td");
-    chageIdCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openledger()">${data.changeId}</a>`;
+    chageIdCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openEditForm()">${data.changeId}</a>`;
     const userCell = document.createElement("td");
     userCell.textContent = data.user;
     const timeStampCell = document.createElement("td");
     timeStampCell.textContent = data.timestamp;
+    const editCell = document.createElement("td");
+    editCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openEditForm()">${data.accountNumber}</a>`;
+
     newRow.appendChild(chageIdCell);
     newRow.appendChild(userCell);
     newRow.appendChild(timeStampCell);
