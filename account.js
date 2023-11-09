@@ -94,27 +94,6 @@ const querySnapshot = await getDocs(q);
     accountCategoryCell.textContent = data.accountCategory;
     const accountSubCategoryCell = document.createElement("td");
     accountSubCategoryCell.textContent = data.accountSubcategory;
-    const initialBalanceCell = document.createElement("td");
-    initialBalanceCell.textContent = Number(data.initialBalance).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    const debitCell = document.createElement("td");
-    debitCell.textContent = Number(data.debit).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    const creditCell = document.createElement("td");
-    creditCell.textContent = Number(data.credit).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
     const balanceCell = document.createElement("td");
     balanceCell.textContent = Number(data.balance).toLocaleString('en-US', {
       style: 'currency',
@@ -141,9 +120,6 @@ const querySnapshot = await getDocs(q);
     newRow.appendChild(normalSideCell);
     newRow.appendChild(accountCategoryCell);
     newRow.appendChild(accountSubCategoryCell);
-    newRow.appendChild(initialBalanceCell);
-    newRow.appendChild(debitCell);
-    newRow.appendChild(creditCell);
     newRow.appendChild(balanceCell);
     newRow.appendChild(dateCreatedCell);
     newRow.appendChild(userIdCell);

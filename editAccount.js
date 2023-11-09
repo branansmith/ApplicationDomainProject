@@ -20,6 +20,25 @@ const db = getFirestore(app);
 var id;
 var oldData;
 
+const accountsCollection = collection(db, "accounts");
+
+async function generateID(){
+    try{
+        const q = query(collection(db, "eventLog"));
+        const querySnapshot = await getDocs(q);
+
+        const add = querySnapshot.size;
+        var id = 1000 + add;
+        id = id.toString();
+        console.log(id);
+        return id;
+
+    }catch(error) {
+        console.error("Error");
+    }
+     
+}
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -44,26 +63,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 100);
 });
 
+
+
 const saveButton = document.getElementById("update-account-button");
 saveButton.addEventListener("click", function (event) {
-
+    event.preventDefault();
     const a = auth.currentUser;
     const user = a.email;
-    event.preventDefault();
+    const eventId = "update: " + generateID();
+    console.log(id);
     // console.log("click");
     const newAccountName = document.getElementById("accountNameCurrent").value;
     const newData = getNewData();
     const updateName = "Account Update: ";
-    const name = updateName.toString();
-    oldData.accountName
-    console.log(name);
         updateFirestoreDocument(newAccountName, newData);
     const newEvent = addAccountEvent(oldData, newData, user);
-        addEvent(newEvent, user);
+        addEvent(newEvent, eventId);
 });
 
-const addEvent = async (entry, name) => {
-    const eventRef = await setDoc(doc(db, 'eventLog', name), entry);
+const addEvent = async (entry, id) => {
+    const eventRef = await setDoc(doc(db, 'eventLog', id.value), entry);
     console.log('Sent to event Log');
 }
 

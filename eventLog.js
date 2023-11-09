@@ -52,66 +52,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 100);
 });
 
-const q = query(collection(db, "accounts"));
-const querySnapshot = await getDocs(q);
+const qELog = query(collection(db, "eventLog"));
+const querySnapshot = await getDocs(qELog);
 
 //Create and display the data from the database
   querySnapshot.forEach((doc) => {
     const data = doc.data();
     const newRow = document.createElement("tr");
-    const accountNumberCell = document.createElement("td");
-    accountNumberCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openledger()">${data.accountNumber}</a>`;
-    const accountNameCell = document.createElement("td");
-    accountNameCell.textContent = data.accountName;
-    const accountDescCell = document.createElement("td");
-    accountDescCell.textContent = data.description;
-    const normalSideCell = document.createElement("td");
-    normalSideCell.textContent = data.normalSide;
-    const accountCategoryCell = document.createElement("td");
-    accountCategoryCell.textContent = data.accountCategory;
-    const accountSubCategoryCell = document.createElement("td");
-    accountSubCategoryCell.textContent = data.accountSubcategory;
-    const initialBalanceCell = document.createElement("td");
-    initialBalanceCell.textContent = Number(data.initialBalance).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    const debitCell = document.createElement("td");
-    debitCell.textContent = Number(data.debit).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    const creditCell = document.createElement("td");
-    creditCell.textContent = Number(data.credit).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    const balanceCell = document.createElement("td");
-    balanceCell.textContent = Number(data.balance).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    const dateCreatedCell = document.createElement("td");
-    dateCreatedCell.textContent = data.creationDate;
-    const userIdCell = document.createElement("td");
-    userIdCell.textContent = data.owner;
-    const orderCell = document.createElement("td");
-    orderCell.textContent = data.accountOrder;
-    const statementCell = document.createElement("td");
-    statementCell.textContent = data.statement;
-    const commentsCell = document.createElement("td");
-    commentsCell.textContent = data.comment;
-    const editCell = document.createElement("td");
-    editCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openEditForm()">${data.accountNumber}</a>`;
 
+
+    const chageIdCell = document.createElement("td");
+    chageIdCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openledger()">${data.ChangeID}</a>`;
+    const userCell = document.createElement("td");
+    userCell.textContent = data.user;
+    const changesMadeCell = document.createElement("td");
+    changesMadeCell.textContent = data.changes;
+    const timeStampCell = document.createElement("td");
+    timeStampCell.textContent = data.timeStamp;
+    const commentsCell = document.createElement("td");
+    commentsCell.textContent = data.comments;
     newRow.appendChild(changeID);
     newRow.appendChild(user);
     newRow.appendChild(changes);
