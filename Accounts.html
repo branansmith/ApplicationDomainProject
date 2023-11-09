@@ -35,6 +35,10 @@
       display: inline;
     }
 
+    .accountsTable{
+      display: inline;
+    }
+
 
 
     
@@ -62,28 +66,6 @@
 
 
    <!--Nav Bar start-->
-<nav class="navbar navbar-inverse visible-xs">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Dashboard</a></li>
-        <a href='email.html'>Email</a>
-        <li><a href="#">Users</a></li>
-        <li><a href="#">FAQ</a></li>
-
-        <li><a href='index.html'>Logout</a></li>      </ul>
-    </div>
-  </div>
-</nav>
-
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav hidden-xs">
@@ -108,13 +90,15 @@
          <h4>Accounts</h4>
                 <p><button class="open-button" onclick="openCreateForm()">Create Account</button></p>
           <p>Account search</p>
-          <div class="search-container">
+          <div class="search-container" >
               <input type="text" placeholder="Search.." name="search">
               <button type="submit"><i class="fa fa-search">Search</i></button>
-            </form>         
+            </form>    
+            </div>
+            </div>     
             <div class = "accountTable">
                 <div id = "data" >
-                    <table id="dataTable">
+                    <table id="dataTable" style="float: left; width:60%" class="accountsTable">
                         <thead>
                             <tr>
                                 <th data-sort="numeric">Account Number</th>
