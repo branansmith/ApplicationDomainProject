@@ -66,23 +66,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 const saveButton = document.getElementById("update-account-button");
-saveButton.addEventListener("click", function (event) {
+saveButton.addEventListener("click", async function (event) {
     event.preventDefault();
     const a = auth.currentUser;
     const user = a.email;
-    const eventId = "update: " + generateID();
-    console.log(id);
-    // console.log("click");
-    const newAccountName = document.getElementById("accountNameCurrent").value;
-    const newData = getNewData();
-    const updateName = "Account Update: ";
+
+    try{
+        const eventId = await generateID();
+        console.log(eventId);
+
+        const newAccountName = document.getElementById("accountNameCurrent").value;
+        const newData = getNewData();
         updateFirestoreDocument(newAccountName, newData);
-    const newEvent = addAccountEvent(oldData, newData, user);
+        
+        const newEvent = addAccountEvent(oldData, newData, user);
         addEvent(newEvent, eventId);
+    }catch(error) {
+        console.error("nope.");
+    }
+
+        
+
 });
 
 const addEvent = async (entry, id) => {
-    const eventRef = await setDoc(doc(db, 'eventLog', id.value), entry);
+    const eventRef = await setDoc(doc(db, 'eventLog', id), entry);
     console.log('Sent to event Log');
 }
 
