@@ -67,11 +67,12 @@
       <h2><img src="companylogo.png" alt="Ledger Pal" style="width:200px;height:200px;"></h2>
       <ul class="nav nav-pills nav-stacked">
         <!-- dashboard home button-->
-        <li><a href="landingAdmin.html">home</a></li>
+        <li><a href="EmployeeLanding.html">home</a></li>
         <li><a href="email.html">email</a></li>
         <li><a href="DisplayUsersScreen.html">Users</a></li>
-        <li class="active"><a href="reports.html">Reports</a></li>
+        <li><a href="employeeReports.html">Reports</a></li>
         <li><a href="FAQ.html">FAQ</a></li>
+        <li class="active"><a href="Accounts.html">Accounts</a></li>
         <li><a href="index.html">Logout</a></li>
       </ul><br>
     </div>
@@ -82,7 +83,7 @@
 
         <h4>Event Log</h4>
         <form action=""
-        <p> <input type="button" onclick="location.href='Adminreports.html';" value="Go back to reports"/> </p>
+        <p> <input type="button" onclick="location.href='Accounts.html';" value="Go back to accounts"/> </p>
         <div class="search-container">
           <label>
           <input type="text" placeholder="Search events.." name="search">
@@ -90,7 +91,25 @@
         </div>
       </div>
       
-
+      <div class = "accountTable">
+        <div id = "data" >
+            <table id="dataTable" style="float: left; width:60%" class="accountsTable">
+                <thead>
+                    <tr>
+                        <th data-sort="text">Change ID</th>
+                        <th data-sort="text">user</th>
+                        <th>changes</th>
+                        <th data-sort="numeric">Timestamp</th>
+                        <th>Comments</th>
+                
+                    </tr>
+                </thead>
+                <tbody id="dataTableBody">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div> 
 
 
 </body>

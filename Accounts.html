@@ -39,7 +39,9 @@
       display: inline;
     }
 
-
+    .eventLog{
+      display: inline;
+    }
 
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
@@ -85,15 +87,24 @@
 
       
       <!-- this is the main dashboard display controls-->
+      
+      
       <div class="search">
+        
         <div class="well">
+
          <h4>Accounts</h4>
                 <p><button class="open-button" onclick="openCreateForm()">Create Account</button></p>
           <p>Account search</p>
+          
+
           <div class="search-container" >
               <input type="text" placeholder="Search.." name="search">
               <button type="submit"><i class="fa fa-search">Search</i></button>
             </form>    
+            </div>
+            <div class="eventLog">
+              <a href="eventLog.html"> Event Log</a>
             </div>
             </div>     
             <div class = "accountTable">
