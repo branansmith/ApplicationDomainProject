@@ -206,4 +206,11 @@ var debitAmount = document.getElementById('debit-amount').value;
 var totalCredit = 0;
 var totalDebit = 0;
 
+if(logOutButton) {
+logOutButton.addEventListener("click", (e) => {
+    auth.signOut()
+    window.location.href = 'index.html';
+})
+}
+
 
