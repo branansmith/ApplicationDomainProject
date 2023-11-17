@@ -52,11 +52,12 @@ var createAccountButton = document.getElementById('create-account-button');
 
 if(createAccountButton) {
   if(userRole == "admin") {
-    
+    createAccountButton.style.visibility = "visible";
+    for (let el of document.getElementsByClassName('edit-account-link')) el.style.visibility = 'visible';
   } else {
     
-    createAccountButton.style.visibility = "hidden";
-    for (let el of document.getElementsByClassName('edit-account-link')) el.style.visibility = 'hidden';
+    
+    
     
 
   }
