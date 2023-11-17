@@ -79,7 +79,7 @@
         <li><a href="DisplayUsersScreen.html">Users</a></li>
         <li><a href="employeeReports.html">Reports</a></li>
         <li><a href="FAQ.html">FAQ</a></li>
-         <li><a href="JournalEntries.html">Journal Entries</a></li>
+        <li><a href="JournalEntries.html">Journal Entries</a></li>
         <li class="active"><a href="Accounts.html">Accounts</a></li>
         <li><a href="index.html">Logout</a></li>
       </ul><br>
@@ -95,7 +95,7 @@
         <div class="well">
 
          <h4>Accounts</h4>
-                <p><button class="open-button" onclick="openCreateForm()">Create Account</button></p>
+                <p><button id="create-account-button" class="open-button" onclick="openCreateForm()">Create Account</button></p>
           <p>Account search</p>
           
 
@@ -125,7 +125,7 @@
                                 <th data-sort="text">Order</th>
                                 <th data-sort="text">Statement</th>
                                 <th>Comments</th>
-                                <th>Edit</th>
+                                <th id="edit-column">Edit</th>
                             </tr>
                         </thead>
                         <tbody id="dataTableBody">
@@ -293,7 +293,7 @@
                     <td></td>
                     <td><input type="text" placeholder="Enter Debit Balance" id="debitCurrent" name="debit" required></td>
                     <td></td>
-                    <td><input type="text" placeholder="Enter Creidt Balance" id="creditCurrent" name="credit" required></td>
+                    <td><input type="text" placeholder="Enter Credit Balance" id="creditCurrent" name="credit" required></td>
                   </tr>
                   <tr>
                     <th>Account Balance</th>
