@@ -147,7 +147,7 @@ debitEntry.appendChild(formBreak);
 
    //Description
    const formGroup3 = document.createElement('div');
-   formGroup.classList.add('form-group');
+   formGroup3.classList.add('form-group');
    const newDescriptionDebit = document.createElement('input');
    newDescriptionDebit.placeholder = "Description";
    formGroup3.appendChild(newDescriptionDebit);
@@ -204,6 +204,14 @@ creditEntry.appendChild(formBreak);
    newDebitEntry.placeholder = "Amount";
    formGroup2.appendChild(newDebitEntry);
    creditEntry.appendChild(formGroup2);
+
+   //Description
+   const formGroup3 = document.createElement('div');
+   formGroup3.classList.add('form-group');
+   const newDescriptionDebit = document.createElement('input');
+   newDescriptionDebit.placeholder = "Description";
+   formGroup3.appendChild(newDescriptionDebit);
+   creditEntry.appendChild(formGroup3);
 })
 
 
