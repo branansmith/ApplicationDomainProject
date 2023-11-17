@@ -96,8 +96,32 @@ formGroup.appendChild(dropdownDebitAccounts);
 
 //add another debit to form
 addDebitButton.addEventListener("click", (e) => {
-    //Date
     const formBreak = document.createElement('br');
+
+     //Debit Account Title
+     const formGroup = document.createElement("div");
+     formGroup.classList.add('form-group');
+     const dropdownDebitAccounts = document.createElement('select');
+     const debitLabel = document.createElement('label');
+     debitLabel.classList.add('input-group-text');
+     debitLabel.innerHTML = "Debit Account";
+     dropdownDebitAccounts.classList.add('custom-select');
+     
+     for(let i = 0; i < arrayOfAccounts.length; i++) {
+     var options = document.createElement('option');
+     
+     options.innerHTML = arrayOfAccounts[i];
+     
+     dropdownDebitAccounts.appendChild(options);
+     
+     }
+     formGroup.appendChild(debitLabel);
+     formGroup.appendChild(formBreak);
+     formGroup.appendChild(dropdownDebitAccounts);
+        debitEntry.appendChild(formGroup);
+
+    //Date
+
     const dateForm = document.createElement("div");
 dateForm.classList.add('form-group');
 const newDate = document.createElement("input");
@@ -109,27 +133,7 @@ debitEntry.appendChild(formBreak);
 
 
 
-    //Debit Account Title
-    const formGroup = document.createElement("div");
-formGroup.classList.add('form-group');
-const dropdownDebitAccounts = document.createElement('select');
-const debitLabel = document.createElement('label');
-debitLabel.classList.add('input-group-text');
-debitLabel.innerHTML = "Debit Account";
-dropdownDebitAccounts.classList.add('custom-select');
-
-for(let i = 0; i < arrayOfAccounts.length; i++) {
-var options = document.createElement('option');
-
-options.innerHTML = arrayOfAccounts[i];
-
-dropdownDebitAccounts.appendChild(options);
-
-}
-formGroup.appendChild(debitLabel);
-formGroup.appendChild(formBreak);
-formGroup.appendChild(dropdownDebitAccounts);
-   debitEntry.appendChild(formGroup);
+   
 
 
    //Debit
@@ -140,21 +144,18 @@ formGroup.appendChild(dropdownDebitAccounts);
    newDebitEntry.placeholder = "Amount";
    formGroup2.appendChild(newDebitEntry);
    debitEntry.appendChild(formGroup2);
+
+   //Description
+   const formGroup3 = document.createElement('div');
+   formGroup.classList.add('form-group');
+   const newDescriptionDebit = document.createElement('input');
+   newDescriptionDebit.placeholder = "Description";
+   formGroup3.appendChild(newDescriptionDebit);
+   debitEntry.appendChild(formGroup3);
 })
 
 addCreditButton.addEventListener("click", (e) => {
-    //Date
     const formBreak = document.createElement('br');
-    const dateForm = document.createElement("div");
-dateForm.classList.add('form-group');
-const newDate = document.createElement("input");
-newDate.classList.add('form-control');
-newDate.type = "date";
-dateForm.appendChild(newDate);
-creditEntry.appendChild(formBreak);
-   creditEntry.appendChild(dateForm);
-
-
 
     //Credit Account Title
     const formGroup = document.createElement("div");
@@ -173,10 +174,27 @@ options.innerHTML = arrayOfAccounts[i];
 dropdownDebitAccounts.appendChild(options);
 
 }
+
+debitLabel.appendChild(dropdownDebitAccounts);
+
 formGroup.appendChild(debitLabel);
 formGroup.appendChild(formBreak);
-formGroup.appendChild(dropdownDebitAccounts);
    creditEntry.appendChild(formGroup);
+
+    //Date
+    
+    const dateForm = document.createElement("div");
+dateForm.classList.add('form-group');
+const newDate = document.createElement("input");
+newDate.classList.add('form-control');
+newDate.type = "date";
+dateForm.appendChild(newDate);
+creditEntry.appendChild(formBreak);
+   creditEntry.appendChild(dateForm);
+
+
+
+
 
    //Debit
    const formGroup2 = document.createElement("div");
@@ -206,11 +224,10 @@ var debitAmount = document.getElementById('debit-amount').value;
 var totalCredit = 0;
 var totalDebit = 0;
 
+const logOutButton = document.getElementById('logout-button');
 if(logOutButton) {
 logOutButton.addEventListener("click", (e) => {
     auth.signOut()
     window.location.href = 'index.html';
 })
 }
-
-
