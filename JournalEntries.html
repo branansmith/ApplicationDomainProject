@@ -104,6 +104,7 @@
         <th>Account Title</th>
         <th>Debit</th>
         <th>Credit</th>
+        <th>Status</th>
       </thead>
       <tbody id = 'tbody1'></tbody>
     </table>
@@ -120,6 +121,9 @@
           </div>
           <div class="modal-body" id ="journal-entry-modal">
           <form id = "journal-entry-form">
+            <div class="input-group-prepend">
+              <label id="debit-account-label" class="input-group-text" for="inputGroupSelect01">Debit Account</label>
+            </div>
             <div class="form-group">
               
                 <input id="debit-date-entry" type="date" class="form-control" placeholder="Date of Birth"/>
@@ -128,9 +132,7 @@
           <div class="form-group">
     
             <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label id="debit-account-label" class="input-group-text" for="inputGroupSelect01">Debit Account</label>
-              </div>
+              
             
             </div>
           </div>
@@ -138,23 +140,34 @@
           <div class="form-group" id="debit-form">
           
           <input id="debit-amount" type="text" class="form-control" placeholder="Amount"/>
-            </div>
+            
 
+            <div class="form-group" id="debit-form">
+          
+              <input id="debit-amount" type="text" class="form-control" placeholder="Description"/>
+                </div>
+              </div>
             
           <div class="form-group">
           <button type="button" class="btn btn-primary" style="text-align: center" id="add-debit-button">Add Another Debit</button>
           </div>
-
+          <div id = "credit-account-entry" class="form-group">
+            <label id="credit-account-label" class="input-group-text" for="inputGroupSelect01">Credit Account</label>
+        </div>
           <div class="form-group">
               
             <input id="credit-date-entry" type="date" class="form-control" placeholder="Date of Birth"/>
             </div>
-          <div id = "credit-account-entry" class="form-group">
-            <label id="credit-account-label" class="input-group-text" for="inputGroupSelect01">Credit Account</label>
-        </div>
+          
         <div class="form-group" id = 'credit-form'>
             <input id="credit-amount" type="text" class="form-control" placeholder="Amount"/>
-            </div>
+            
+            
+            <div class="form-group" id="debit-form">
+          
+              <input id="debit-amount" type="text" class="form-control" placeholder="Description"/>
+                </div>
+              </div>
             <div class="form-group">
               <button type="button" class="btn btn-primary" style="text-align: center" id="add-credit-button">Add Another Credit</button>
               </div>
