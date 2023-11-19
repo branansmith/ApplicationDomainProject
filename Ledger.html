@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html>
+<!--this code controls the header part of the web page **AESTHETIC** -->
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible"
+        content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0">
+  <title>Admin</title>
+  <link rel="stylesheet"
+        href="css/style.css"> 
+</link>
+</head>
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Start of code that puts the table side by side with nav-->
+  <style>
+    
+   
+    .row.content{
+      display: inline;
+    }
+
+
+    .search{
+      display: inline;
+    }
+
+    .accountsTable{
+      display: inline;
+    }
+
+    .eventLog{
+      display: inline;
+    }
+
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+        
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+
+        
+      }
+  </style>
+  <!-- end of code that puts the table side by side with nav-->
+
+
+</head>
+<body>
+
+
+   <!--Nav Bar start-->
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2><img src="companylogo.png" alt="Ledger Pal" style="width:200px;height:200px;"></h2>
+      <ul class="nav nav-pills nav-stacked">
+        <!-- dashboard home button-->
+        <li><a href="EmployeeLanding.html">home</a></li>
+        <li><a href="email.html">email</a></li>
+        <li><a href="DisplayUsersScreen.html">Users</a></li>
+        <li><a href="employeeReports.html">Reports</a></li>
+        <li><a href="FAQ.html">FAQ</a></li>
+         <li><a href="JournalEntries.html">Journal Entries</a></li>
+        <li class="active"><a href="Accounts.html">Accounts</a></li>
+        <li><a href="index.html">Logout</a></li>
+      </ul><br>
+    </div>
+    <br>
+
+      
+      <!-- this is the main dashboard display controls-->
+      
+      
+      <div class="search">
+        
+        <div class="well">
+
+         <h4>Ledger</h4>
+         <div class="return back to account">
+          <a href="EventLog.html"> Return back to account</a>
+        </div>     
+          <p>Ledger search</p>
+          
+
+          <div class="search-container" >
+              <input id='myInput' onkeyup='searchTable()' type='Search'>
+              <button type="submit"><i class="fa fa-search">Search</i></button>
+             <!--date picker one-->
+              <fieldset> 
+                <legend> Pick Your Date</legend>
+                <label for="">Start Range: 
+                  <input id="dateOne" 
+                  type="datetime-local" 
+                  name="" value="">
+                 
+                </label>
+                <label for="">End Range: 
+                  <input id="dateOne" 
+                  type="datetime-local" 
+                  min="12-31-2000" max="2050-01-01" 
+                  name="" value="">
+                 
+                </label>
+              </fieldset>
+            </form>    
+            </div>
+            <div class = "accountTable">
+                <div id = "data" >
+                    <table id="dataTable" style="float: left; width:60%" class="accountsTable">
+                        <thead>
+                            <tr>
+                                <th data-sort="numeric">Date created</th>
+                                <th data-sort="text">Debit Account</th>
+                                <th>Debit</th>
+                                <th data-sort="numeric">Credit Account</th>
+                                <th data-sort="text">Credit</th>
+                                <th data-sort="text">Balance</th>
+                                <th data-sort="text">Entry Type</th>
+                                <th data-sort="numeric">Description</th>
+                                <th data-sort="text">Post Reference</th>
+                                <th>Comments</th>
+                                <th>Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableBody">
+                            
+                        </tbody>
+                    </table>
+                    <script>
+                      function searchTable() {
+                        var input, filter, found, dataTable, tr, td, i, j;
+                        input = document.getElementById("myInput");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("dataTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td");
+                            for (j = 0; j < td.length; j++) {
+                                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                                    found = true;
+                                }
+                            }
+                            if (found) {
+                                tr[i].style.display = "";
+                                found = false;
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                    </script>
+                    
+                </div>
+            </div> 
+            
+          </div>
+        </div>
+        
+        
+  
+
+        <script>
+
+
+            
+            </script>
+            </div>
+        <script type = "module" src="account.js"></script>
+        <script type = "module" src="displayUser.js"></script>
+        <script type = "module" src="editAccount.js"></script>
+        <script type = "module" src="user.js"></script>
+        <script type = "module" src="searchFunction.js"></script>
+      </body>
+
+
+
+
+</html>
