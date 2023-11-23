@@ -345,6 +345,10 @@
             function openEditForm(){
              document.getElementById("form-editAccount-div").style.display = "block";
             }
+            function openLedger(){
+              const accountId = event.currentTarget.textContent;
+              window.location.href = `ledger.html?accountId=${accountId}`;
+            }
 
             </script>
             </div>

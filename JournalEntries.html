@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html>
 <!--this code controls the header part of the web page **AESTHETIC** -->
+
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible"
-        content="IE=edge">
-  <meta name="viewport"
-        content="width=device-width,
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,
                  initial-scale=1.0">
   <title>Home -- Manager</title>
-  <link rel="stylesheet"
-        href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <head>
@@ -20,197 +18,206 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  
+
   <!-- Start of code that puts the table side by side with nav-->
   <style>
-    
-   
-    .row.content{
+    .row.content {
       display: inline;
     }
 
 
-    .table{
+    .table {
       display: inline;
     }
 
-    
+
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 550px}
-    
+    .row.content {
+      height: 550px
+    }
+
     /* Set gray background color and 100% height */
     .sidenav {
       background-color: #f1f1f1;
       height: 100%;
     }
-        
+
     /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
-      .row.content {height: auto;} 
-
-        
+      .row.content {
+        height: auto;
       }
+
+
+    }
   </style>
   <!-- end of code that puts the table side by side with nav-->
 
 
 </head>
+
 <body>
 
-<nav class="navbar navbar-inverse visible-xs">
+  <nav class="navbar navbar-inverse visible-xs">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Logo</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
   <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
+    <div class="row content">
+      <div class="col-sm-3 sidenav hidden-xs">
+        <h2><img src="companylogo.png" alt="Ledger Pal" style="width:200px;height:200px;"></h2>
+        <ul class="nav nav-pills nav-stacked">
+          <!-- dashboard home button-->
+          <li><a href="EmployeeLanding.html">Home</a></li>
+          <li><a href="email.html">Email</a></li>
+          <li><a href="DisplayUsersScreen.html">Users</a></li>
+          <li><a href="reports.html">Reports</a></li>
+          <li><a href="FAQ.html">FAQ</a></li>
+          <li class="active"><a href="JournalEntries.html">Journal Entries</a></li>
+          <li><a href="Accounts.html">Accounts</a></li>
+          <li><a id="logout-button">Logout</a></li>
+        </ul>
+      </div>
 
-      </ul>
-    </div>
-  </div>
-</nav>
 
-<div class="container-fluid">
-  <div class="row content">
-    <div class="col-sm-3 sidenav hidden-xs">
-      <h2><img src="companylogo.png" alt="Ledger Pal" style="width:200px;height:200px;"></h2>
-      <ul class="nav nav-pills nav-stacked">
-        <!-- dashboard home button-->
-        <li><a href="EmployeeLanding.html">Home</a></li>
-        <li><a href="email.html">Email</a></li>
-        <li><a href="DisplayUsersScreen.html">Users</a></li>
-        <li><a href="reports.html">Reports</a></li>
-        <li><a href="FAQ.html">FAQ</a></li>
-        <li class = "active"><a href="JournalEntries.html">Journal Entries</a></li>
-        <li><a href="Accounts.html">Accounts</a></li>
-        <li><a id="logout-button">Logout</a></li>
-      </ul>
-    </div>
 
-    
-    
-    <!-- this is the main dashboard display controls-->
-  <div class="well">
-    <table class = "table" >
-      <thead>
-        <th>Date</th>
-        <th>Account Title</th>
-        <th>Debit</th>
-        <th>Credit</th>
-        <th>Status</th>
-      </thead>
-      <tbody id = 'tbody1'></tbody>
-    </table>
-         
-          <div class="container">
+      <!-- this is the main dashboard display controls-->
+      <div class="well">
+        <table class="table">
+          <thead>
+            <th>Date</th>
+            <th>Account Title</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th>Status</th>
+          </thead>
+          <tbody id='tbody1'></tbody>
+        </table>
+
+        <div class="container">
           <div class="row">
-          <div class="col col-sm-12">
-          <div class="modal" data-keyboard="false" data-backdrop="static" id="loginmodal" tabindex="-1">
-          <div class="modal-dialog">
-          <div class="modal-content">
-          <div class="modal-header">
-          <h4 class="modal-title" style="text-align: center;">New Journal Entry</h4>
-          <button class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body" id ="journal-entry-modal">
-          <form id = "journal-entry-form">
-            <div class="input-group-prepend">
-              <label id="debit-account-label" class="input-group-text" for="inputGroupSelect01">Debit Account</label>
-            </div>
-            <div class="form-group">
-              
-                <input id="debit-date-entry" type="date" class="form-control" placeholder="Date of Birth"/>
-                </div>
+            <div class="col col-sm-12">
+              <div class="modal" data-keyboard="false" data-backdrop="static" id="loginmodal" tabindex="-1">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title" style="text-align: center;">New Journal Entry</h4>
+                      <button class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" id="journal-entry-modal">
+                      <form id="journal-entry-form">
+                        <div class="input-group-prepend">
+                          <label id="debit-account-label" class="input-group-text" for="inputGroupSelect01">Debit
+                            Account</label>
+                        </div>
+                        <div class="form-group">
 
-          <div class="form-group">
-    
-            <div class="input-group mb-3">
-              
-            
-            </div>
-          </div>
+                          <input id="debit-date-entry" type="date" class="form-control" placeholder="Date of Birth" />
+                        </div>
 
-          <div class="form-group" id="debit-form">
-          
-          <input id="debit-amount" type="text" class="form-control" placeholder="Amount"/>
-            
+                        <div class="form-group">
 
-            <div class="form-group" id="debit-form">
-          
-              <input id="debit-amount" type="text" class="form-control" placeholder="Description"/>
+                          <div class="input-group mb-3">
+
+
+                          </div>
+                        </div>
+
+                        <div class="form-group" id="debit-form">
+
+                          <input id="debit-amount" type="text" class="form-control" placeholder="Amount" />
+
+
+                          <div class="form-group" id="debit-form">
+
+                            <input id="debit-amount" type="text" class="form-control" placeholder="Description" />
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <button type="button" class="btn btn-primary" style="text-align: center"
+                            id="add-debit-button">Add Another Debit</button>
+                        </div>
+                        <div id="credit-account-entry" class="form-group">
+                          <label id="credit-account-label" class="input-group-text" for="inputGroupSelect01">Credit
+                            Account</label>
+                        </div>
+                        <div class="form-group">
+
+                          <input id="credit-date-entry" type="date" class="form-control" placeholder="Date of Birth" />
+                        </div>
+
+                        <div class="form-group" id='credit-form'>
+                          <input id="credit-amount" type="text" class="form-control" placeholder="Amount" />
+
+
+                          <div class="form-group" id="debit-form">
+
+                            <input id="debit-amount" type="text" class="form-control" placeholder="Description" />
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <button type="button" class="btn btn-primary" style="text-align: center"
+                            id="add-credit-button">Add Another Credit</button>
+                        </div>
+
+
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <div class="text-right">
+                        <input type="file" class="custom-file-input" style="text-align: left" id="reset-button">
+                      </div>
+                      <div class="text-right">
+                        <button class="btn btn-primary" style="text-align: left" id="reset-button">Reset</button>
+
+                        <button class="btn btn-primary" id="create-new-je-button">Create New Journal Entry</button>
+
+                        <button class="btn btn-primary" onclick=refresh() data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
               </div>
-            
-          <div class="form-group">
-          <button type="button" class="btn btn-primary" style="text-align: center" id="add-debit-button">Add Another Debit</button>
-          </div>
-          <div id = "credit-account-entry" class="form-group">
-            <label id="credit-account-label" class="input-group-text" for="inputGroupSelect01">Credit Account</label>
-        </div>
-          <div class="form-group">
-              
-            <input id="credit-date-entry" type="date" class="form-control" placeholder="Date of Birth"/>
+
             </div>
-          
-        <div class="form-group" id = 'credit-form'>
-            <input id="credit-amount" type="text" class="form-control" placeholder="Amount"/>
-            
-            
-            <div class="form-group" id="debit-form">
-          
-              <input id="debit-amount" type="text" class="form-control" placeholder="Description"/>
-                </div>
-              </div>
-            <div class="form-group">
-              <button type="button" class="btn btn-primary" style="text-align: center" id="add-credit-button">Add Another Credit</button>
-              </div>
-        
-                  
-          </form>
-          </div>
-          <div class="modal-footer">
-            <div class="text-right">
-            <input type="file" class="custom-file-input" style="text-align: left" id="reset-button">
-          </div>
-            <div class="text-right">
-          <button class="btn btn-primary" style="text-align: left" id="reset-button">Reset</button>
-          
-          <button class="btn btn-primary" id="create-new-je-button">Create New Journal Entry</button>
-        
-          <button class="btn btn-primary" onclick=refresh() data-dismiss="modal">Close</button>
           </div>
         </div>
-          
-        </div>
-        </div>
+
       </div>
-          
-          </div>
-          </div>
-          </div>
-          
-          </div>
-          </div>
-          
-          </div>
-          <div class = "text-center">
-        <button class="btn btn-primary" id="create-new-user-modal" data-target="#loginmodal" data-toggle="modal">New Journal Entry</button>
-      </div>
-        </div>
-        
-      </div>
-      <script>
-        function refresh() {
-          window.location = "JournalEntries.html";
-        }
-      </script>
+    </div>
+
+  </div>
+  <div class="text-center">
+    <button class="btn btn-primary" id="create-new-user-modal" data-target="#loginmodal" data-toggle="modal">New Journal
+      Entry</button>
+  </div>
+  </div>
+
+  </div>
+  <script>
+    function refresh() {
+      window.location = "JournalEntries.html";
+    }
+  </script>
 </body>
-<script type = "module" src = "JournalEntries.js"></script>
+<script type="module" src="JournalEntries.js"></script>
+
 </html>
