@@ -34,6 +34,12 @@
       display: inline;
     }
 
+    .FAQ{
+      position: fixed;
+  bottom: -4px;
+  right: 10px;;
+    }
+
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 550px}
@@ -56,9 +62,6 @@
 
 </head>
 <body>
-
-  
-
 
 
 
@@ -98,6 +101,8 @@
         <li><a id="logout-button">Logout</a></li>
       </ul>
     </div>
+
+    
     
     <!-- this is the main dashboard display controls-->
   <div id = "user-display-form" class="well">
@@ -160,6 +165,7 @@
           <button class="btn btn-primary" id="create-new-user-button">Create New User</button>
           <button class="btn btn-primary" data-dismiss="modal">Close</button>
           
+
           </div>
           </div>
           </div>
@@ -172,7 +178,11 @@
        
         </div>
       </div>
+
+      <input type="button" class="FAQ" value="FAQ" onclick="window.open('FAQ.html','popUpWindow','height=500,width=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');">
+
 </body>
+
 <script>
   function openCreateForm() {
               document.getElementById("form-createAccount-div").style.display = "block";

@@ -83,7 +83,7 @@ const querySnapshot = await getDocs(q);
     const newRow = document.createElement("tr");
 
     const accountNumberCell = document.createElement("td");
-    accountNumberCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openLedger()">${data.accountNumber}</a>`;
+    accountNumberCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openledger()">${data.accountNumber}</a>`;
     const accountNameCell = document.createElement("td");
     accountNameCell.textContent = data.accountName;
     const accountDescCell = document.createElement("td");
@@ -112,7 +112,7 @@ const querySnapshot = await getDocs(q);
     const commentsCell = document.createElement("td");
     commentsCell.textContent = data.comment;
     const editCell = document.createElement("td");
-    editCell.innerHTML = `<a href="#" style="visibility: hidden" class="edit-account-link" onclick="openEditForm()">${data.accountNumber}</a>`;
+    editCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openEditForm()">${data.accountNumber}</a>`;
 
     newRow.appendChild(accountNumberCell);
     newRow.appendChild(accountNameCell);

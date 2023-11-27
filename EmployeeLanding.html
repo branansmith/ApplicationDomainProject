@@ -32,6 +32,13 @@
       background-color: #f1f1f1;
       height: 100%;
     }
+
+    .FAQ{
+      position: fixed;
+  bottom: -4px;
+  right: 10px;;
+    }
+
         
     /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
@@ -135,6 +142,10 @@
   const database = getDatabase(app);
   const auth = getAuth(app);
   </script>
+
+<input type="button" class="FAQ" value="FAQ" onclick="window.open('FAQ.html','popUpWindow','height=500,width=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');">
+
+
 </body>
 <script type="module" src="auth.js"></script>
 </html>

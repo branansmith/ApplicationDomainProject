@@ -43,6 +43,12 @@
       display: inline;
     }
 
+    .FAQ{
+      position: fixed;
+  bottom: -4px;
+  right: 10px;;
+    }
+
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 550px}
@@ -345,10 +351,6 @@
             function openEditForm(){
              document.getElementById("form-editAccount-div").style.display = "block";
             }
-            function openLedger(){
-              const accountId = event.currentTarget.textContent;
-              window.location.href = `ledger.html?accountId=${accountId}`;
-            }
 
             </script>
             </div>
@@ -357,6 +359,10 @@
         <script type = "module" src="editAccount.js"></script>
         <script type = "module" src="user.js"></script>
         <script type = "module" src="searchFunction.js"></script>
+        
+        
+      <input type="button" class="FAQ" value="FAQ" onclick="window.open('FAQ.html','popUpWindow','height=500,width=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');">
+
       </body>
 
 

@@ -32,9 +32,7 @@ logOutButton.addEventListener("click", (e) => {
 
 
 const createNewUserModal = document.getElementById('create-new-user-modal');
-if(createNewUserModal) {
 createNewUserModal.style.visibility = "hidden";
-}
 async function loadUserData() {
 const users = query(collection(db, 'users'));
 const querySnapshot = await getDocs(users);
@@ -42,26 +40,9 @@ var usersArray = [];
 querySnapshot.forEach((doc) => {
   const data = doc.data();
   const name = data.first_name + " " + data.last_name;
-  if(tbody) {
   addToTable(data.username, name, data.email, data.role, data.address, data.date_of_birth);
-}
+  
 })
-
-var createAccountButton = document.getElementById('create-account-button');
-
-
-if(createAccountButton) {
-  if(userRole == "admin") {
-    createAccountButton.style.visibility = "visible";
-    for (let el of document.getElementsByClassName('edit-account-link')) el.style.visibility = 'visible';
-  } else {
-    
-    
-    
-    
-
-  }
-}
 }
 
 var tbody = document.getElementById('tbody1');
@@ -92,7 +73,6 @@ function addToTable(username, name, email, role, address, dob) {
   trow.appendChild(td6);
   
 
-  
   
   if (userRole == "admin") {
   trow.appendChild(tdBtn);
@@ -147,9 +127,6 @@ if(userQuerySnapshot.size) {
   userRole = "user";
 }
 }
-
-
-
 
 onAuthStateChanged(auth, (user) => {
   if (user) {

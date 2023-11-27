@@ -30,6 +30,12 @@
       background-color: #f1f1f1;
       height: 100%;
     }
+
+    .FAQ{
+      position: fixed;
+  bottom: -4px;
+  right: 10px;;
+    }
         
     /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
@@ -108,7 +114,6 @@
             </table>
         </div>
     </div> 
-
 
     <div class="form-popup" id="form-eventChangesLog-div">
       <form class="form-container" id = "form-eventChangesLog">
@@ -197,8 +202,10 @@
 
     <script type="module" src="eventLog.js"></script>
 
+    <input type="button" class="FAQ" value="FAQ" onclick="window.open('FAQ.html','popUpWindow','height=500,width=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');">
+
     
 </body>
+
 </html>
         
-

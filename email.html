@@ -36,6 +36,12 @@
     @media screen and (max-width: 767px) {
       .row.content {height: auto;} 
     }
+
+    .FAQ{
+      position: fixed;
+  bottom: -4px;
+  right: 10px;;
+    }
   </style>
 </head>
 <body>
@@ -77,40 +83,58 @@
     </div>
     <br>
     <!-- this is the main dashboard display controls-->
+    <!--
     <div class="col-sm-9">
     <div class="well">
-        <label for="To:">To:</label>
-        <input type="text" id="emailRecipiant" name="emailRecipiant" placeholder="enter name or email">
-    </div>
-    </div>
-    <div class="col-sm-9">
-        <div class="well">
-          <label for="CC:">CC:</label>
-          <input type="text" id="emailRecipiantCC" name="emailRecipiantCC" placeholder="enter name or email">
+      <center>
+      <form action="MAILTO:brybry477@gmail.com" method="post" enctype="text/plain">
+        Name:<br>
+        <input type="text" name="user"/><br>
+        Email:<br>
+        <input type="email" name="mail"/><br>
+        Comment:<br>
+        <input type="text" name="Comment" size="50%"/>
+        <input type="submit" value="Send"/>
+        <input type="reset" value="Reset"/>
+      --> 
+      <div id="app">
+        <div id="inbox">
+            <h2>Inbox</h2>
+            <ul id="emailList"></ul>
         </div>
+        <div id="compose">
+            <h2>Compose Email</h2>
+            <form id="emailForm">
+                <label for="to">To:</label>
+                <input type="text" id="to" list="contacts" required>
+                <datalist id="contacts"></datalist>
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" required>
+                <label for="message">Message:</label>
+                <textarea id="message" required></textarea>
+                <button type="submit">Send Email</button>
+            </form>
         </div>
-        <div class="col-sm-9">
-          <div class="well">
-            <label for="Subject:">Subject:</label>
-            <input type="text" id="emailSubject" name="emailSubject" placeholder="enter the subject">
-          </div>
-          <div id="emailBod" padding: 5px>
-          <label padding-bottom: 5px; for="emailMessage">email Message:</label>
-          <div>
-          <textarea id="emailBody" name="emailBody" rows="4" cols="50">
-         
-          </textarea>
-          <div>
-          <button type="Send">Send</button>
-          </div>  
+        <div id="directory">
+            <h2>Directory</h2>
+            <ul id="contactList"></ul>
+        </div>
+    
+    </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+    <script src="app.js"></script>
+      
 
-
-
-
-
+      </form>
+    </center>
+    </div>
         </div>
       </div>
-      
+
+      <input type="button" class="FAQ" value="FAQ" onclick="window.open('FAQ.html','popUpWindow','height=500,width=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');">
+
 
 </body>
 </html>
