@@ -32,7 +32,9 @@ logOutButton.addEventListener("click", (e) => {
 
 
 const createNewUserModal = document.getElementById('create-new-user-modal');
+if(createNewUserModal) {
 createNewUserModal.style.visibility = "hidden";
+}
 async function loadUserData() {
 const users = query(collection(db, 'users'));
 const querySnapshot = await getDocs(users);
