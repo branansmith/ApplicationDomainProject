@@ -186,10 +186,6 @@ addCreditButton.addEventListener("click", (e) => {
 
 
 
-
-
-var transactionNumber = "1";
-
 async function writeJournalEntry(account, debitDate, debitAmount, creditAmount, creditDescription, debitDescription) {
 // Add a new document in collection "cities"
 await setDoc(doc(db, "journals", account), {
@@ -200,7 +196,8 @@ await setDoc(doc(db, "journals", account), {
     credit: creditAmount,
     creditDescription: creditDescription,
     debitDescription: debitDescription,
-    id: 1
+    id: 1,
+    status: "pending"
   });
 }
 
