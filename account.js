@@ -83,7 +83,7 @@ const querySnapshot = await getDocs(q);
     const newRow = document.createElement("tr");
 
     const accountNumberCell = document.createElement("td");
-    accountNumberCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openledger()">${data.accountNumber}</a>`;
+    accountNumberCell.innerHTML = `<a href="#" class="edit-account-link" onclick="openLedger()">${data.accountNumber}</a>`;
     const accountNameCell = document.createElement("td");
     accountNameCell.textContent = data.accountName;
     const accountDescCell = document.createElement("td");
