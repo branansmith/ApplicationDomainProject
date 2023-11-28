@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import { getAuth, sendPasswordResetEmail, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-import { getFirestore, getDocs, collection } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+import { getFirestore, getDocs, collection, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -12,13 +12,27 @@ const firebaseConfig = {
     messagingSenderId: "77549761669",
     appId: "1:77549761669:web:160e61463978ba1e3f65ec",
     measurementId: "G-S94ZDL330Q"
-  };
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth();
-  const db = getFirestore(app);
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore(app);
 
 
- 
+var newDebitDateId = 1;
+var newDebitEntryId = 1;
+var newDescriptionDebitId = 1;
+var dropdownDebitAccountsId = 1;
+
+var newCreditDateId = 1;
+var newCreditEntryId = 1;
+var newDescriptionCreditId = 1;
+
+var debits = ["newDebitEntry0"];
+var credits = ["newCreditEntry0"];
+var debitDates = [];
+var creditDates = [];
+var debitDescriptions = [];
+var creditDescriptions = [];
 
 
 
@@ -41,32 +55,13 @@ var arrayOfAccounts = [];
 
 const querySnapshot = await getDocs(collection(db, "accounts"));
 querySnapshot.forEach((doc) => {
-  // doc.data() is never undefined for query doc snapshots
-  arrayOfAccounts.push(doc.id);
+    // doc.data() is never undefined for query doc snapshots
+    arrayOfAccounts.push(doc.id);
 });
 
 var creditAccountLabel = document.getElementById('credit-account-label');
 
-const formGroup2 = document.createElement("div");
-formGroup2.classList.add('form-group');
-const dropdownCreditAccounts = document.createElement('select');
-const creditLabel = document.createElement('label');
-creditLabel.classList.add('input-group-text');
-dropdownCreditAccounts.classList.add('custom-select');
 
-for(let i = 0; i < arrayOfAccounts.length; i++) {
-var options = document.createElement('option');
-
-options.innerHTML = arrayOfAccounts[i];
-
-dropdownCreditAccounts.appendChild(options);
-
-}
-
-
-formGroup2.appendChild(dropdownCreditAccounts);
-
-   creditAccountLabel.appendChild(formGroup2);
 
 var debitAccountLabel = document.getElementById('debit-account-label');
 
@@ -76,20 +71,21 @@ const dropdownDebitAccounts = document.createElement('select');
 const debitLabel = document.createElement('label');
 debitLabel.classList.add('input-group-text');
 dropdownDebitAccounts.classList.add('custom-select');
+dropdownDebitAccounts.id = "dropdownAccount";
 
-for(let i = 0; i < arrayOfAccounts.length; i++) {
-var options = document.createElement('option');
+for (let i = 0; i < arrayOfAccounts.length; i++) {
+    var options = document.createElement('option');
 
-options.innerHTML = arrayOfAccounts[i];
+    options.innerHTML = arrayOfAccounts[i];
 
-dropdownDebitAccounts.appendChild(options);
+    dropdownDebitAccounts.appendChild(options);
 
 }
 
 
 formGroup.appendChild(dropdownDebitAccounts);
 
-   debitAccountLabel.appendChild(formGroup);
+debitAccountLabel.appendChild(formGroup);
 
 
 
@@ -98,144 +94,156 @@ formGroup.appendChild(dropdownDebitAccounts);
 addDebitButton.addEventListener("click", (e) => {
     const formBreak = document.createElement('br');
 
-     //Debit Account Title
-     const formGroup = document.createElement("div");
-     formGroup.classList.add('form-group');
-     const dropdownDebitAccounts = document.createElement('select');
-     const debitLabel = document.createElement('label');
-     debitLabel.classList.add('input-group-text');
-     debitLabel.innerHTML = "Debit Account";
-     dropdownDebitAccounts.classList.add('custom-select');
-     
-     for(let i = 0; i < arrayOfAccounts.length; i++) {
-     var options = document.createElement('option');
-     
-     options.innerHTML = arrayOfAccounts[i];
-     
-     dropdownDebitAccounts.appendChild(options);
-     
-     }
-     formGroup.appendChild(debitLabel);
-     formGroup.appendChild(formBreak);
-     formGroup.appendChild(dropdownDebitAccounts);
-        debitEntry.appendChild(formGroup);
+    //Debit Account Title
+    const formGroup = document.createElement("div");
+    formGroup.classList.add('form-group');
+    const dropdownDebitAccounts = document.createElement('select');
+    const debitLabel = document.createElement('label');
+    debitLabel.classList.add('input-group-text');
+    debitLabel.innerHTML = "Add New Debit";
+    dropdownDebitAccounts.classList.add('custom-select');
+    dropdownDebitAccounts.id = "dropdownDebitAccounts" + dropdownDebitAccountsId;
 
-    //Date
+    for (let i = 0; i < arrayOfAccounts.length; i++) {
+        var options = document.createElement('option');
 
-    const dateForm = document.createElement("div");
-dateForm.classList.add('form-group');
-const newDate = document.createElement("input");
-newDate.classList.add('form-control');
-newDate.type = "date";
-dateForm.appendChild(newDate);
-debitEntry.appendChild(formBreak);
-   debitEntry.appendChild(dateForm);
+        options.innerHTML = arrayOfAccounts[i];
+
+        dropdownDebitAccounts.appendChild(options);
+
+    }
+    formGroup.appendChild(debitLabel);
+
+
+    debitEntry.appendChild(formGroup);
 
 
 
-   
 
 
-   //Debit
-   const formGroup2 = document.createElement("div");
-   formGroup.classList.add('form-group');
-   const newDebitEntry = document.createElement('input');
-   newDebitEntry.classList.add('form-control');
-   newDebitEntry.placeholder = "Amount";
-   formGroup2.appendChild(newDebitEntry);
-   debitEntry.appendChild(formGroup2);
+    //Debit
+    const formGroup2 = document.createElement("div");
+    formGroup.classList.add('form-group');
+    const newDebitEntry = document.createElement('input');
+    newDebitEntry.classList.add('form-control');
+    //id
+    newDebitEntry.id = "newDebitEntry" + newDebitEntryId;
+    debits.push(newDebitEntry.id);
+    newDebitEntryId++;
+    newDebitEntry.placeholder = "Amount";
+    formGroup2.appendChild(newDebitEntry);
+    debitEntry.appendChild(formGroup2);
 
-   //Description
-   const formGroup3 = document.createElement('div');
-   formGroup3.classList.add('form-group');
-   const newDescriptionDebit = document.createElement('input');
-   newDescriptionDebit.placeholder = "Description";
-   formGroup3.appendChild(newDescriptionDebit);
-   debitEntry.appendChild(formGroup3);
 })
+
+
+
+
 
 addCreditButton.addEventListener("click", (e) => {
     const formBreak = document.createElement('br');
 
     //Credit Account Title
     const formGroup = document.createElement("div");
-formGroup.classList.add('form-group');
-const dropdownDebitAccounts = document.createElement('select');
-const debitLabel = document.createElement('label');
-debitLabel.classList.add('input-group-text');
-debitLabel.innerHTML = "Credit Account";
-dropdownDebitAccounts.classList.add('custom-select');
+    formGroup.classList.add('form-group');
+    const dropdownCreditAccounts = document.createElement('select');
+    const creditLabel = document.createElement('label');
+    creditLabel.classList.add('input-group-text');
+    creditLabel.innerHTML = "Add New Credit";
 
-for(let i = 0; i < arrayOfAccounts.length; i++) {
-var options = document.createElement('option');
 
-options.innerHTML = arrayOfAccounts[i];
 
-dropdownDebitAccounts.appendChild(options);
+    formGroup.appendChild(creditLabel);
+    formGroup.appendChild(formBreak);
+    creditEntry.appendChild(formGroup);
 
+ 
+
+
+
+
+
+    //Debit
+    const formGroup2 = document.createElement("div");
+    formGroup.classList.add('form-group');
+    const newCreditEntry = document.createElement('input');
+    newCreditEntry.classList.add('form-control');
+    newCreditEntry.placeholder = "Amount";
+    //id
+    newCreditEntry.id = "newCreditEntry" + newCreditEntryId;
+    credits.push(newCreditEntry.id);
+    newCreditEntryId++;
+    formGroup2.appendChild(newCreditEntry);
+    creditEntry.appendChild(formGroup2);
+
+
+
+})
+
+
+
+
+
+
+
+
+
+var transactionNumber = "1";
+
+async function writeJournalEntry(account, debitDate, debitAmount, creditAmount, creditDescription, debitDescription) {
+// Add a new document in collection "cities"
+await setDoc(doc(db, "journals", account), {
+    account: account,
+    balance: 0,
+    dateCreated: debitDate,
+    debit: debitAmount,
+    credit: creditAmount,
+    creditDescription: creditDescription,
+    debitDescription: debitDescription,
+    id: 1
+  });
 }
 
-debitLabel.appendChild(dropdownDebitAccounts);
 
-formGroup.appendChild(debitLabel);
-formGroup.appendChild(formBreak);
-   creditEntry.appendChild(formGroup);
-
-    //Date
-    
-    const dateForm = document.createElement("div");
-dateForm.classList.add('form-group');
-const newDate = document.createElement("input");
-newDate.classList.add('form-control');
-newDate.type = "date";
-dateForm.appendChild(newDate);
-creditEntry.appendChild(formBreak);
-   creditEntry.appendChild(dateForm);
-
-
-
-
-
-   //Debit
-   const formGroup2 = document.createElement("div");
-   formGroup.classList.add('form-group');
-   const newDebitEntry = document.createElement('input');
-   newDebitEntry.classList.add('form-control');
-   newDebitEntry.placeholder = "Amount";
-   formGroup2.appendChild(newDebitEntry);
-   creditEntry.appendChild(formGroup2);
-
-   //Description
-   const formGroup3 = document.createElement('div');
-   formGroup3.classList.add('form-group');
-   const newDescriptionDebit = document.createElement('input');
-   newDescriptionDebit.placeholder = "Description";
-   formGroup3.appendChild(newDescriptionDebit);
-   creditEntry.appendChild(formGroup3);
-})
-
-
-
-
+//can only create journal entries if error messages are cleared
+//need to get id of credit and debit accounts as well
 createNewJournalEntryButton.addEventListener("click", (e) => {
-    var creditDateEntry = document.getElementById('credit-date-entry').value;
-var creditAccountEntry = document.getElementById('credit-account-entry').value;
-var creditAmount = document.getElementById('credit-amount').value;
-
-var debitDateEntry = document.getElementById('debit-date-entry').value;
-var debitAccountEntry = document.getElementById('debit-account-entry').value;
-var debitAmount = document.getElementById('debit-amount').value;
-    alert(debitAmount);
+    var totalCredits = getTotalCredits();
+    var totalDebits = getTotalDebits();
+    if(isNaN(totalDebits) || isNaN(totalCredits)) {
+        alert("Please fill out all fields");
+    }
+    else if(totalDebits != totalCredits) {
+        alert("Debits must equal credits");
+    } else {
+        writeJournalEntry(document.getElementById('dropdownAccount').value, document.getElementById('newDebitDateId0').value, totalDebits, totalCredits, document.getElementById('newDescriptionDebit0').value, document.getElementById('newDescriptionCredit0').value);
+    }
 })
 
+function getTotalCredits() {
+    var totalCredits = 0;
+    for (let i = 0; i < credits.length; ++i) {
+        let parse = parseInt(document.getElementById(credits[i]).value)
+        totalCredits += parse;
+    }
+    return totalCredits;
+}
 
-var totalCredit = 0;
-var totalDebit = 0;
+function getTotalDebits() {
+    var totalDebits = 0;
+    for (let i = 0; i < debits.length; ++i) {
+        let parse = parseInt(document.getElementById(debits[i]).value)
+        totalDebits += parse;
+    }
+    return totalDebits;
+}
 
 const logOutButton = document.getElementById('logout-button');
-if(logOutButton) {
-logOutButton.addEventListener("click", (e) => {
-    auth.signOut()
-    window.location.href = 'index.html';
-})
+if (logOutButton) {
+    logOutButton.addEventListener("click", (e) => {
+        auth.signOut()
+        window.location.href = 'index.html';
+    })
 }
+
+
