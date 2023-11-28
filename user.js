@@ -97,7 +97,9 @@ function addToTable(username, name, email, role, address, dob) {
   })
   }
 
+if(tbody) {
   tbody.appendChild(trow);
+}
 
 
 }
