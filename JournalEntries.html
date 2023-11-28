@@ -67,7 +67,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="companylogo.png">Ledger Pal</a>
+      <a class="navbar-brand" href="#">Logo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -90,9 +90,9 @@
         <li><a href="FAQ.html">FAQ</a></li>
         <li class = "active"><a href="JournalEntries.html">Journal Entries</a></li>
         <li><a href="Accounts.html">Accounts</a></li>
-        <li><a id="logout-button">Logout</a></li>
+        <li><a href="#" id="logout-button">Logout</a></li>
         <li><input type="date" id="datepicker" style="visibility: hidden; position: absolute;">
-<a for="datepicker" onclick="document.getElementById('datepicker').showPicker();">
+<a href="#" for="datepicker" onclick="document.getElementById('datepicker').showPicker();">
   Calender
 </a></li>
       </ul>
@@ -112,29 +112,6 @@
       </thead>
       <tbody id = 'tbody1'></tbody>
     </table>
-    <script>
-      function searchTable() {
-        var input, filter, found, dataTable, tr, td, i, j;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("dataTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td");
-            for (j = 0; j < td.length; j++) {
-                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    found = true;
-                }
-            }
-            if (found) {
-                tr[i].style.display = "";
-                found = false;
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-    </script>
          
           <div class="container">
           <div class="row">
@@ -149,11 +126,11 @@
           <div class="modal-body" id ="journal-entry-modal">
           <form id = "journal-entry-form">
             <div class="input-group-prepend">
-              <label id="debit-account-label" class="input-group-text" for="inputGroupSelect01">Debit Account</label>
+              <label id="debit-account-label" class="input-group-text" for="inputGroupSelect01">Debit</label>
             </div>
             <div class="form-group">
               
-                <input id="debit-date-entry" type="date" class="form-control" placeholder="Date of Birth"/>
+                <input id="newDebitDateId0" type="date" class="form-control" placeholder="Date of Birth"/>
                 </div>
 
           <div class="form-group">
@@ -166,12 +143,12 @@
 
           <div class="form-group" id="debit-form">
           
-          <input id="debit-amount" type="text" class="form-control" placeholder="Amount"/>
+          <input id="newDebitEntry0" type="text" class="form-control" placeholder="Amount"/>
             
 
             <div class="form-group" id="debit-form">
           
-              <input id="debit-amount" type="text" class="form-control" placeholder="Description"/>
+              <input id="newDescriptionDebit0" type="text" class="form-control" placeholder="Description"/>
                 </div>
               </div>
             
@@ -179,20 +156,16 @@
           <button type="button" class="btn btn-primary" style="text-align: center" id="add-debit-button">Add Another Debit</button>
           </div>
           <div id = "credit-account-entry" class="form-group">
-            <label id="credit-account-label" class="input-group-text" for="inputGroupSelect01">Credit Account</label>
+            <label id="credit-account-label" class="input-group-text" for="inputGroupSelect01">Credit</label>
         </div>
-          <div class="form-group">
-              
-            <input id="credit-date-entry" type="date" class="form-control" placeholder="Date of Birth"/>
-            </div>
           
         <div class="form-group" id = 'credit-form'>
-            <input id="credit-amount" type="text" class="form-control" placeholder="Amount"/>
+            <input id="newCreditEntry0" type="text" class="form-control" placeholder="Amount"/>
             
             
             <div class="form-group" id="debit-form">
           
-              <input id="debit-amount" type="text" class="form-control" placeholder="Description"/>
+              <input id="newDescriptionCredit0" type="text" class="form-control" placeholder="Description"/>
                 </div>
               </div>
             <div class="form-group">
@@ -231,7 +204,7 @@
         <button class="btn btn-primary" id="create-new-user-modal" data-target="#loginmodal" data-toggle="modal">New Journal Entry</button>
       </div>
         </div>
-
+        
       </div>
       <script>
         function refresh() {
