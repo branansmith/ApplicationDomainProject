@@ -57,21 +57,6 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse visible-xs">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-
       </ul>
     </div>
   </div>
@@ -81,8 +66,9 @@
   <div class="row content">
     <div class="col-sm-3 sidenav hidden-xs">
       <h2><img src="companylogo.png" alt="Ledger Pal" style="width:200px;height:200px;"></h2>
-      <ul class="nav nav-pills nav-stacked">
+      <ul class="nav nav-pills nav-stacked" id = "menu">
         <!-- dashboard home button-->
+        <li id="CurrentUser">CurrentUser:<li>
         <li><a href="EmployeeLanding.html">Home</a></li>
         <li><a href="email.html">Email</a></li>
         <li><a href="DisplayUsersScreen.html">Users</a></li>
@@ -165,7 +151,7 @@
             
             <div class="form-group" id="debit-form">
           
-              <input id="newDescriptionCredit0" type="text" class="form-control" placeholder="Description"/>
+              
                 </div>
               </div>
             <div class="form-group">
@@ -212,6 +198,7 @@
         }
       </script>
 </body>
+<script type = "module" src = "menu.js"></script>
+<script type = "module" src = "AllJournals.js"></script>
 <script type = "module" src = "JournalEntries.js"></script>
-<script type = "module" src = "DisplayJournal.js"></script>
 </html>
