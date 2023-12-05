@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getFirestore, collection, doc, getDoc, getDocs, query, where, DocumentSnapshot } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDocs, query, where, DocumentSnapshot } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -84,15 +84,22 @@ function addToTable(username, name, email, role, address, dob) {
 
   if(tdBtn) {
   tdBtn.addEventListener("click", (e) => {
+    tdBtn.style.visibility = "hidden";
+    var saveButton = document.createElement("button");
+    saveButton.innerHTML = "Save";
+    trow.appendChild(saveButton);
     
+    
+    td2.innerHTML = "<input id = 'text2' value = " + name + "></input>";
+    td3.innerHTML = "<input id = 'text3' value = " + email + "></input>";
+    td4.innerHTML = "<input id = 'text4' value = " + role + "></input>";
+    td5.innerHTML = "<input id = 'text5' value = " + address + "></input>";
+    td6.innerHTML = "<input id = 'text6' type = 'date' value = " + dob + "></input>";
 
-    var myTextBox1 = document.createElement("input");
-    myTextBox1.value = td1.innerHTML;
-    td1.parentNode.replaceChild(myTextBox1, td1);
-
-    var myTextBox2 = document.createElement("input");
-    myTextBox2.value = td2.innerHTML;
-    td2.parentNode.replaceChild(myTextBox2, td2);
+    saveButton.addEventListener("click", (e) => {
+      updateDoc(username, document.getElementById('text2').value, document.getElementById('text3').value, document.getElementById('text4').value, document.getElementById('text5').value, document.getElementById('text6').value);
+    })
+    
     
   })
   }
@@ -103,6 +110,20 @@ if(tbody) {
 
 
 }
+
+async function updateDoc(username, name, email, role, address, dob) {
+  await setDoc(doc(db, "users", username), {
+    username: username,
+    address: address,
+    date_of_birth: dob,
+    email: email,
+    first_name: name,
+    last_name: name,
+    role: role,
+  });
+}
+
+
 
 //promise cannot return true/false so make a variable called
 // user role and find it this way
