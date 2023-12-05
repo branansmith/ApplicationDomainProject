@@ -1,172 +1,144 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, getDocs, query, where, DocumentSnapshot } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+import { getFirestore, collection, addDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { onAuthStateChanged, getAuth, sendPasswordResetEmail, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAgjtR6Bh6eeLrcriQXAqyR6UYKNtn7RQ8",
-    authDomain: "test-project-bf189.firebaseapp.com",
-    databaseURL: "https://test-project-bf189-default-rtdb.firebaseio.com",
-    projectId: "test-project-bf189",
-    storageBucket: "test-project-bf189.appspot.com",
-    messagingSenderId: "77549761669",
-    appId: "1:77549761669:web:160e61463978ba1e3f65ec",
-    measurementId: "G-S94ZDL330Q"
-  };
+  apiKey: "AIzaSyAgjtR6Bh6eeLrcriQXAqyR6UYKNtn7RQ8",
+  authDomain: "test-project-bf189.firebaseapp.com",
+  databaseURL: "https://test-project-bf189-default-rtdb.firebaseio.com",
+  projectId: "test-project-bf189",
+  storageBucket: "test-project-bf189.appspot.com",
+  messagingSenderId: "77549761669",
+  appId: "1:77549761669:web:645823a2111143903f65ec",
+  measurementId: "G-ETP35BL2ZK"
+};
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+
+
+// Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
-const auth = getAuth(app);
 
 
 
-//get user role
-var userRole = null;
-
-const logOutButton = document.getElementById('logout-button');
-if(logOutButton) {
-logOutButton.addEventListener("click", (e) => {
-    auth.signOut()
-    window.location.href = 'index.html';
-})
-}
-
-
-const createNewUserModal = document.getElementById('create-new-user-modal');
-if(createNewUserModal) {
-createNewUserModal.style.visibility = "hidden";
-}
-async function loadUserData() {
-const users = query(collection(db, 'users'));
-const querySnapshot = await getDocs(users);
-var usersArray = [];
-querySnapshot.forEach((doc) => {
-  const data = doc.data();
-  const name = data.first_name + " " + data.last_name;
-  addToTable(data.username, name, data.email, data.role, data.address, data.date_of_birth);
-  
-})
-}
-
-var tbody = document.getElementById('tbody1');
-function addToTable(username, name, email, role, address, dob) {
-  var trow = document.createElement('tr');
-  var td1 = document.createElement('td');
-  var td2 = document.createElement('td');
-  var td3 = document.createElement('td');
-  var td4 = document.createElement('td');
-  var td5 = document.createElement('td');
-  var td6 = document.createElement('td');
-  var tdBtn = document.createElement('button');
-  
-
-  td1.innerHTML = username;
-  td2.innerHTML = name;
-  td3.innerHTML = email;
-  td4.innerHTML = role;
-  td5.innerHTML = address;
-  td6.innerHTML = dob;
-  tdBtn.innerHTML = "Edit User";
-
-  trow.appendChild(td1);
-  trow.appendChild(td2);
-  trow.appendChild(td3);
-  trow.appendChild(td4);
-  trow.appendChild(td5);
-  trow.appendChild(td6);
-  
-
-  
-  if (userRole == "admin") {
-  trow.appendChild(tdBtn);
-  createNewUserModal.style.visibility = "visible";
-  } 
-  
-
-  if(tdBtn) {
-  tdBtn.addEventListener("click", (e) => {
-    tdBtn.style.visibility = "hidden";
-    var saveButton = document.createElement("button");
-    saveButton.innerHTML = "Save";
-    trow.appendChild(saveButton);
-    
-    
-    td2.innerHTML = "<input id = 'text2' value = " + name + "></input>";
-    td3.innerHTML = "<input id = 'text3' value = " + email + "></input>";
-    td4.innerHTML = "<input id = 'text4' value = " + role + "></input>";
-    td5.innerHTML = "<input id = 'text5' value = " + address + "></input>";
-    td6.innerHTML = "<input id = 'text6' type = 'date' value = " + dob + "></input>";
-
-    saveButton.addEventListener("click", (e) => {
-      updateDoc(username, document.getElementById('text2').value, document.getElementById('text3').value, document.getElementById('text4').value, document.getElementById('text5').value, document.getElementById('text6').value);
-    })
-    
-    
-  })
+//Validate the email passed
+function validate_email(email) {
+  const expression = /^[^@]+@\w+(\.\w+)+\w$/
+  if (expression.test(email) == true) {
+      return true
+  } else {
+      return false
   }
-
-if(tbody) {
-  tbody.appendChild(trow);
 }
 
-
+//validate the password passed
+function validate_password(password) {
+  const validatePasswordRegex = /^[a-zA-Z](?=.*[!@#$%^&*()])(?=.*[0-9]).{8,}$/
+  if (validatePasswordRegex.test(password) == true) {
+      return true;
+  } else {
+      alert("Password must start with a letter, contain a special character ('!@#$%^&*()') and include at least one number");
+      return false;
+  }
 }
 
-async function updateDoc(username, name, email, role, address, dob) {
-  await setDoc(doc(db, "users", username), {
-    username: username,
-    address: address,
-    date_of_birth: dob,
-    email: email,
-    first_name: name,
-    last_name: name,
-    role: role,
-  });
+//"index.html"
+function redirect(url) {
+  window.location = url;
 }
 
+//Add user to firestore
+const addUser = async (users, username) => {
+    const userRef = await setDoc(doc(db, 'users', username), users);
+    console.log('Sent');
+};
 
+//need to make document start with username instead of name
 
-//promise cannot return true/false so make a variable called
-// user role and find it this way
-async function getUserRole(user) {
-  //check if admin
-  const isAdmin = query(collection(db, 'users'), where('email', '==', user.email), where('role', '==', 'admin'));
-  const adminQuerySnapshot = await getDocs(isAdmin);
-  if(adminQuerySnapshot.size) {
-    console.log("admin");
-    userRole = "admin";
-  } 
+//create user object to store user data
+const createUser = (fname, lname, email, address, dob) => {
+    var user = [];
+    const currentDate = new Date();
+    const month = currentDate.getMonth();
+    const year = currentDate.getFullYear() % 100;
 
- //check if manager
-  const isManager = query(collection(db, 'users'), where('email', '==', user.email), where('role', '==', 'manager'));
-const managerQuerySnapshot = await getDocs(isManager);
-if(managerQuerySnapshot.size) {
-  console.log("manager");
-  userRole = "manager";
-} 
+    user.push({
+        username: fname.charAt(0) + lname + month + year,
+        first_name: fname,
+        last_name: lname,
+        email: email,
+        address: address,
+        date_of_birth: dob,
+        role: "user"
+        
+    });
+    console.log('Sent via CreateUser');
+    return user;
+};
 
-//check if user
-const isUser = query(collection(db, 'users'), where('email', '==', user.email), where('role', '==', 'user'));
-const userQuerySnapshot = await getDocs(isUser);
-if(userQuerySnapshot.size) {
-  console.log("user");
-  userRole = "user";
-}
+/**
+ * @param {user[]} userArr 
+ * @returns {Promise[]} list of promises 
+ */
+const addUsers = async (userArr) => {
+  let promises = [];
+  for(var i =  0; i < userArr.length; i++){
+    console.log(name);
+    let promise = addUser(userArr[i], userArr[i].username);
+    if(!promise) {
+      console.debug('couldn\'t add the user');
+      return Promise.reject();
+    } else {
+      promises.push(promise);
+    }
+  }
+  await Promise.all(promises);
+};
+
+//Retieve the values entered by the user and parse any needed values
+function createNewUserButton(){
+  const fname = document.getElementById("signup-first-name").value;
+  const lname = document.getElementById("signup-last-name").value;
+  const email = document.getElementById("signup-email").value;
+  const address = document.getElementById("signup-address").value;
+  const password = document.getElementById("signup-password").value;
+  const dob = document.getElementById('signup-date-of-birth').value;
+
+  if(validate_email(email) && validate_password(password)){
+    addUsers(createUser(fname, lname, email, address, dob));
+    createUserWithEmailAndPassword(auth, email, password);
+  }
+  
+
 }
 
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-   getUserRole(user);
-   loadUserData();
+    if(user) {
+        
   }
-})
+  })
 
 
 
 
 
+//action event triggered when a user clicks the create account button 
+const form = document.getElementById("create-new-user-button");
+if(form) {
+form.addEventListener("click", (e) => {
+  e.preventDefault();
+  try{
+  createNewUserButton()
+    
+  } catch (error){
+    console.error(error);
+  }
+});
+}
 
-
-
-
-
+function reload() {
+  location.reload();
+}
 
