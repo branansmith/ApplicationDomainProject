@@ -83,7 +83,6 @@ const addUsers = async (userArr) => {
   let promises = [];
   for(var i =  0; i < userArr.length; i++){
     let name = userArr[i].first_name + " " + userArr[i].last_name;
-    console.log(name);
     let promise = addUser(userArr[i], name);
     if(!promise) {
       console.debug('couldn\'t add the user');
