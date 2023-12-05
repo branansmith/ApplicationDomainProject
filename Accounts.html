@@ -80,6 +80,7 @@
       <h2><img src="companylogo.png" alt="Ledger Pal" style="width:200px;height:200px;"></h2>
       <ul class="nav nav-pills nav-stacked">
         <!-- dashboard home button-->
+        <li id="CurrentUser">CurrentUser:<li>
         <li><a href="EmployeeLanding.html">home</a></li>
         <li><a href="email.html">email</a></li>
         <li><a href="DisplayUsersScreen.html">Users</a></li>
@@ -88,10 +89,7 @@
          <li><a href="JournalEntries.html">Journal Entries</a></li>
         <li class="active"><a href="Accounts.html">Accounts</a></li>
         <li><a href="index.html">Logout</a></li>
-        <li><input type="date" id="datepicker" style="visibility: hidden; position: absolute;">
-<a for="datepicker" onclick="document.getElementById('datepicker').showPicker();">
-  Calender
-</a></li>
+        <li><input type="date" id="datepicker" style="visibility: hidden; position: absolute;"><a for="datepicker" onclick="document.getElementById('datepicker').showPicker();">Calender</a></li>
       </ul><br>
     </div>
     <br>
@@ -338,7 +336,6 @@
           </div>
 
         <script>
-          import { getFirestore, collection, addDoc, setDoc, getDocs, doc, QuerySnapshot, query, where} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
             function openCreateForm() {
               document.getElementById("form-createAccount-div").style.display = "block";
@@ -364,10 +361,10 @@
 
             </script>
             </div>
+            <script type = "module" src="user.js"></script>
         <script type = "module" src="account.js"></script>
         <script type = "module" src="displayUser.js"></script>
         <script type = "module" src="editAccount.js"></script>
-        <script type = "module" src="user.js"></script>
         <script type = "module" src="searchFunction.js"></script>
         
         

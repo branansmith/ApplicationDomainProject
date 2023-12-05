@@ -247,6 +247,10 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+const userLoc = document.getElementById("CurrentUser");
+const user = auth.currentUser;
+userLoc.textContent = "Current User: " + user.email;
+
 
 
 

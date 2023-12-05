@@ -225,6 +225,10 @@ console.log(accountId);
 const id = accountId;
 
 
+const userLoc = document.getElementById("CurrentUser");
+const user = auth.currentUser;
+userLoc.textContent = "Current User: " + user.email;
+
 //Display Journal entry
 // const journalRef = query(collection(db, "journals"), where('id', '==', accountId));
 // const docSnapshot = await doc(journalRef);
