@@ -338,7 +338,7 @@
           </div>
 
         <script>
-
+          import { getFirestore, collection, addDoc, setDoc, getDocs, doc, QuerySnapshot, query, where} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
             function openCreateForm() {
               document.getElementById("form-createAccount-div").style.display = "block";
@@ -357,7 +357,9 @@
             }
             function openLedger(){
               const accountId = event.currentTarget.textContent;
-              window.location.href = `ledger.html?accountId=${accountId}`;
+              const q = query(collection(db, "accounts"), where("accountNumber", "==", accountId));
+              const querySnapshot = getDocs(q); `   `         
+              window.location.href = `ledger.html?accountId=${accountId}?accountName=${accountName}`;
             }
 
             </script>

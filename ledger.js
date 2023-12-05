@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import { getFirestore, collection, addDoc, setDoc, getDocs, doc, QuerySnapshot, query, where} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
-import { getAuth, sendPasswordResetEmail, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { getAuth} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAgjtR6Bh6eeLrcriQXAqyR6UYKNtn7RQ8",
@@ -23,32 +23,24 @@ const urlParams = new URLSearchParams(window.location.search);
 const accountId = urlParams.get('accountId');
 console.log(accountId);
 
-const accRef = query(doc(db, "accounts"), where ("accountNumber", "==", accountId));
+//const accRef = query(doc(db, "accounts"), where("accountNumber", "==", accountId));
 
-const accountName = accRef.accountName;
+//const accountName = accRef.accountName;
 //Create Entry button - links to create journal 
 const createEntryButton = document.getElementById("createEntry");
 
-// createEntryButton.addEventListener('click', (e) =>{
-//     e.preventDefault();
-//     try{
-
-//     }catch(error){
-//         console.error(error);
-//     }
-// })
-
 //Populate ledger data on page
-const ledgerDataTable = document.getElementById(ledgerDataTableBody);
-const q = query(collection(db, "journals"), where ("accountId", "==", accountId));
+const q = query(collection(db, "journals"));
+
 const querySnapshot = await getDocs(q);
+//console.log(JSON.stringify(q, null, 1));
 
-querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((doc) => {
     const data = doc.data();
+    console.log("Data from firestore:" + JSON.stringify(data, null, 2));
     const newRow = document.createElement("tr");
-
-    const idCell = document.createElement("td");
-    idCell.textContext = data.id;
+    const accountCell = document.createElement("td");
+    accountCell.textContent = data.id;
     const dateCreatedCell = document.createElement("td");
     dateCreatedCell.textContent = data.dateCreated;
     const descCell = document.createElement("td");
@@ -74,15 +66,18 @@ querySnapshot.forEach((doc) => {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
+    const statusCell = document.createElement("td");
+    statusCell.textContent = data.status;
     const postReferenceCell = document.createElement("td");
-    postReferenceCell.innerHTML = `<a href="#" class="open-journal">${data.name}</a>`;
+    postReferenceCell.innerHTML = `<a href="#" class="openJournal">${data.id}</a>`;
 
-    newRow.appendChild(idCell);
+    newRow.appendChild(accountCell);
     newRow.appendChild(dateCreatedCell);
     newRow.appendChild(descCell);
     newRow.appendChild(debitCell);
     newRow.appendChild(creditCell);
     newRow.appendChild(balanceCell);
+    newRow.appendChild(statusCell);
     newRow.appendChild(postReferenceCell);
 
     ledgerDataTable.appendChild(newRow);

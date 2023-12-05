@@ -114,11 +114,11 @@
             <!--date picker one-->
             <fieldset>
               <legend> Pick Your Date</legend>
-              <label for="">Start Range:
+              <label>Start Range:
                 <input id="dateOne" type="datetime-local" name="" value="">
 
               </label>
-              <label for="">End Range:
+              <label>End Range:
                 <input id="dateOne" type="datetime-local" min="12-31-2000" max="2050-01-01" name="" value="">
 
               </label>
@@ -136,6 +136,7 @@
                     <th>Debit</th>
                     <th>Credit</th>
                     <th>Balance</th>
+                    <th>Status</th>
                     <th>Post Reference</th>
                   </tr>
                 </thead>
@@ -177,7 +178,10 @@
 
 
       <script>
-
+        function openJournal(){
+          const accountId = event.currentTarget.textContent;
+          window.location.href = `JournalEntries.html?accountId=${accountId}`;
+        }
 
 
       </script>
