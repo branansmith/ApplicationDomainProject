@@ -42,13 +42,15 @@ var usersArray = [];
 querySnapshot.forEach((doc) => {
   const data = doc.data();
   const name = data.first_name + " " + data.last_name;
-  addToTable(data.username, name, data.email, data.role, data.address, data.date_of_birth);
+  addToTable(data.username, data.first_name, data.last_name, data.email, data.role, data.address, data.date_of_birth);
   
 })
 }
 
 var tbody = document.getElementById('tbody1');
-function addToTable(username, name, email, role, address, dob) {
+function addToTable(username, first_name, last_name, email, role, address, dob) {
+  var name = first_name + " " + last_name;
+
   var trow = document.createElement('tr');
   var td1 = document.createElement('td');
   var td2 = document.createElement('td');
@@ -89,8 +91,9 @@ function addToTable(username, name, email, role, address, dob) {
     saveButton.innerHTML = "Save";
     trow.appendChild(saveButton);
     
-    
-    td2.innerHTML = "<input id = 'text2' value = " + name + "></input>";
+    var combinedName = first_name + '&nbsp;' +  last_name;
+    console.log(combinedName.toString());
+    td2.innerHTML = "<input id = 'text2' value = " + combinedName + "></input>";
     td3.innerHTML = "<input id = 'text3' value = " + email + "></input>";
     td4.innerHTML = "<input id = 'text4' value = " + role + "></input>";
     td5.innerHTML = "<input id = 'text5' value = " + address + "></input>";
@@ -112,10 +115,14 @@ if(tbody) {
 }
 
 async function updateDoc(username, name, email, role, address, dob) {
-
-  var fullName = name.split(" ");
+  var nameToString = name.toString();
+  var fullName = nameToString.split(' ');
+  console.log(fullName);
+  console.log(fullName);
   var fname = fullName[0];
   var lname = fullName[1];
+  console.log(fname);
+  console.log(lname);
   await setDoc(doc(db, "users", username), {
     username: username,
     address: address,
