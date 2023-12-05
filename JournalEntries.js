@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import { getAuth, sendPasswordResetEmail, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-import { getFirestore, getDocs, collection, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+import { getFirestore, getDoc, collection, setDoc, doc, getDocs, query, where} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -79,9 +79,7 @@ for (let i = 0; i < arrayOfAccounts.length; i++) {
     options.innerHTML = arrayOfAccounts[i];
 
     dropdownDebitAccounts.appendChild(options);
-
 }
-
 
 formGroup.appendChild(dropdownDebitAccounts);
 
@@ -117,10 +115,6 @@ addDebitButton.addEventListener("click", (e) => {
 
     debitEntry.appendChild(formGroup);
 
-
-
-
-
     //Debit
     const formGroup2 = document.createElement("div");
     formGroup.classList.add('form-group');
@@ -136,10 +130,6 @@ addDebitButton.addEventListener("click", (e) => {
 
 })
 
-
-
-
-
 addCreditButton.addEventListener("click", (e) => {
     const formBreak = document.createElement('br');
 
@@ -151,17 +141,9 @@ addCreditButton.addEventListener("click", (e) => {
     creditLabel.classList.add('input-group-text');
     creditLabel.innerHTML = "Add New Credit";
 
-
-
     formGroup.appendChild(creditLabel);
     formGroup.appendChild(formBreak);
     creditEntry.appendChild(formGroup);
-
- 
-
-
-
-
 
     //Debit
     const formGroup2 = document.createElement("div");
@@ -175,16 +157,7 @@ addCreditButton.addEventListener("click", (e) => {
     newCreditEntryId++;
     formGroup2.appendChild(newCreditEntry);
     creditEntry.appendChild(formGroup2);
-
-
-
 })
-
-
-
-
-
-
 
 async function writeJournalEntry(account, debitDate, debitAmount, creditAmount, creditDescription, debitDescription) {
 // Add a new document in collection "cities"
@@ -242,5 +215,44 @@ if (logOutButton) {
         window.location.href = 'index.html';
     })
 }
+
+const tableBody = document.getElementById("journalBody");
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const accountId = urlParams.get('accountId');
+console.log(accountId);
+const id = accountId;
+
+
+//Display Journal entry
+// const journalRef = query(collection(db, "journals"), where('id', '==', accountId));
+// const docSnapshot = await doc(journalRef);
+
+//         const itemdata = docSnapshot.data();
+//         console.log("Data from firestore:" + JSON.stringify(itemdata, null, 2));
+//             // Check if 'dateCreated' property exists before accessing it
+//             const dateCreated = itemdata.dateCreated ? itemdata.dateCreated : "N/A";
+
+//             const newRow = document.createElement("tr");
+//             const dateCell = document.createElement("td");
+//             dateCell.textContent = dateCreated;
+//             const accountCell = document.createElement("td");
+//             accountCell.textContent = itemdata.account || "N/A";
+//             const debitCell = document.createElement("td");
+//             debitCell.textContent = itemdata.debit || "N/A";
+//             const creditCell = document.createElement("td");
+//             creditCell.textContent = itemdata.credit || "N/A";
+//             const statusCell = document.createElement("td");
+//             statusCell.textContent = itemdata.status || "N/A";
+
+//             newRow.appendChild(dateCell);
+//             newRow.appendChild(accountCell);
+//             newRow.appendChild(debitCell);
+//             newRow.appendChild(creditCell);
+//             newRow.appendChild(statusCell);
+
+//             tableBody.appendChild(newRow);
+
 
 

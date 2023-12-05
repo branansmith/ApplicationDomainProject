@@ -38,12 +38,14 @@ const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     const data = doc.data();
     console.log("Data from firestore:" + JSON.stringify(data, null, 2));
+
+    if(data.id == accountId){
     const newRow = document.createElement("tr");
     const accountCell = document.createElement("td");
     accountCell.textContent = data.id;
     const dateCreatedCell = document.createElement("td");
     dateCreatedCell.textContent = data.dateCreated;
-    const descCell = document.createElement("td");
+  const descCell = document.createElement("td");
     descCell.textContent = data.description;
     const debitCell = document.createElement("td");
     debitCell.textContent = Number(data.debit).toLocaleString('en-US', {
@@ -69,7 +71,7 @@ const querySnapshot = await getDocs(q);
     const statusCell = document.createElement("td");
     statusCell.textContent = data.status;
     const postReferenceCell = document.createElement("td");
-    postReferenceCell.innerHTML = `<a href="#" class="openJournal">${data.id}</a>`;
+    postReferenceCell.innerHTML = `<a href="#" class="openJournal" onclick="openJournal()">${data.id}</a>`;
 
     newRow.appendChild(accountCell);
     newRow.appendChild(dateCreatedCell);
@@ -81,6 +83,8 @@ const querySnapshot = await getDocs(q);
     newRow.appendChild(postReferenceCell);
 
     ledgerDataTable.appendChild(newRow);
+    }
+
     });
 
 
