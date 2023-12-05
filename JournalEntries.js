@@ -18,21 +18,13 @@ const auth = getAuth();
 const db = getFirestore(app);
 
 
-var newDebitDateId = 1;
 var newDebitEntryId = 1;
-var newDescriptionDebitId = 1;
 var dropdownDebitAccountsId = 1;
 
-var newCreditDateId = 1;
 var newCreditEntryId = 1;
-var newDescriptionCreditId = 1;
 
 var debits = ["newDebitEntry0"];
 var credits = ["newCreditEntry0"];
-var debitDates = [];
-var creditDates = [];
-var debitDescriptions = [];
-var creditDescriptions = [];
 
 
 
@@ -43,13 +35,11 @@ var debitEntry = document.getElementById('debit-form');
 var addCreditButton = document.getElementById('add-credit-button');
 var creditEntry = document.getElementById('credit-form');
 
-var journalEntryForm = document.getElementById('journal-entry-modal');
 
 var createNewJournalEntryButton = document.getElementById('create-new-je-button');
 
 var resetButton = document.getElementById('reset-button');
 
-var debitAccountDropdown = document.getElementById('debit-account-dropdown');
 
 var arrayOfAccounts = [];
 
@@ -58,8 +48,6 @@ querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
     arrayOfAccounts.push(doc.id);
 });
-
-var creditAccountLabel = document.getElementById('credit-account-label');
 
 
 
@@ -117,7 +105,7 @@ addDebitButton.addEventListener("click", (e) => {
 
     //Debit
     const formGroup2 = document.createElement("div");
-    formGroup.classList.add('form-group');
+    formGroup2.classList.add('form-group');
     const newDebitEntry = document.createElement('input');
     newDebitEntry.classList.add('form-control');
     //id
@@ -136,7 +124,6 @@ addCreditButton.addEventListener("click", (e) => {
     //Credit Account Title
     const formGroup = document.createElement("div");
     formGroup.classList.add('form-group');
-    const dropdownCreditAccounts = document.createElement('select');
     const creditLabel = document.createElement('label');
     creditLabel.classList.add('input-group-text');
     creditLabel.innerHTML = "Add New Credit";
@@ -147,7 +134,7 @@ addCreditButton.addEventListener("click", (e) => {
 
     //Debit
     const formGroup2 = document.createElement("div");
-    formGroup.classList.add('form-group');
+    formGroup2.classList.add('form-group');
     const newCreditEntry = document.createElement('input');
     newCreditEntry.classList.add('form-control');
     newCreditEntry.placeholder = "Amount";
@@ -159,7 +146,7 @@ addCreditButton.addEventListener("click", (e) => {
     creditEntry.appendChild(formGroup2);
 })
 
-async function writeJournalEntry(account, debitDate, debitAmount, creditAmount, creditDescription, debitDescription) {
+async function writeJournalEntry(account, debitDate, debitAmount, creditAmount, description) {
 // Add a new document in collection "cities"
 await setDoc(doc(db, "journals", account), {
     account: account,
@@ -167,8 +154,7 @@ await setDoc(doc(db, "journals", account), {
     dateCreated: debitDate,
     debit: debitAmount,
     credit: creditAmount,
-    creditDescription: creditDescription,
-    debitDescription: debitDescription,
+    description: description,
     id: 1,
     status: "pending"
   });
@@ -186,7 +172,7 @@ createNewJournalEntryButton.addEventListener("click", (e) => {
     else if(totalDebits != totalCredits) {
         alert("Debits must equal credits");
     } else {
-        writeJournalEntry(document.getElementById('dropdownAccount').value, document.getElementById('newDebitDateId0').value, totalDebits, totalCredits, document.getElementById('newDescriptionDebit0').value, document.getElementById('newDescriptionCredit0').value);
+        writeJournalEntry(document.getElementById('dropdownAccount').value, document.getElementById('newDebitDateId0').value, totalDebits, totalCredits, document.getElementById('newDescriptionDebit0').value);
     }
 })
 
@@ -216,6 +202,7 @@ if (logOutButton) {
     })
 }
 
+/*
 const tableBody = document.getElementById("journalBody");
 
 
@@ -228,6 +215,8 @@ const id = accountId;
 const userLoc = document.getElementById("CurrentUser");
 const user = auth.currentUser;
 userLoc.textContent = "Current User: " + user.email;
+
+*/
 
 //Display Journal entry
 // const journalRef = query(collection(db, "journals"), where('id', '==', accountId));
