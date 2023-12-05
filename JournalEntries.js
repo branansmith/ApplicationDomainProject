@@ -28,7 +28,6 @@ var credits = ["newCreditEntry0"];
 
 
 
-
 var addDebitButton = document.getElementById('add-debit-button');
 var debitEntry = document.getElementById('debit-form');
 
@@ -161,18 +160,41 @@ await setDoc(doc(db, "journals", account), {
 }
 
 
+//add error message to end of modal (bottom)
+async function getErrorMessage(errorName) {
+    const docRef = doc(db, "Error Messages", errorName);
+    const docSnap = await getDoc(docRef);
+    var errorMessage = document.getElementById('error-message');
+    
+    if (docSnap.exists()) {
+        var docData = docSnap.get("Message");
+        errorMessage.textContent = docData;
+        
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+}
+
 //can only create journal entries if error messages are cleared
 //need to get id of credit and debit accounts as well
 createNewJournalEntryButton.addEventListener("click", (e) => {
+    var dropdownAccount = document.getElementById('dropdownAccount').value;
+    var debitDate = document.getElementById('newDebitDateId0').value;
+    var desc = document.getElementById('newDescriptionDebit0').value;
     var totalCredits = getTotalCredits();
     var totalDebits = getTotalDebits();
-    if(isNaN(totalDebits) || isNaN(totalCredits)) {
-        alert("Please fill out all fields");
+    if (desc == null || desc == "") {
+        getErrorMessage("InvalidForm");
+    } else if(!debitDate) {
+        getErrorMessage("InvalidForm");
+    }else if(isNaN(totalDebits) || isNaN(totalCredits)) {
+        getErrorMessage("NotANumber");
     }
     else if(totalDebits != totalCredits) {
-        alert("Debits must equal credits");
-    } else {
-        writeJournalEntry(document.getElementById('dropdownAccount').value, document.getElementById('newDebitDateId0').value, totalDebits, totalCredits, document.getElementById('newDescriptionDebit0').value);
+        getErrorMessage("UnequalDebitsAndCredits");
+    }  else {
+        writeJournalEntry(dropdownAccount, debitDate, totalDebits, totalCredits, desc);
     }
 })
 
