@@ -41,7 +41,6 @@ const querySnapshot = await getDocs(users);
 var usersArray = [];
 querySnapshot.forEach((doc) => {
   const data = doc.data();
-  const name = data.first_name + " " + data.last_name;
   addToTable(data.username, data.first_name, data.last_name, data.email, data.role, data.address, data.date_of_birth);
   
 })
@@ -58,15 +57,17 @@ function addToTable(username, first_name, last_name, email, role, address, dob) 
   var td4 = document.createElement('td');
   var td5 = document.createElement('td');
   var td6 = document.createElement('td');
+  var td7 = document.createElement('td');
   var tdBtn = document.createElement('button');
   
 
   td1.innerHTML = username;
-  td2.innerHTML = name;
-  td3.innerHTML = email;
-  td4.innerHTML = role;
-  td5.innerHTML = address;
-  td6.innerHTML = dob;
+  td2.innerHTML = first_name;
+  td3.innerHTML = last_name
+  td4.innerHTML = email;
+  td5.innerHTML = role;
+  td6.innerHTML = address;
+  td7.innerHTML = dob;
   tdBtn.innerHTML = "Edit User";
 
   trow.appendChild(td1);
@@ -75,6 +76,7 @@ function addToTable(username, first_name, last_name, email, role, address, dob) 
   trow.appendChild(td4);
   trow.appendChild(td5);
   trow.appendChild(td6);
+  trow.appendChild(td7);
   
 
   
@@ -93,14 +95,15 @@ function addToTable(username, first_name, last_name, email, role, address, dob) 
     
     var combinedName = first_name + '&nbsp;' +  last_name;
     console.log(combinedName.toString());
-    td2.innerHTML = "<input id = 'text2' value = " + combinedName + "></input>";
-    td3.innerHTML = "<input id = 'text3' value = " + email + "></input>";
-    td4.innerHTML = "<input id = 'text4' value = " + role + "></input>";
-    td5.innerHTML = "<input id = 'text5' value = " + address + "></input>";
-    td6.innerHTML = "<input id = 'text6' type = 'date' value = " + dob + "></input>";
+    td2.innerHTML = "<input id = 'text2' value = " + first_name + "></input>";
+    td3.innerHTML = "<input id = 'text3' value = " + last_name + "></input>";
+    td4.innerHTML = "<input id = 'text4' value = " + email + "></input>";
+    td5.innerHTML = "<input id = 'text5' value = " + role + "></input>";
+    td6.innerHTML = "<input id = 'text6' value = " + address + "></input>";
+    td7.innerHTML = "<input id = 'text7' type = 'date' value = " + dob + "></input>";
 
     saveButton.addEventListener("click", (e) => {
-      updateDoc(username, document.getElementById('text2').value, document.getElementById('text3').value, document.getElementById('text4').value, document.getElementById('text5').value, document.getElementById('text6').value);
+      updateDoc(username, document.getElementById('text2').value, document.getElementById('text3').value, document.getElementById('text4').value, document.getElementById('text5').value, document.getElementById('text6').value, document.getElementById('text7').value);
     })
     
     
@@ -114,22 +117,14 @@ if(tbody) {
 
 }
 
-async function updateDoc(username, name, email, role, address, dob) {
-  var nameToString = name.toString();
-  var fullName = nameToString.split(' ');
-  console.log(fullName);
-  console.log(fullName);
-  var fname = fullName[0];
-  var lname = fullName[1];
-  console.log(fname);
-  console.log(lname);
+async function updateDoc(username, first_name, last_name, email, role, address, dob) {
   await setDoc(doc(db, "users", username), {
     username: username,
     address: address,
     date_of_birth: dob,
     email: email,
-    first_name: fname,
-    last_name: lname,
+    first_name: first_name,
+    last_name: last_name,
     role: role,
   });
   location.reload();
