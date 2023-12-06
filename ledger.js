@@ -31,7 +31,6 @@ const createEntryButton = document.getElementById("createEntry");
 const q = query(collection(db, "journals"));
 
 const querySnapshot = await getDocs(q);
-//console.log(JSON.stringify(q, null, 1));
 
   querySnapshot.forEach((doc) => {
     const data = doc.data();
