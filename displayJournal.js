@@ -49,9 +49,19 @@ getDocs(q)
                 const accountCell = document.createElement("td");
                 accountCell.textContent = data.account || "N/A";
                 const debitCell = document.createElement("td");
-                debitCell.textContent = data.debit || "N/A";
+                debitCell.textContent = Number(data.debit).toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  } || "N/A");
                 const creditCell = document.createElement("td");
-                creditCell.textContent = data.credit || "N/A";
+                creditCell.textContent = Number(data.credit).toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  } || "N/A");
                 const statusCell = document.createElement("td");
                 statusCell.textContent = data.status || "N/A";
 

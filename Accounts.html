@@ -352,9 +352,7 @@
             }
             function openLedger(){
               const accountId = event.currentTarget.textContent;
-              const q = query(collection(db, "accounts"), where("accountNumber", "==", accountId));
-              const querySnapshot = getDocs(q); `   `         
-              window.location.href = `ledger.html?accountId=${accountId}?accountName=${accountName}`;
+              window.location.href = `ledger.html?accountId=${accountId}`;
             }
 
             </script>
