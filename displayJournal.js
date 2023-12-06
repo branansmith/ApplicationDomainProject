@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebas
 import { getAuth, sendPasswordResetEmail, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 import { getFirestore, getDocs, collection, setDoc, doc, query, where} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-
+//Initialize Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyAgjtR6Bh6eeLrcriQXAqyR6UYKNtn7RQ8",
     authDomain: "test-project-bf189.firebaseapp.com",
@@ -17,18 +17,17 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
-
+//Create reference to the jounral table
 const tableBody = document.getElementById("journalBody");
 
+//retrieve ID paramater from URL
 const urlParams = new URLSearchParams(window.location.search);
 const accountId = urlParams.get('accountId');
-console.log(accountId);
-const id = "accountId";
 var counter = 0;
 
 
 //Display Journal entry
-// Query the 'journals' collection for documents where 'id' matches the provided accountId
+// Query the 'journals' collection for the document where the 'id' matches the provided accountId
 const q = query(collection(db, "journals"));
 
 getDocs(q)

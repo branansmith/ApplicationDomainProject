@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebas
 import { getAuth, sendPasswordResetEmail, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 import { getFirestore, getDocs, collection, setDoc, doc, query, where} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-
+//Initialize Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyAgjtR6Bh6eeLrcriQXAqyR6UYKNtn7RQ8",
     authDomain: "test-project-bf189.firebaseapp.com",
@@ -26,7 +26,7 @@ const id = "accountId";
 
 
 //Display Journal entry
-// Query the 'journals' collection for documents where 'id' matches the provided accountId
+// Query the 'journals' collection for all journal entries and dynamically display
 const q = query(collection(db, "journals"));
 
 getDocs(q)

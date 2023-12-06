@@ -214,6 +214,7 @@ const addAccounts = async (accountArr) => {
   console.log("You did it");
 };
 
+//Retrieve all values from page and pass as an object
 function createNewAccountButton(){
   const name = document.getElementById("accountName").value;
   const number = document.getElementById("accountNumber").value;
@@ -236,11 +237,11 @@ function createNewAccountButton(){
 
 }
 
+//Create account event listener - Initiates action of creating a user
 const form = document.getElementById("form-createAccount");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   try{
-    console.log('tesing something');
     createNewAccountButton();
   }catch (error){
     console.error(error);

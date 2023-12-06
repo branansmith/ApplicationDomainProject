@@ -20,8 +20,6 @@ const db = getFirestore(app);
 var id;
 var oldData;
 
-const accountsCollection = collection(db, "accounts");
-
 async function generateID(){
     try{
         const q = query(collection(db, "eventLog"));
@@ -40,7 +38,7 @@ async function generateID(){
 }
 
 
-
+//Wait for the page to load and populate edit account pop-up
 document.addEventListener("DOMContentLoaded", function () {
 
     //wait for element to be created
@@ -63,7 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 100);
 });
 
-
+//Delete the specified account
+//Check that balance is not > 0 before deletion
 const deleteButton = document.getElementById("delete-account-button");
 deleteButton.addEventListener("click", function (event) {
     event.preventDefault();
@@ -80,7 +79,8 @@ deleteButton.addEventListener("click", function (event) {
 
 
 
-
+//Event listener for Update Account button
+//Recognizes when an account has been updated and posts to the event log
 const saveButton = document.getElementById("update-account-button");
 saveButton.addEventListener("click", async function (event) {
     event.preventDefault();
@@ -104,12 +104,14 @@ saveButton.addEventListener("click", async function (event) {
 
 });
 
+//Add event to event log data storage
 const addEvent = async (entry, id) => {
     console.log(id);
     const eventRef = await setDoc(doc(db, 'eventLog', id), entry);
     console.log('Sent to event Log');
 }
 
+//Create the object that stores the new and old data
 function addAccountEvent(oldData, newData, user, id){
     var currentDate = new Date();
     var date = currentDate.toLocaleDateString();
@@ -124,6 +126,7 @@ function addAccountEvent(oldData, newData, user, id){
     return newEntry;
 }
 
+//Store the new data in an object
 function getNewData(){
     const newAccountName = document.getElementById("accountNameCurrent").value;
     const newAccountDesc = document.getElementById("descriptionCurrent").value;
@@ -156,7 +159,7 @@ function getNewData(){
 }
 
 
-
+//Populate the edit pop-up with the data related to the specified account
 function PopulateEditForm(accountNumber){
     const accountToEdit = query(collection(db, "accounts"), where("accountNumber", "==", accountNumber));
     getDocs(accountToEdit)
@@ -197,7 +200,7 @@ function PopulateEditForm(accountNumber){
         });
   }
 
-
+//Update the firestore accounts collection with the new data
   function updateFirestoreDocument(docName, newData){
     const docRef = doc(db, "accounts", docName);
         updateDoc(docRef, newData)
@@ -209,6 +212,8 @@ function PopulateEditForm(accountNumber){
             });
 }  
 
+
+//Remove the speified account from the database
 function deleteFirestoreDocument(docName){
     const docRef = doc(db, "accounts", docName);
         deleteDoc(docRef)
