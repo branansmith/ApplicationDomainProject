@@ -17,7 +17,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
 
-
+//modal labels to retrieve data the user types in
 var newDebitEntryId = 1;
 var dropdownDebitAccountsId = 1;
 
@@ -52,6 +52,7 @@ querySnapshot.forEach((doc) => {
 
 var debitAccountLabel = document.getElementById('debit-account-label');
 
+//dynamically adds a dropdown with the current accounts in database
 const formGroup = document.createElement("div");
 formGroup.classList.add('form-group');
 const dropdownDebitAccounts = document.createElement('select');
@@ -79,7 +80,7 @@ debitAccountLabel.appendChild(formGroup);
 addDebitButton.addEventListener("click", (e) => {
     const formBreak = document.createElement('br');
 
-    //Debit Account Title
+    //Debit Account Title element
     const formGroup = document.createElement("div");
     formGroup.classList.add('form-group');
     const dropdownDebitAccounts = document.createElement('select');
@@ -102,12 +103,12 @@ addDebitButton.addEventListener("click", (e) => {
 
     debitEntry.appendChild(formGroup);
 
-    //Debit
+    //Debit amount element
     const formGroup2 = document.createElement("div");
     formGroup2.classList.add('form-group');
     const newDebitEntry = document.createElement('input');
     newDebitEntry.classList.add('form-control');
-    //id
+    //Keeps track of newly added debit amounts
     newDebitEntry.id = "newDebitEntry" + newDebitEntryId;
     debits.push(newDebitEntry.id);
     newDebitEntryId++;
@@ -120,7 +121,7 @@ addDebitButton.addEventListener("click", (e) => {
 addCreditButton.addEventListener("click", (e) => {
     const formBreak = document.createElement('br');
 
-    //Credit Account Title
+    //Credit Account Title elememt
     const formGroup = document.createElement("div");
     formGroup.classList.add('form-group');
     const creditLabel = document.createElement('label');
@@ -131,22 +132,22 @@ addCreditButton.addEventListener("click", (e) => {
     formGroup.appendChild(formBreak);
     creditEntry.appendChild(formGroup);
 
-    //Debit
+    //Credit Amount element
     const formGroup2 = document.createElement("div");
     formGroup2.classList.add('form-group');
     const newCreditEntry = document.createElement('input');
     newCreditEntry.classList.add('form-control');
     newCreditEntry.placeholder = "Amount";
-    //id
+    //Keep track of newly added credit amounts
     newCreditEntry.id = "newCreditEntry" + newCreditEntryId;
     credits.push(newCreditEntry.id);
     newCreditEntryId++;
     formGroup2.appendChild(newCreditEntry);
     creditEntry.appendChild(formGroup2);
 })
-
+//writes a new journal entry to the Firestore database
 async function writeJournalEntry(account, debitDate, debitAmount, creditAmount, description) {
-// Add a new document in collection "cities"
+// Add a new document in collection "journals"
 await setDoc(doc(db, "journals", account), {
     account: account,
     balance: 0,
@@ -177,7 +178,6 @@ async function getErrorMessage(errorName) {
 }
 
 //can only create journal entries if error messages are cleared
-//need to get id of credit and debit accounts as well
 createNewJournalEntryButton.addEventListener("click", (e) => {
     var dropdownAccount = document.getElementById('dropdownAccount').value;
     var debitDate = document.getElementById('newDebitDateId0').value;
@@ -198,6 +198,7 @@ createNewJournalEntryButton.addEventListener("click", (e) => {
     }
 })
 
+
 function getTotalCredits() {
     var totalCredits = 0;
     for (let i = 0; i < credits.length; ++i) {
@@ -216,6 +217,7 @@ function getTotalDebits() {
     return totalDebits;
 }
 
+//logout user and return to signin screen
 const logOutButton = document.getElementById('logout-button');
 if (logOutButton) {
     logOutButton.addEventListener("click", (e) => {
@@ -224,50 +226,6 @@ if (logOutButton) {
     })
 }
 
-/*
-const tableBody = document.getElementById("journalBody");
-
-
-const urlParams = new URLSearchParams(window.location.search);
-const accountId = urlParams.get('accountId');
-console.log(accountId);
-const id = accountId;
-
-
-const userLoc = document.getElementById("CurrentUser");
-const user = auth.currentUser;
-userLoc.textContent = "Current User: " + user.email;
-
-*/
-
-//Display Journal entry
-// const journalRef = query(collection(db, "journals"), where('id', '==', accountId));
-// const docSnapshot = await doc(journalRef);
-
-//         const itemdata = docSnapshot.data();
-//         console.log("Data from firestore:" + JSON.stringify(itemdata, null, 2));
-//             // Check if 'dateCreated' property exists before accessing it
-//             const dateCreated = itemdata.dateCreated ? itemdata.dateCreated : "N/A";
-
-//             const newRow = document.createElement("tr");
-//             const dateCell = document.createElement("td");
-//             dateCell.textContent = dateCreated;
-//             const accountCell = document.createElement("td");
-//             accountCell.textContent = itemdata.account || "N/A";
-//             const debitCell = document.createElement("td");
-//             debitCell.textContent = itemdata.debit || "N/A";
-//             const creditCell = document.createElement("td");
-//             creditCell.textContent = itemdata.credit || "N/A";
-//             const statusCell = document.createElement("td");
-//             statusCell.textContent = itemdata.status || "N/A";
-
-//             newRow.appendChild(dateCell);
-//             newRow.appendChild(accountCell);
-//             newRow.appendChild(debitCell);
-//             newRow.appendChild(creditCell);
-//             newRow.appendChild(statusCell);
-
-//             tableBody.appendChild(newRow);
 
 
 
