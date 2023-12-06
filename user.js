@@ -35,6 +35,8 @@ const createNewUserModal = document.getElementById('create-new-user-modal');
 if(createNewUserModal) {
 createNewUserModal.style.visibility = "hidden";
 }
+
+//loads user data from firestore and populates user html
 async function loadUserData() {
 const users = query(collection(db, 'users'));
 const querySnapshot = await getDocs(users);
@@ -85,7 +87,7 @@ function addToTable(username, first_name, last_name, email, role, address, dob) 
   createNewUserModal.style.visibility = "visible";
   } 
   
-
+//add edit button and implement event listener to edit users
   if(tdBtn) {
   tdBtn.addEventListener("click", (e) => {
     tdBtn.style.visibility = "hidden";
@@ -101,7 +103,7 @@ function addToTable(username, first_name, last_name, email, role, address, dob) 
     td5.innerHTML = "<input id = 'text5' value = " + role + "></input>";
     td6.innerHTML = "<input id = 'text6' value = " + address + "></input>";
     td7.innerHTML = "<input id = 'text7' type = 'date' value = " + dob + "></input>";
-
+//updates user in firestore
     saveButton.addEventListener("click", (e) => {
       updateDoc(username, document.getElementById('text2').value, document.getElementById('text3').value, document.getElementById('text4').value, document.getElementById('text5').value, document.getElementById('text6').value, document.getElementById('text7').value);
     })
@@ -117,6 +119,7 @@ if(tbody) {
 
 }
 
+//updates user doc
 async function updateDoc(username, first_name, last_name, email, role, address, dob) {
   await setDoc(doc(db, "users", username), {
     username: username,
@@ -132,8 +135,7 @@ async function updateDoc(username, first_name, last_name, email, role, address, 
 
 
 
-//promise cannot return true/false so make a variable called
-// user role and find it this way
+//gets user role
 async function getUserRole(user) {
   //check if admin
   const isAdmin = query(collection(db, 'users'), where('email', '==', user.email), where('role', '==', 'admin'));
@@ -160,6 +162,8 @@ if(userQuerySnapshot.size) {
 }
 }
 
+//gets user role after logged in and loads
+//user data into table
 onAuthStateChanged(auth, (user) => {
   if (user) {
    getUserRole(user);
