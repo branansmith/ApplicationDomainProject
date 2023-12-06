@@ -72,8 +72,6 @@
         <li><a href="EmployeeLanding.html">Home</a></li>
         <li><a href="email.html">Email</a></li>
         <li><a href="DisplayUsersScreen.html">Users</a></li>
-        <li><a href="reports.html">Reports</a></li>
-        <li><a href="FAQ.html">FAQ</a></li>
         <li class = "active"><a href="JournalEntries.html">Journal Entries</a></li>
         <li><a href="Accounts.html">Accounts</a></li>
         <li><a href="#" id="logout-button">Logout</a></li>
@@ -106,7 +104,8 @@
           <div class="modal-dialog">
           <div class="modal-content">
           <div class="modal-header">
-          <h4 class="modal-title" style="text-align: center;">New Journal Entry</h4>
+          <h4 id="modal-title" class="modal-title" style="text-align: center;">New Journal Entry</h4><br>
+          <label id="error-message" style="color: red"></label>
           <button class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body" id ="journal-entry-modal">
