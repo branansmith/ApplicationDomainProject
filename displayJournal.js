@@ -19,12 +19,6 @@ const db = getFirestore(app);
 
 
 const tableBody = document.getElementById("journalBody");
-// const fuck = document.createElement("tr");
-// const fuckCell = document.createElement("td");
-// fuckCell.textContent = "test";
-// fuck.appendChild(fuckCell);
-// journalBody.appendChild(fuck);
-
 
 const urlParams = new URLSearchParams(window.location.search);
 const accountId = urlParams.get('accountId');
