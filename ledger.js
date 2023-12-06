@@ -23,9 +23,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const accountId = urlParams.get('accountId');
 console.log(accountId);
 
-//const accRef = query(doc(db, "accounts"), where("accountNumber", "==", accountId));
 
-//const accountName = accRef.accountName;
 //Create Entry button - links to create journal 
 const createEntryButton = document.getElementById("createEntry");
 
