@@ -17,6 +17,7 @@ const firebaseConfig = {
   const auth = getAuth();
   
 
+//ensures user is typing in an email
   function validate_email(email) {
     const expression = /^[^@]+@\w+(\.\w+)+\w$/
     if (expression.test(email) == true) {
@@ -26,6 +27,7 @@ const firebaseConfig = {
     }
   }
 
+//ensures password meets requirements
   function validate_password(password) {
     const validatePasswordRegex = /^[a-zA-Z](?=.*[!@#$%^&*()])(?=.*[0-9]).{8,}$/
     if (validatePasswordRegex.test(password) == true) {
@@ -36,7 +38,7 @@ const firebaseConfig = {
     }
   }
   
-
+//authenticates user email
 function authenticate(email, password) {
     if (validate_email(email) == false || validate_password(password == false)) {
         alert("Invalid credentials")
@@ -47,6 +49,7 @@ function authenticate(email, password) {
 
  const createNewUserButton = document.getElementById('create-new-user-button');
 
+//if there is a create user button, adds an event listener and created a new user
  if(createNewUserButton) {
  createNewUserButton.addEventListener("click", (e) => {
      e.preventDefault();
@@ -86,7 +89,7 @@ function authenticate(email, password) {
  }
 
 const signInButton = document.getElementById('signin-button');
-
+//if a sign in button is present, adds an event listener which signs in authenticated users
 if(signInButton) {
 signInButton.addEventListener("click", (e) => {
     e.preventDefault();
@@ -95,6 +98,8 @@ signInButton.addEventListener("click", (e) => {
     signIn(username, password)
 })
 }
+
+//signs in valid users
 function signIn(username, password) {
     signInWithEmailAndPassword(auth, username, password)
     .then((userCredential) => {
@@ -107,13 +112,6 @@ function signIn(username, password) {
     });
 }
 
-/*
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        console.log("user logged in: ", user);
-        window.location = 'EmployeeLanding.html';
-    }
-})*/
 
 var recipient = document.getElementById('forgot-password-email');
 
