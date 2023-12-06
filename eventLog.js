@@ -72,6 +72,7 @@ const querySnapshot = await getDocs(qELog);
 
 const logTableBody = document.getElementById("form-eventChanges-body")
 
+//Populate the pop-up with the old and new data stored in the database
 function populateEventLogData(eventId){
   const logDataToView = query(collection(db, 'eventLog'), where("changeId", "==", eventId));
   getDocs(logDataToView)
@@ -103,7 +104,7 @@ function populateEventLogData(eventId){
     })
 
 }
-
+//Dynamically generate each new row of the event log
 async function generateNewRow(name, oldData, newData){
   const newRow = document.createElement("tr");
   const labelCell = document.createElement("td");
